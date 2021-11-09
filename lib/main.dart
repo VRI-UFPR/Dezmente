@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dezmente/screens/authentication/loginscreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
             // Once complete, show your application
             if (snapshot.connectionState == ConnectionState.done) {
               //return GetUserName("123");
-              return const MyHomePage(title: "hey");
+              return const LoginScreen();
             }
 
             return const Loading();
