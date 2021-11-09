@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "843575383829",
+    "project_id": "dezmente-ufpr",
+    "storage_bucket": "dezmente-ufpr.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:843575383829:android:262b74bd2561b44ccabb1c",
+        "android_client_info": {
+          "package_name": "com.example.dezmente"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "843575383829-8pfb8rp8088hebqs06odho67pjfgt44n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.dezmente",
+            "certificate_hash": "c7e9111cd14fabe8962522a7ea51899e6a322e20"
+          }
+        },
+        {
+          "client_id": "843575383829-jq8uaapetnd44cs0q09ah9m42i94ikji.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCUqwOMEKFsZPsGYexNPie7Bzom5H-v4OY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "843575383829-jq8uaapetnd44cs0q09ah9m42i94ikji.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
