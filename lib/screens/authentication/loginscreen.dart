@@ -30,14 +30,16 @@ class LoginScreen extends StatelessWidget {
               ),
               Align(
                 alignment: const Alignment(0.0, 0.6),
-                child: SizedBox(
-                  child: SignInButton(
-                    Buttons.Google,
-                    text: "Entrar com o google",
-                    onPressed: () {},
+                child: FloatingActionButton.extended(
+                  onPressed: () {},
+                  icon: Image.asset(
+                    'assets/images/google_logo.png',
+                    height: 32,
+                    width: 32,
                   ),
-                  height: 50,
-                  width: 200,
+                  label: const Text('Entrar com o google'),
+                  backgroundColor: Colors.white,
+                  foregroundColor: Colors.black,
                 ),
               ),
             ],
