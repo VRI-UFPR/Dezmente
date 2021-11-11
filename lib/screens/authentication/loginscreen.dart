@@ -1,7 +1,6 @@
-import 'package:dezmente/screens/testes/home.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
 
-// pagina inicial do app para login usando firebase auth
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
@@ -32,12 +31,7 @@ class LoginScreen extends StatelessWidget {
               Align(
                 alignment: const Alignment(0.0, 0.6),
                 child: FloatingActionButton.extended(
-                  onPressed: () {   // fazer o sistema de login antes de redirecionar pra home
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const Home())
-                    );
-                  },
+                  onPressed: () {},
                   icon: Image.asset(
                     'assets/images/google_logo.png',
                     height: 32,
