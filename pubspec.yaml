@@ -1,5 +1,5 @@
 name: dezmente
-description: A new Flutter project.
+description: "app de deteccao de deficit cognitivo"
 
 publish_to: "none"
 
@@ -13,12 +13,12 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.2
   firebase_core: ^1.10.0
-  firebase_auth: ^3.2.0
+  firebase_auth: ^2.0.0
   cloud_firestore: ^3.1.0
   google_sign_in: ^5.2.1
   provider: ^6.0.1
   confirm_dialog: ^1.0.0
-  flutter_staggered_grid_view: ^0.6.1
+  widget_arrows: ^0.2.0-nullsafety.0
 
 dev_dependencies:
   flutter_test:
