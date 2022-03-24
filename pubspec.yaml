@@ -19,6 +19,7 @@ dependencies:
   provider: ^6.0.1
   confirm_dialog: ^1.0.0
   widget_arrows: ^0.2.0-nullsafety.0
+  flutter_chat_bubble: ^2.0.0
 
 dev_dependencies:
   flutter_test:
@@ -29,3 +30,9 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
+  fonts:
+    - family: Montserrat
+      fonts:
+        - asset: fonts/montserrat/Montserrat-Regular.ttf
+        - asset: fonts/montserrat/Montserrat-Bold.ttf
+        - asset: fonts/montserrat/Montserrat-SemiBold.ttf

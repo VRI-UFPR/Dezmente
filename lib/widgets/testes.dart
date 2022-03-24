@@ -107,88 +107,92 @@ class _Test1State extends State<Test1> {
   int mapIndex = 0;
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        bottomNavigationBar: BottomAppBar(
-          color: const Color(0xffe984b8),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              TextButton.icon(
-                onPressed: () {
-                  setState(() {
-                    clearScoreArray();
-                  });
-                },
-                icon: const Icon(Icons.undo, color: Color(0xff060607)),
-                label: const Text("Apagar",
-                    style: TextStyle(color: Color(0xff060607))),
-              ),
-              TextButton.icon(
-                onPressed: () {
-                  setState(() {});
-                },
-                icon: const Icon(Icons.check, color: Color(0xff060607)),
-                label: const Text("Concluir",
-                    style: TextStyle(color: Color(0xff060607))),
-              ),
-              TextButton.icon(
-                onPressed: () {
-                  setState(() {});
-                },
-                icon: const Icon(Icons.info, color: Color(0xff060607)),
-                label: const Text("Ajuda",
-                    style: TextStyle(color: Color(0xff060607))),
-              ),
-            ],
-          ),
+  Widget build(BuildContext context) {
+    final double screenHeightFactor = MediaQuery.of(context).size.height / 640;
+    final double screenWidthFactor = MediaQuery.of(context).size.width / 360;
+    return Scaffold(
+      bottomNavigationBar: BottomAppBar(
+        color: const Color(0xffe984b8),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            TextButton.icon(
+              onPressed: () {
+                setState(() {
+                  clearScoreArray();
+                });
+              },
+              icon: const Icon(Icons.undo, color: Color(0xff060607)),
+              label: const Text("Apagar",
+                  style: TextStyle(color: Color(0xff060607))),
+            ),
+            TextButton.icon(
+              onPressed: () {
+                setState(() {});
+              },
+              icon: const Icon(Icons.check, color: Color(0xff060607)),
+              label: const Text("Concluir",
+                  style: TextStyle(color: Color(0xff060607))),
+            ),
+            TextButton.icon(
+              onPressed: () {
+                setState(() {});
+              },
+              icon: const Icon(Icons.info, color: Color(0xff060607)),
+              label: const Text("Ajuda",
+                  style: TextStyle(color: Color(0xff060607))),
+            ),
+          ],
         ),
-        body: ArrowContainer(
-          child: Stack(
-              children: buttons.map<Widget>((button) {
-            return Positioned(
-              top: button['y'] * MediaQuery.of(context).size.height / 590,
-              left: button['x'] * MediaQuery.of(context).size.width / 330,
-              child: ArrowElement(
-                show: button["showArrow"],
-                sourceAnchor: Alignment.center,
-                targetAnchor: Alignment.center,
-                bow: -0.3,
-                straights: true,
-                id: button['label'],
-                targetId: button['targetArrow'],
-                color: const Color(0xff1d181c),
-                child: ElevatedButton(
-                  child: Text(
-                    button['label'],
-                    style: const TextStyle(fontSize: 25),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    primary: button['isChecked'] ? Colors.blue : Colors.red,
-                    shape: const CircleBorder(),
-                    minimumSize: const Size(50, 50),
-                  ),
-                  onPressed: (() {
-                    setState(() {
-                      if (button['isChecked'] == false) {
-                        button['isChecked'] = true;
-                        score.add(button['label']);
-                      }
-                      if (score.length > 1) {
-                        buttons[mapIndex]
-                            .update("targetArrow", (value) => button['label']);
-                        buttons[mapIndex].update("showArrow", (value) => true);
-                      }
-                      mapIndex = buttons.indexOf(button);
-                      print("$score\n");
-                      print("$buttons\n");
-                    });
-                  }),
+      ),
+      body: ArrowContainer(
+        child: Stack(
+            children: buttons.map<Widget>((button) {
+          return Positioned(
+            top: button['y'] * screenHeightFactor,
+            left: button['x'] * screenWidthFactor,
+            child: ArrowElement(
+              show: button["showArrow"],
+              sourceAnchor: Alignment.center,
+              targetAnchor: Alignment.center,
+              bow: -0.3,
+              straights: true,
+              id: button['label'],
+              targetId: button['targetArrow'],
+              color: const Color(0xff1d181c),
+              child: ElevatedButton(
+                child: Text(
+                  button['label'],
+                  style: const TextStyle(fontSize: 25),
                 ),
+                style: ElevatedButton.styleFrom(
+                  primary: button['isChecked'] ? Colors.blue : Colors.red,
+                  shape: const CircleBorder(),
+                  minimumSize: const Size(50, 50),
+                ),
+                onPressed: (() {
+                  setState(() {
+                    if (button['isChecked'] == false) {
+                      button['isChecked'] = true;
+                      score.add(button['label']);
+                    }
+                    if (score.length > 1) {
+                      buttons[mapIndex]
+                          .update("targetArrow", (value) => button['label']);
+                      buttons[mapIndex].update("showArrow", (value) => true);
+                    }
+                    mapIndex = buttons.indexOf(button);
+                    print("$score\n");
+                    print("$buttons\n");
+                  });
+                }),
               ),
-            );
-          }).toList()
-              //..shuffle(),
-              ),
-        ),
-      );
+            ),
+          );
+        }).toList()
+            //..shuffle(),
+            ),
+      ),
+    );
+  }
 }

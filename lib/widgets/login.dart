@@ -22,7 +22,7 @@ class LoginScreen extends StatelessWidget {
                 child: SizedBox(
                   child: Image.asset('assets/images/logo.png'),
                   width: double.infinity,
-                  height: 400,
+                  height: 250,
                 ),
               ),
               Align(
