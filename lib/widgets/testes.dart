@@ -106,10 +106,11 @@ class _Test1State extends State<Test1> {
 
   int mapIndex = 0; // index na lista do ultimo botao pressionado
   bool canErase = false; // se pode utilizar o apagar
+  int pressedErase = 0; // quantidade de vezes que o botao apagar foi utilizado
+  int timeSpended = DateTime.now().millisecondsSinceEpoch; // tempo total gasto
 
   void eraseLastPressed() {
     // apaga o ultimo botao pressionado
-
     int last = score.length - 1;
 
     // index do ultimo botao pressionado na lista
@@ -125,6 +126,7 @@ class _Test1State extends State<Test1> {
 
     score.removeAt(last);
     canErase = false;
+    pressedErase++;
   }
 
   @override
@@ -161,7 +163,12 @@ class _Test1State extends State<Test1> {
             ),
             TextButton.icon(
               onPressed: () {
-                setState(() {});
+                setState(() {
+                  timeSpended =
+                      DateTime.now().millisecondsSinceEpoch - timeSpended;
+                  print(timeSpended);
+                  print(pressedErase);
+                });
               },
               icon: const Icon(Icons.check, color: Color(0xff060607)),
               label: const Text(
