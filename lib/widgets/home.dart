@@ -1,4 +1,5 @@
 import 'package:dezmente/services/auth.dart';
+import 'package:dezmente/widgets/testes.dart';
 import 'package:flutter/material.dart';
 import 'package:confirm_dialog/confirm_dialog.dart';
 
@@ -32,7 +33,19 @@ class HomeWidget extends StatelessWidget {
           ),
         ],
       ),
-      body: Container(),
+      body: Container(
+        alignment: Alignment.center,
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(primary: const Color(0xfff72585)),
+          child: const Text("Começar Teste"),
+          onPressed: () {
+            Navigator.of(context).pushReplacement(PageRouteBuilder(
+              pageBuilder: (context, animation, secondaryAnimation) =>
+                  const Test1(),
+            ));
+          },
+        ),
+      ),
     );
   }
 }

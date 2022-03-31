@@ -7,7 +7,8 @@ class AuthService extends ChangeNotifier {
 
   Future googleLogin() async {
     try {
-      final googleUser = await googleSignIn.signIn();
+      final googleUser =
+          await GoogleSignIn(scopes: ['profile', 'email']).signIn();
       if (googleUser == null) return;
 
       final googleAuth = await googleUser.authentication;

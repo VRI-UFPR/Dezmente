@@ -1,5 +1,7 @@
 import 'dart:ffi';
+import 'dart:math';
 
+import 'package:dezmente/widgets/help.dart';
 import 'package:flutter/material.dart';
 import 'package:widget_arrows/widget_arrows.dart';
 
@@ -130,6 +132,25 @@ class _Test1State extends State<Test1> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+      Navigator.of(context).push(PageRouteBuilder(
+          opaque: false,
+          pageBuilder: (context, animation, secondaryAnimation) =>
+              HelpTemplateButton(
+                callback: () {
+                  Navigator.pop(this.context);
+                },
+                title: "",
+                description:
+                    "Clique no número e depois na letra em ordem ascendente Ex: 1-A-2",
+                buttonText: "Começar",
+              )));
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     // fatores para posicao e tamanho dos widgets em relacao a tela
     final double screenHeightFactor = MediaQuery.of(context).size.height / 640;
@@ -178,7 +199,18 @@ class _Test1State extends State<Test1> {
             ),
             TextButton.icon(
               onPressed: () {
-                setState(() {});
+                Navigator.of(context).push(PageRouteBuilder(
+                    opaque: false,
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        HelpTemplateButton(
+                          callback: () {
+                            Navigator.pop(this.context);
+                          },
+                          title: "",
+                          description:
+                              "Clique no número e depois na letra em ordem ascendente Ex: 1-A-2",
+                          buttonText: "Voltar",
+                        )));
               },
               icon: const Icon(Icons.info, color: Color(0xff060607)),
               label: const Text(
@@ -199,7 +231,7 @@ class _Test1State extends State<Test1> {
               show: button["showArrow"],
               sourceAnchor: Alignment.center,
               targetAnchor: Alignment.center,
-              bow: -0.3,
+              bow: -0.2,
               straights: true,
               id: button['label'],
               targetId: button['targetArrow'],
@@ -233,6 +265,12 @@ class _Test1State extends State<Test1> {
                     mapIndex = buttons.indexOf(button);
 
                     // para testes
+                    print("Alooooo " +
+                        buttons
+                            .where((e) => e['label'] == button['targetArrow'])
+                            .first['label'] +
+                        " target " +
+                        button['targetArrow']);
                     print("$score\n");
                     print("$buttons\n");
                     print(buttons[mapIndex]);
