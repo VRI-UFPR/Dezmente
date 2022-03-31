@@ -229,8 +229,8 @@ class _Test1State extends State<Test1> {
             left: button['x'] * screenWidthFactor,
             child: ArrowElement(
               show: button["showArrow"],
-              sourceAnchor: Alignment.center,
-              targetAnchor: Alignment.center,
+              sourceAnchor: saida(button),
+              targetAnchor: entrada(button),
               bow: -0.2,
               straights: true,
               id: button['label'],
@@ -284,5 +284,51 @@ class _Test1State extends State<Test1> {
             ),
       ),
     );
+  }
+
+  Alignment saida(Map<String, dynamic> button) {
+    double xa = button['x'].toDouble();
+    double xb = buttons
+        .where((e) => e['label'] == button['targetArrow'])
+        .last['x']
+        .toDouble();
+    double ya = button['y'].toDouble();
+    double yb = buttons
+        .where((e) => e['label'] == button['targetArrow'])
+        .last['y']
+        .toDouble();
+
+    double ham = atan((xb - xa) / (ya - yb));
+
+    double sen = 0;
+    double co = 0;
+
+    xb > xa ? sen = 1 : sen = -1;
+    yb > ya ? co = 1 : co = -1;
+
+    return Alignment(sin(ham).abs() * sen, cos(ham).abs() * co);
+  }
+
+  Alignment entrada(Map<String, dynamic> button) {
+    double xa = buttons
+        .where((e) => e['label'] == button['targetArrow'])
+        .last['x']
+        .toDouble();
+    double xb = button['x'].toDouble();
+    double ya = buttons
+        .where((e) => e['label'] == button['targetArrow'])
+        .last['y']
+        .toDouble();
+    double yb = button['y'].toDouble();
+
+    double ham = atan((xb - xa) / (ya - yb));
+
+    double sen = 0;
+    double co = 0;
+
+    xb > xa ? sen = 1 : sen = -1;
+    yb > ya ? co = 1 : co = -1;
+
+    return Alignment(sin(ham).abs() * sen, cos(ham).abs() * co);
   }
 }
