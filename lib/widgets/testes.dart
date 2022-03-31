@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:widget_arrows/widget_arrows.dart';
 
@@ -9,9 +11,17 @@ class Test1 extends StatefulWidget {
 }
 
 class _Test1State extends State<Test1> {
+  // ordem dos botoes pressionados pelo usuario
   final List<String> score = [];
 
+  // lista de botoes utilizados no teste
   List<Map<String, dynamic>> buttons = [
+    // nome
+    // se foi pressionado
+    // destino da seta
+    // se deve mostrar a seta
+    // posicao em relacao ao eixo x
+    // posicao em relacao ao eixo y
     {
       "label": "1",
       "isChecked": false,
@@ -94,22 +104,35 @@ class _Test1State extends State<Test1> {
     },
   ];
 
-  void clearScoreArray() {
-    // reseta o array com a ordem dos botoes precionados
-    for (var i = 0; i < buttons.length; i++) {
-      buttons[i].update("isChecked", (value) => false);
-      buttons[i].update("targetArrow", (value) => buttons[i]["label"]);
-      buttons[i].update("showArrow", (value) => false);
-    }
-    score.clear();
-  }
+  int mapIndex = 0; // index na lista do ultimo botao pressionado
+  bool canErase = false; // se pode utilizar o apagar
 
-  int mapIndex = 0;
+  void eraseLastPressed() {
+    // apaga o ultimo botao pressionado
+
+    int last = score.length - 1;
+
+    // index do ultimo botao pressionado na lista
+    int ib = buttons.indexWhere((element) => element["label"] == score[last]);
+    buttons[ib].update("isChecked", (value) => false);
+
+    if (last > 0) {
+      // remove a flecha do botao anterior caso esse exista
+      ib = buttons.indexWhere((element) => element["label"] == score[last - 1]);
+      buttons[ib].update("showArrow", (value) => false);
+      mapIndex = ib;
+    }
+
+    score.removeAt(last);
+    canErase = false;
+  }
 
   @override
   Widget build(BuildContext context) {
+    // fatores para posicao e tamanho dos widgets em relacao a tela
     final double screenHeightFactor = MediaQuery.of(context).size.height / 640;
     final double screenWidthFactor = MediaQuery.of(context).size.width / 360;
+
     return Scaffold(
       bottomNavigationBar: BottomAppBar(
         color: const Color(0xffe984b8),
@@ -119,28 +142,42 @@ class _Test1State extends State<Test1> {
             TextButton.icon(
               onPressed: () {
                 setState(() {
-                  clearScoreArray();
+                  if (canErase) eraseLastPressed();
                 });
               },
               icon: const Icon(Icons.undo, color: Color(0xff060607)),
-              label: const Text("Apagar",
-                  style: TextStyle(color: Color(0xff060607))),
+              label: const Text(
+                "Apagar",
+                style: TextStyle(color: Color(0xff060607)),
+              ),
+              // style: TextButton.styleFrom(
+              //   side: const BorderSide(
+              //     color: Colors.black,
+              //     width: 1.0,
+              //     style: BorderStyle.solid,
+              //   ),
+              //   elevation: 0.5,
+              // ),
             ),
             TextButton.icon(
               onPressed: () {
                 setState(() {});
               },
               icon: const Icon(Icons.check, color: Color(0xff060607)),
-              label: const Text("Concluir",
-                  style: TextStyle(color: Color(0xff060607))),
+              label: const Text(
+                "Concluir",
+                style: TextStyle(color: Color(0xff060607)),
+              ),
             ),
             TextButton.icon(
               onPressed: () {
                 setState(() {});
               },
               icon: const Icon(Icons.info, color: Color(0xff060607)),
-              label: const Text("Ajuda",
-                  style: TextStyle(color: Color(0xff060607))),
+              label: const Text(
+                "Ajuda",
+                style: TextStyle(color: Color(0xff060607)),
+              ),
             ),
           ],
         ),
@@ -166,6 +203,7 @@ class _Test1State extends State<Test1> {
                   style: const TextStyle(fontSize: 25),
                 ),
                 style: ElevatedButton.styleFrom(
+                  // nao pressionado cor vermelha, pressionado cor azul
                   primary: button['isChecked'] ? Colors.blue : Colors.red,
                   shape: const CircleBorder(),
                   minimumSize: const Size(50, 50),
@@ -173,17 +211,24 @@ class _Test1State extends State<Test1> {
                 onPressed: (() {
                   setState(() {
                     if (button['isChecked'] == false) {
+                      // caso o botao ainda n tenha sido pressionado
                       button['isChecked'] = true;
                       score.add(button['label']);
+                      canErase = true;
                     }
                     if (score.length > 1) {
+                      // desenha as flechas apenas se tiver mais de um botao pressionado
                       buttons[mapIndex]
                           .update("targetArrow", (value) => button['label']);
                       buttons[mapIndex].update("showArrow", (value) => true);
                     }
+                    // ultimo botao pressionado
                     mapIndex = buttons.indexOf(button);
+
+                    // para testes
                     print("$score\n");
                     print("$buttons\n");
+                    print(buttons[mapIndex]);
                   });
                 }),
               ),
