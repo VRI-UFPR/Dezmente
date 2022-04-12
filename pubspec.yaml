@@ -30,9 +30,10 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
+    - assets/images/cube/
   fonts:
     - family: Montserrat
       fonts:
-        - asset: fonts/montserrat/Montserrat-Regular.ttf
-        - asset: fonts/montserrat/Montserrat-Bold.ttf
-        - asset: fonts/montserrat/Montserrat-SemiBold.ttf
+        - asset: assets/fonts/montserrat/Montserrat-Regular.ttf
+        - asset: assets/fonts/montserrat/Montserrat-Bold.ttf
+        - asset: assets/fonts/montserrat/Montserrat-SemiBold.ttf

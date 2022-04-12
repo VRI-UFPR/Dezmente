@@ -249,20 +249,22 @@ class _Test1State extends State<Test1> {
                 ),
                 onPressed: (() {
                   setState(() {
-                    if (button['isChecked'] == false) {
-                      // caso o botao ainda n tenha sido pressionado
-                      button['isChecked'] = true;
-                      score.add(button['label']);
-                      canErase = true;
+                    if (score.length < 10) {
+                      if (button['isChecked'] == false) {
+                        // caso o botao ainda n tenha sido pressionado
+                        button['isChecked'] = true;
+                        score.add(button['label']);
+                        canErase = true;
+                      }
+                      if (score.length > 1) {
+                        // desenha as flechas apenas se tiver mais de um botao pressionado
+                        buttons[mapIndex]
+                            .update("targetArrow", (value) => button['label']);
+                        buttons[mapIndex].update("showArrow", (value) => true);
+                      }
+                      // ultimo botao pressionado
+                      mapIndex = buttons.indexOf(button);
                     }
-                    if (score.length > 1) {
-                      // desenha as flechas apenas se tiver mais de um botao pressionado
-                      buttons[mapIndex]
-                          .update("targetArrow", (value) => button['label']);
-                      buttons[mapIndex].update("showArrow", (value) => true);
-                    }
-                    // ultimo botao pressionado
-                    mapIndex = buttons.indexOf(button);
 
                     // para testes
                     print("Alooooo " +
@@ -331,4 +333,150 @@ class _Test1State extends State<Test1> {
 
     return Alignment(sin(ham).abs() * sen, cos(ham).abs() * co);
   }
+}
+
+class Teste2 extends StatefulWidget {
+  const Teste2({Key? key}) : super(key: key);
+
+  @override
+  State<Teste2> createState() => _Teste2State();
+}
+
+List<Map<String, dynamic>> cubeFaces1 = [
+  {'asset': 'assets/images/cube/face1.png', 'checked': false},
+  {'asset': 'assets/images/cube/face2.png', 'checked': false},
+  {'asset': 'assets/images/cube/face3.png', 'checked': false},
+];
+
+List<Map<String, dynamic>> cubeFaces2 = [
+  {'asset': 'assets/images/cube/face4.png', 'checked': false},
+  {'asset': 'assets/images/cube/face5.png', 'checked': false},
+  {'asset': 'assets/images/cube/face6.png', 'checked': false},
+];
+
+int pressedErase = 0; // quantidade de vezes que o botao apagar foi utilizado
+int timeSpended = DateTime.now().millisecondsSinceEpoch;
+
+class _Teste2State extends State<Teste2> {
+  @override
+  Widget build(BuildContext context) => Scaffold(
+        backgroundColor: const Color(0xffffffff),
+        bottomNavigationBar: BottomAppBar(
+          color: const Color(0xffe984b8),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              TextButton.icon(
+                onPressed: () {
+                  setState(() {});
+                },
+                icon: const Icon(Icons.undo, color: Color(0xff060607)),
+                label: const Text(
+                  "Apagar",
+                  style: TextStyle(color: Color(0xff060607)),
+                ),
+              ),
+              TextButton.icon(
+                onPressed: () {
+                  setState(() {
+                    timeSpended =
+                        DateTime.now().millisecondsSinceEpoch - timeSpended;
+                    print(timeSpended);
+                    print(pressedErase);
+                  });
+                },
+                icon: const Icon(Icons.check, color: Color(0xff060607)),
+                label: const Text(
+                  "Concluir",
+                  style: TextStyle(color: Color(0xff060607)),
+                ),
+              ),
+              TextButton.icon(
+                onPressed: () {
+                  Navigator.of(context).push(PageRouteBuilder(
+                      opaque: false,
+                      pageBuilder: (context, animation, secondaryAnimation) =>
+                          HelpTemplateButton(
+                            callback: () {
+                              Navigator.pop(this.context);
+                            },
+                            title: "",
+                            description:
+                                "Clique na imagem que forma o cubo com uma face pintada de cinza e a oposta de um quadriculado, conforme a figura:",
+                            buttonText: "Voltar",
+                          )));
+                },
+                icon: const Icon(Icons.info, color: Color(0xff060607)),
+                label: const Text(
+                  "Ajuda",
+                  style: TextStyle(color: Color(0xff060607)),
+                ),
+              ),
+            ],
+          ),
+        ),
+        body: Container(
+          margin: const EdgeInsets.fromLTRB(5, 30, 5, 30),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Center(
+                child: Image.asset(
+                  'assets/images/cube/cube.png',
+                  scale: 2,
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  IntrinsicWidth(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: cubeFaces1.map<Widget>((face) {
+                        return CheckboxListTile(
+                          value: face['checked'],
+                          onChanged: (value) {
+                            setState(() {
+                              if (!face['checked']) {
+                                face['checked'] = true;
+                              } else {
+                                face['checked'] = false;
+                              }
+                            });
+                          },
+                          contentPadding: EdgeInsets.zero,
+                          secondary: Image.asset(face['asset']),
+                          controlAffinity: ListTileControlAffinity.trailing,
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                  IntrinsicWidth(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: cubeFaces1.map<Widget>((face) {
+                        return CheckboxListTile(
+                          value: face['checked'],
+                          onChanged: (value) {
+                            setState(() {
+                              if (!face['checked']) {
+                                face['checked'] = true;
+                              } else {
+                                face['checked'] = false;
+                              }
+                            });
+                          },
+                          contentPadding: EdgeInsets.zero,
+                          secondary: Image.asset(face['asset']),
+                          controlAffinity: ListTileControlAffinity.trailing,
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      );
 }
