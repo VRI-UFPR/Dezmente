@@ -354,6 +354,15 @@ List<Map<String, dynamic>> cubeFaces2 = [
   {'asset': 'assets/images/cube/face6.png', 'checked': false},
 ];
 
+void resetChecks() {
+  for (var face in cubeFaces1) {
+    face['checked'] = false;
+  }
+  for (var face in cubeFaces2) {
+    face['checked'] = false;
+  }
+}
+
 int pressedErase = 0; // quantidade de vezes que o botao apagar foi utilizado
 int timeSpended = DateTime.now().millisecondsSinceEpoch;
 
@@ -368,7 +377,9 @@ class _Teste2State extends State<Teste2> {
             children: [
               TextButton.icon(
                 onPressed: () {
-                  setState(() {});
+                  setState(() {
+                    resetChecks();
+                  });
                 },
                 icon: const Icon(Icons.undo, color: Color(0xff060607)),
                 label: const Text(
@@ -438,6 +449,7 @@ class _Teste2State extends State<Teste2> {
                           onChanged: (value) {
                             setState(() {
                               if (!face['checked']) {
+                                resetChecks();
                                 face['checked'] = true;
                               } else {
                                 face['checked'] = false;
@@ -454,12 +466,13 @@ class _Teste2State extends State<Teste2> {
                   IntrinsicWidth(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
-                      children: cubeFaces1.map<Widget>((face) {
+                      children: cubeFaces2.map<Widget>((face) {
                         return CheckboxListTile(
                           value: face['checked'],
                           onChanged: (value) {
                             setState(() {
                               if (!face['checked']) {
+                                resetChecks();
                                 face['checked'] = true;
                               } else {
                                 face['checked'] = false;
