@@ -1,5 +1,5 @@
+import 'package:dezmente/pages/teste.dart';
 import 'package:dezmente/services/auth.dart';
-import 'package:dezmente/widgets/testes.dart';
 import 'package:flutter/material.dart';
 import 'package:confirm_dialog/confirm_dialog.dart';
 
@@ -25,7 +25,6 @@ class HomeWidget extends StatelessWidget {
                 // fazer o logout
                 AuthService().logOut();
               }
-              return print('pressed cancel'); //
             },
             icon: const Icon(
               Icons.logout,
@@ -41,7 +40,7 @@ class HomeWidget extends StatelessWidget {
           onPressed: () {
             Navigator.of(context).pushReplacement(PageRouteBuilder(
               pageBuilder: (context, animation, secondaryAnimation) =>
-                  const Test1(),
+                  const Teste(),
             ));
           },
         ),
