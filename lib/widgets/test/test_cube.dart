@@ -1,16 +1,18 @@
+import 'package:dezmente/pages/teste.dart';
 import 'package:dezmente/super/superTest.dart';
 import 'package:flutter/material.dart';
+import 'package:collection/collection.dart';
 
 class _Cubes {
-  _Cubes(this.asset, this.checked);
+  _Cubes(this.asset, this.correct);
 
   String asset = "";
-  bool checked = false;
+  bool correct = false;
 }
 
 List<_Cubes> cubeFaces1 = [
   _Cubes("assets/images/cube/face1.png", false),
-  _Cubes("assets/images/cube/face2.png", false),
+  _Cubes("assets/images/cube/face2.png", true),
   _Cubes("assets/images/cube/face3.png", false)
 ];
 
@@ -34,19 +36,17 @@ class TestCube extends SuperTest {
   TestCubeState createState() => TestCubeState();
 }
 
-//State<TestCube> with Super
+enum Boxes { face1, face2, face3, face4, face5, face6 }
+
 class TestCubeState extends SuperTestState {
   @override
   erase() {
     setState(() {
-      for (_Cubes item in cubeFaces1) {
-        item.checked = false;
-      }
-      for (_Cubes item in cubeFaces2) {
-        item.checked = false;
-      }
+      _boxes = null;
     });
   }
+
+  Boxes? _boxes;
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -67,46 +67,32 @@ class TestCubeState extends SuperTestState {
                   IntrinsicWidth(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
-                      children: cubeFaces1.map<Widget>((face) {
-                        return CheckboxListTile(
-                          value: face.checked,
-                          onChanged: (value) {
-                            setState(() {
-                              if (!face.checked) {
-                                erase();
-                                face.checked = true;
-                              } else {
-                                face.checked = false;
-                              }
+                      children: cubeFaces1.mapIndexed<Widget>((index, face) {
+                        return RadioListTile(
+                            value: Boxes.values[index],
+                            secondary: Image.asset(face.asset),
+                            groupValue: _boxes,
+                            onChanged: (Boxes? value) {
+                              setState(() {
+                                _boxes = value;
+                              });
                             });
-                          },
-                          contentPadding: EdgeInsets.zero,
-                          secondary: Image.asset(face.asset),
-                          controlAffinity: ListTileControlAffinity.trailing,
-                        );
                       }).toList(),
                     ),
                   ),
                   IntrinsicWidth(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
-                      children: cubeFaces2.map<Widget>((face) {
-                        return CheckboxListTile(
-                          value: face.checked,
-                          onChanged: (value) {
-                            setState(() {
-                              if (!face.checked) {
-                                erase();
-                                face.checked = true;
-                              } else {
-                                face.checked = false;
-                              }
+                      children: cubeFaces2.mapIndexed<Widget>((index, face) {
+                        return RadioListTile(
+                            value: Boxes.values[index + cubeFaces1.length],
+                            secondary: Image.asset(face.asset),
+                            groupValue: _boxes,
+                            onChanged: (Boxes? value) {
+                              setState(() {
+                                _boxes = value;
+                              });
                             });
-                          },
-                          contentPadding: EdgeInsets.zero,
-                          secondary: Image.asset(face.asset),
-                          controlAffinity: ListTileControlAffinity.trailing,
-                        );
                       }).toList(),
                     ),
                   ),

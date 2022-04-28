@@ -59,19 +59,21 @@ class TestConectionState extends SuperTestState {
       int last = score.length - 1;
 
       // index do ultimo botao pressionado na lista
-      int ib = _buttons.indexWhere((element) => element.label == score[last]);
-      _buttons[ib].isChecked = false;
+      if (last > -1) {
+        int ib = _buttons.indexWhere((element) => element.label == score[last]);
+        _buttons[ib].isChecked = false;
+        score.removeAt(last);
 
-      if (last > 0) {
-        // remove a flecha do botao anterior caso esse exista
-        ib = _buttons.indexWhere((element) => element.label == score[last - 1]);
-        _buttons[ib].showArrow = false;
-        mapIndex = ib;
+        if (last > 0) {
+          // remove a flecha do botao anterior caso esse exista
+          ib = _buttons
+              .indexWhere((element) => element.label == score[last - 1]);
+          _buttons[ib].showArrow = false;
+          mapIndex = ib;
+          canErase = false;
+          pressedErase++;
+        }
       }
-
-      score.removeAt(last);
-      canErase = false;
-      pressedErase++;
     });
   }
 
