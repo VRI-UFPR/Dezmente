@@ -1,23 +1,23 @@
 import 'package:dezmente/super/superTest.dart';
 import 'package:flutter/material.dart';
 
-class Cubes {
-  Cubes(this.asset, this.checked);
+class _Cubes {
+  _Cubes(this.asset, this.checked);
 
   String asset = "";
   bool checked = false;
 }
 
-List<Cubes> cubeFaces1 = [
-  Cubes("assets/images/cube/face1.png", false),
-  Cubes("assets/images/cube/face2.png", false),
-  Cubes("assets/images/cube/face3.png", false)
+List<_Cubes> cubeFaces1 = [
+  _Cubes("assets/images/cube/face1.png", false),
+  _Cubes("assets/images/cube/face2.png", false),
+  _Cubes("assets/images/cube/face3.png", false)
 ];
 
-List<Cubes> cubeFaces2 = [
-  Cubes("assets/images/cube/face4.png", false),
-  Cubes("assets/images/cube/face5.png", false),
-  Cubes("assets/images/cube/face6.png", false)
+List<_Cubes> cubeFaces2 = [
+  _Cubes("assets/images/cube/face4.png", false),
+  _Cubes("assets/images/cube/face5.png", false),
+  _Cubes("assets/images/cube/face6.png", false)
 ];
 
 int pressedErase = 0; // quantidade de vezes que o botao apagar foi utilizado
@@ -39,10 +39,10 @@ class TestCubeState extends SuperTestState {
   @override
   erase() {
     setState(() {
-      for (Cubes item in cubeFaces1) {
+      for (_Cubes item in cubeFaces1) {
         item.checked = false;
       }
-      for (Cubes item in cubeFaces2) {
+      for (_Cubes item in cubeFaces2) {
         item.checked = false;
       }
     });

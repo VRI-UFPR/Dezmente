@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:dezmente/super/superTest.dart';
-import 'package:dezmente/widgets/help.dart';
 import 'package:flutter/material.dart';
 import 'package:widget_arrows/widget_arrows.dart';
 
@@ -75,25 +74,6 @@ class TestConectionState extends SuperTestState {
       pressedErase++;
     });
   }
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
-  //     Navigator.of(context).push(PageRouteBuilder(
-  //         opaque: false,
-  //         pageBuilder: (context, animation, secondaryAnimation) =>
-  //             HelpTemplateButton(
-  //               callback: () {
-  //                 Navigator.pop(this.context);
-  //               },
-  //               title: "",
-  //               description:
-  //                   "Clique no número e depois na letra em ordem ascendente Ex: 1-A-2",
-  //               buttonText: "Começar",
-  //             )));
-  //   });
-  // }
 
   @override
   Widget build(BuildContext context) {

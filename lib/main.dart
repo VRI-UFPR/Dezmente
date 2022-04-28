@@ -15,12 +15,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => ChangeNotifierProvider(
-      create: (context) => AuthService(),
-      child: MaterialApp(
+        create: (context) => AuthService(),
+        child: MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Dezmente',
           theme: ThemeData(
             primarySwatch: Colors.blue,
           ),
-          home: const Home()));
+          home: const Home(),
+        ),
+      );
 }

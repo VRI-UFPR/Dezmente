@@ -82,20 +82,22 @@ class _TesteState extends State<Teste> {
                 setState(() {
                   timeSpended =
                       DateTime.now().millisecondsSinceEpoch - timeSpended;
-                  index < _testes.length - 1 ? index++ : null;
-                  currentTest = _testes[index]();
+                  if (index < _testes.length - 1) {
+                    index++;
+                    currentTest = _testes[index]();
 
-                  Navigator.of(context).push(PageRouteBuilder(
-                      opaque: false,
-                      pageBuilder: (context, animation, secondaryAnimation) =>
-                          HelpTemplateButton(
-                            callback: () {
-                              Navigator.pop(this.context);
-                            },
-                            title: "",
-                            description: currentTest!.description,
-                            buttonText: "Começar",
-                          )));
+                    Navigator.of(context).push(PageRouteBuilder(
+                        opaque: false,
+                        pageBuilder: (context, animation, secondaryAnimation) =>
+                            HelpTemplateButton(
+                              callback: () {
+                                Navigator.pop(this.context);
+                              },
+                              title: "",
+                              description: currentTest!.description,
+                              buttonText: "Começar",
+                            )));
+                  }
                 });
               },
             ),

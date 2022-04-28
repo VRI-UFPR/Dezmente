@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_bubble/chat_bubble.dart';
 import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_6.dart';
@@ -24,35 +22,6 @@ class HelpTemplateButton extends StatelessWidget {
     //final double screenWidthFactor = MediaQuery.of(context).size.width / 360;
     return Scaffold(
       backgroundColor: Colors.white70,
-      // appBar: AppBar(
-      //   backgroundColor: const Color(0xffe984b8),
-      //   toolbarHeight: 120 * screenHeightFactor,
-      //   title: Text(
-      //     title,
-      //     style: const TextStyle(
-      //       fontFamily: 'montserrat',
-      //       fontWeight: FontWeight.bold,
-      //       fontSize: 25,
-      //       fontStyle: FontStyle.normal,
-      //       color: Colors.black,
-      //     ),
-      //   ),
-      //   centerTitle: true,
-      //   bottom: PreferredSize(
-      //     preferredSize: Size.zero,
-      //     child: Text(
-      //       subTitle,
-      //       style: const TextStyle(
-      //         fontFamily: 'montserrat',
-      //         fontWeight: FontWeight.w600,
-      //         fontSize: 16,
-      //         fontStyle: FontStyle.normal,
-      //         color: Colors.black,
-      //       ),
-      //       textAlign: TextAlign.center,
-      //     ),
-      //   ),
-      // ),
       body: Container(
         margin: const EdgeInsets.fromLTRB(20, 30, 20, 20),
         child: Column(
