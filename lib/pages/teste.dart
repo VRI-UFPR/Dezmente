@@ -1,9 +1,9 @@
 import 'package:dezmente/super/superTest.dart';
-import 'package:dezmente/widgets/test_conection.dart';
+import 'package:dezmente/widgets/test/test_conection.dart';
 import 'package:flutter/material.dart';
 
 import 'package:dezmente/widgets/help.dart';
-import 'package:dezmente/widgets/test_cube.dart';
+import 'package:dezmente/widgets/test/test_cube.dart';
 
 class Teste extends StatefulWidget {
   const Teste({Key? key}) : super(key: key);
@@ -13,7 +13,7 @@ class Teste extends StatefulWidget {
 }
 
 SuperTest? currentTest;
-GlobalObjectKey<SuperTestState> _globalKey = const GlobalObjectKey("a");
+GlobalObjectKey<SuperTestState> _globalKey = const GlobalObjectKey("key");
 
 int index = 0;
 List<Function> _testes = [
