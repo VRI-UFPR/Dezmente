@@ -1,5 +1,5 @@
 import 'package:dezmente/pages/teste.dart';
-import 'package:dezmente/super/superTest.dart';
+import 'package:dezmente/super/supertest.dart';
 import 'package:flutter/material.dart';
 import 'package:collection/collection.dart';
 
