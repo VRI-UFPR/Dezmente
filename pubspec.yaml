@@ -31,6 +31,7 @@ flutter:
   assets:
     - assets/images/
     - assets/images/cube/
+    - assets/images/animals/
   fonts:
     - family: Montserrat
       fonts:
