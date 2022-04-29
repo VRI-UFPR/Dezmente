@@ -2,6 +2,7 @@ import 'package:dezmente/pages/teste.dart';
 import 'package:dezmente/super/supertest.dart';
 import 'package:flutter/material.dart';
 import 'package:collection/collection.dart';
+import 'dart:math';
 
 class _Cubes {
   _Cubes(this.asset, this.correct);
@@ -37,12 +38,32 @@ enum Boxes { face1, face2, face3, face4, face5, face6 }
 class TestAnimalsState extends SuperTestState {
   @override
   erase() {
-    setState(() {
-      _boxes = null;
-    });
+    controller.text = "";
   }
 
-  Boxes? _boxes;
+  final _random = Random();
+
+  Map<String, String> imageNames = {
+    "borboleta": "borboleta.png",
+    "onça": "onca.png",
+    "zebra": "zebra.png"
+  };
+
+  String _animal = "", _file = "";
+
+  void getRandomImage() {
+    int max = imageNames.length;
+    int randomIndex = _random.nextInt(max - 0);
+    _file = imageNames.values.elementAt(randomIndex);
+    _animal = imageNames.keys.elementAt(randomIndex);
+  }
+
+  @override
+  initState() {
+    getRandomImage();
+  }
+
+  TextEditingController controller = TextEditingController();
 
   int pressedErase = 0; // quantidade de vezes que o botao apagar foi utilizado
   int timeSpended = DateTime.now().millisecondsSinceEpoch;
@@ -60,18 +81,18 @@ class TestAnimalsState extends SuperTestState {
                       border: Border.all(
                           color: const Color(0xffe984b8), width: 2.5),
                       borderRadius: BorderRadius.circular(5),
-                      image: const DecorationImage(
-                          image:
-                              AssetImage('assets/images/animals/borboleta.png'),
+                      image: DecorationImage(
+                          image: AssetImage('assets/images/animals/$_file'),
                           fit: BoxFit.cover))),
               Container(
                 margin: const EdgeInsets.fromLTRB(15, 20, 15, 0),
                 decoration: const BoxDecoration(
                     color: Color(0xff00B3BE),
                     borderRadius: BorderRadius.all(Radius.circular(8))),
-                child: const TextField(
-                  cursorColor: Color.fromARGB(17, 38, 38, 42),
-                  decoration: InputDecoration(
+                child: TextField(
+                  controller: controller,
+                  cursorColor: const Color.fromARGB(17, 38, 38, 42),
+                  decoration: const InputDecoration(
                     fillColor: Colors.transparent,
                     filled: true,
                     border: InputBorder.none,
