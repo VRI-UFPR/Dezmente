@@ -1,7 +1,6 @@
-import 'package:dezmente/pages/teste.dart';
 import 'package:dezmente/super/supertest.dart';
+import 'package:dezmente/widgets/Dialog/dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:collection/collection.dart';
 import 'dart:math';
 
 class _Cubes {
@@ -51,16 +50,23 @@ class TestAnimalsState extends SuperTestState {
 
   String _animal = "", _file = "";
 
-  void getRandomImage() {
+  void setRandomImage() {
     int max = imageNames.length;
     int randomIndex = _random.nextInt(max - 0);
-    _file = imageNames.values.elementAt(randomIndex);
-    _animal = imageNames.keys.elementAt(randomIndex);
+    setState(() {
+      _file = imageNames.values.elementAt(randomIndex);
+      _animal = imageNames.keys.elementAt(randomIndex);
+    });
+    imageNames.remove(_animal);
   }
 
   @override
   initState() {
-    getRandomImage();
+    int max = imageNames.length;
+    int randomIndex = _random.nextInt(max - 0);
+    _file = imageNames.values.elementAt(randomIndex);
+    _animal = imageNames.keys.elementAt(randomIndex);
+    imageNames.remove(_animal);
   }
 
   TextEditingController controller = TextEditingController();
@@ -78,10 +84,10 @@ class TestAnimalsState extends SuperTestState {
       child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
         _buildImageBox(),
         _buildInput(),
-        SizedBox(
+        const SizedBox(
           height: 30,
         ),
-        _buildButton(),
+        if (imageNames.isNotEmpty) _buildButton(),
       ]),
     );
   }
@@ -138,6 +144,9 @@ class TestAnimalsState extends SuperTestState {
           padding: MaterialStateProperty.all(
               const EdgeInsets.symmetric(vertical: 10, horizontal: 20)),
         ),
-        onPressed: () {},
+        onPressed: () {
+          showAlertDialog(context, "Deseja ir para próxima imagem?",
+              "Não será possível retornar após esta ação.", setRandomImage);
+        },
       );
 }
