@@ -44,9 +44,9 @@ class TestAnimalsState extends SuperTestState {
   final _random = Random();
 
   Map<String, String> imageNames = {
-    "borboleta": "borboleta.png",
-    "onça": "onca.png",
-    "zebra": "zebra.png"
+    "leão": "leao.png",
+    "camelo": "camelo.png",
+    "rinoceronte": "rinoceronte.png",
   };
 
   String _animal = "", _file = "";
@@ -69,47 +69,75 @@ class TestAnimalsState extends SuperTestState {
   int timeSpended = DateTime.now().millisecondsSinceEpoch;
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-          body: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Container(
-                  height: MediaQuery.of(context).size.width * 0.65,
-                  decoration: BoxDecoration(
-                      border: Border.all(
-                          color: const Color(0xffe984b8), width: 2.5),
-                      borderRadius: BorderRadius.circular(5),
-                      image: DecorationImage(
-                          image: AssetImage('assets/images/animals/$_file'),
-                          fit: BoxFit.cover))),
-              Container(
-                margin: const EdgeInsets.fromLTRB(15, 20, 15, 0),
-                decoration: const BoxDecoration(
-                    color: Color(0xff00B3BE),
-                    borderRadius: BorderRadius.all(Radius.circular(8))),
-                child: TextField(
-                  controller: controller,
-                  cursorColor: const Color.fromARGB(17, 38, 38, 42),
-                  decoration: const InputDecoration(
-                    fillColor: Colors.transparent,
-                    filled: true,
-                    border: InputBorder.none,
-                    floatingLabelBehavior: FloatingLabelBehavior.always,
-                    floatingLabelAlignment: FloatingLabelAlignment.center,
-                    label: Text(
-                      "DIGITE O NOME DO ANIMAL",
-                      style: TextStyle(
-                        fontSize: 20,
-                        height: 0.3,
-                        color: Color(0xff060607),
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ),
-                ),
-              )
-            ]),
-      ));
+  Widget build(BuildContext context) =>
+      Scaffold(body: Center(child: SingleChildScrollView(child: _body())));
+
+  _body() {
+    return Padding(
+      padding: const EdgeInsets.all(20),
+      child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+        _buildImageBox(),
+        _buildInput(),
+        SizedBox(
+          height: 30,
+        ),
+        _buildButton(),
+      ]),
+    );
+  }
+
+  _buildImageBox() => Container(
+      height: MediaQuery.of(context).size.width * 0.65,
+      decoration: BoxDecoration(
+          color: const Color(0xffececec),
+          border: Border.all(color: const Color(0xffe984b8), width: 2.5),
+          borderRadius: BorderRadius.circular(5),
+          image: DecorationImage(
+            image: AssetImage('assets/images/animals/$_file'),
+            fit: BoxFit.contain,
+          )));
+
+  _buildTextField() => TextField(
+        controller: controller,
+        cursorColor: const Color.fromARGB(17, 38, 38, 42),
+        decoration: const InputDecoration(
+          fillColor: Colors.transparent,
+          filled: true,
+          border: InputBorder.none,
+          floatingLabelBehavior: FloatingLabelBehavior.always,
+          floatingLabelAlignment: FloatingLabelAlignment.center,
+          label: Text(
+            "DIGITE O NOME DO ANIMAL",
+            style: TextStyle(
+              fontSize: 20,
+              height: 0.3,
+              color: Color(0xff060607),
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+        ),
+      );
+
+  _buildInput() => Container(
+        margin: const EdgeInsets.fromLTRB(15, 20, 15, 0),
+        decoration: const BoxDecoration(
+            color: Color(0x9000B3BE),
+            borderRadius: BorderRadius.all(Radius.circular(8))),
+        child: _buildTextField(),
+      );
+
+  _buildButton() => ElevatedButton.icon(
+        icon: const Text('Próximo',
+            style: TextStyle(color: Color(0xff060607), fontSize: 16)),
+        label: const Icon(Icons.arrow_forward, color: Color(0xff060607)),
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.resolveWith((states) =>
+              states.contains(MaterialState.pressed)
+                  ? const Color(0xcfe984b8)
+                  : const Color(0xffe984b8)),
+          padding: MaterialStateProperty.all(
+              const EdgeInsets.symmetric(vertical: 10, horizontal: 20)),
+        ),
+        onPressed: () {},
+      );
 }
