@@ -58,6 +58,7 @@ class TestAnimalsState extends SuperTestState {
       _animal = imageNames.keys.elementAt(randomIndex);
     });
     imageNames.remove(_animal);
+    controller.clear();
   }
 
   @override
@@ -75,8 +76,10 @@ class TestAnimalsState extends SuperTestState {
   int timeSpended = DateTime.now().millisecondsSinceEpoch;
 
   @override
-  Widget build(BuildContext context) =>
-      Scaffold(body: Center(child: SingleChildScrollView(child: _body())));
+  Widget build(BuildContext context) => GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child:
+          Scaffold(body: Center(child: SingleChildScrollView(child: _body()))));
 
   _body() {
     return Padding(
@@ -106,6 +109,7 @@ class TestAnimalsState extends SuperTestState {
   _buildTextField() => TextField(
         controller: controller,
         cursorColor: const Color.fromARGB(17, 38, 38, 42),
+        textAlign: TextAlign.center,
         decoration: const InputDecoration(
           fillColor: Colors.transparent,
           filled: true,
