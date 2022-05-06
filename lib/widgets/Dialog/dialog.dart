@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
-showAlertDialog(BuildContext context, String? titleText, String? contentText,
-    Function callback) {
+showAlertDialog(
+    {required BuildContext context,
+    String? titleText,
+    String? contentText,
+    required Function callback}) {
   // set up the buttons
 
   TextStyle textStyle = const TextStyle(color: Color(0xff060607));

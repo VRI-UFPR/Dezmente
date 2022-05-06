@@ -1,4 +1,5 @@
-import 'package:dezmente/super/superTest.dart';
+import 'package:dezmente/super/supertest.dart';
+import 'package:dezmente/widgets/test/test_animals.dart';
 import 'package:dezmente/widgets/test/test_conection.dart';
 import 'package:flutter/material.dart';
 
@@ -21,6 +22,9 @@ List<Function> _testes = [
         key: _globalKey,
       ),
   () => TestCube(
+        key: _globalKey,
+      ),
+  () => TestAnimals(
         key: _globalKey,
       ),
 ];

@@ -149,8 +149,11 @@ class TestAnimalsState extends SuperTestState {
               const EdgeInsets.symmetric(vertical: 10, horizontal: 20)),
         ),
         onPressed: () {
-          showAlertDialog(context, "Deseja ir para próxima imagem?",
-              "Não será possível retornar após esta ação.", setRandomImage);
+          showAlertDialog(
+              context: context,
+              titleText: "Deseja ir para próxima imagem?",
+              contentText: "Não será possível retornar após esta ação.",
+              callback: setRandomImage);
         },
       );
 }
