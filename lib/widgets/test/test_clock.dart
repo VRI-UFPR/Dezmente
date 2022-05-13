@@ -1,19 +1,19 @@
 import 'package:circular_widgets/circular_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:dezmente/super/supertest.dart';
+import 'package:dezmente/super/super.dart';
 
-class TesteClock extends SuperTest {
+class TestClock extends SuperTest {
   @override
   final description =
       "Coloque os números no lugar apropriado no relógio e indique o horário 14:50 com os ponteiros:";
 
-  const TesteClock({Key? key}) : super(key: key);
+  const TestClock({Key? key}) : super(key: key);
 
   @override
-  TesteClockState createState() => TesteClockState();
+  TestClockState createState() => TestClockState();
 }
 
-class TesteClockState extends SuperTestState {
+class TestClockState extends SuperTestState {
   List pointers = [
     '1',
     '2',
