@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:dezmente/super/supertest.dart';
 import 'package:flutter/material.dart';
-import 'dart:math';
 
 class TestVigilance extends SuperTest {
   @override
@@ -15,13 +14,9 @@ class TestVigilance extends SuperTest {
 }
 
 const chars = [
-  "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", //
-  "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" //
+  "F", "B", "A", "C", "M", "N", "A", "A", "J", "K", "L", "B", "A", "F", //
+  "A", "K", "D", "E", "A", "A", "A", "J", "A", "M", "O", "F", "A", "A", "B"
 ];
-
-const probA = 0.35; // Probabilty of A being chosen
-const probOthers = 0.026; // Probabilty of other character being chosen
-const max = 5;
 
 class TestVigilanceState extends SuperTestState {
   @override
@@ -29,40 +24,28 @@ class TestVigilanceState extends SuperTestState {
 
   String _char = "";
   int _acertos = 0;
-  int _tries = 0;
-
-  final _random = Random();
+  int _index = -1;
 
   late Timer _timer;
 
   void clearTimer() => _timer.cancel();
 
   void setTimer() {
-    if (_tries == max) {
-      print(_acertos / max);
+    if (_index == chars.length - 1) {
+      print(_acertos / chars.length);
       return;
     }
-
-    setRandomChar();
+    setNextChar();
     _timer = Timer(const Duration(seconds: 3), () {
       if (_char != "A") _acertos++;
       setTimer();
     });
   }
 
-  void setRandomChar() {
-    _tries++;
-    int index = 0;
-    do {
-      index = 0;
-      double randomDouble = _random.nextDouble();
-      if (randomDouble > probA) {
-        index = ((randomDouble - probA) / probOthers).round();
-      }
-    } while (_char == chars[index]);
-
+  void setNextChar() {
+    _index++;
     setState(() {
-      _char = chars[index];
+      _char = chars[_index];
     });
   }
 
@@ -85,7 +68,7 @@ class TestVigilanceState extends SuperTestState {
       child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(_char, style: TextStyle(fontSize: 116)),
+            Text(_char, style: const TextStyle(fontSize: 116)),
             const SizedBox(height: 30),
             ElevatedButton(
               child: const Text(
