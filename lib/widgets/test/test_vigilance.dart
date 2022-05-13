@@ -68,26 +68,32 @@ class TestVigilanceState extends SuperTestState {
       child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(_char, style: const TextStyle(fontSize: 116)),
+            _buildChar(),
             const SizedBox(height: 30),
-            ElevatedButton(
-              child: const Text(
-                'CLIQUE',
-                style: TextStyle(fontSize: 24),
-              ),
-              onPressed: () {
-                clearTimer();
-                if (_char == "A") _acertos++;
-                setTimer();
-              },
-              style: ButtonStyle(
-                fixedSize: MaterialStateProperty.all(const Size(125, 125)),
-                shape: MaterialStateProperty.all(const CircleBorder()),
-                backgroundColor:
-                    MaterialStateProperty.all(const Color(0xfff95f62)),
-              ),
-            ),
+            _buildButton()
           ]),
     );
   }
+
+  Widget _buildChar() => Text(_char,
+      style: TextStyle(
+          fontSize: 116,
+          color: _index % 2 == 0 ? Colors.blue[900] : Colors.yellow[800]));
+
+  Widget _buildButton() => ElevatedButton(
+        child: const Text(
+          'CLIQUE',
+          style: TextStyle(fontSize: 24),
+        ),
+        onPressed: () {
+          clearTimer();
+          if (_char == "A") _acertos++;
+          setTimer();
+        },
+        style: ButtonStyle(
+          fixedSize: MaterialStateProperty.all(const Size(125, 125)),
+          shape: MaterialStateProperty.all(const CircleBorder()),
+          backgroundColor: MaterialStateProperty.all(const Color(0xfff95f62)),
+        ),
+      );
 }
