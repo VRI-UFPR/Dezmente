@@ -3,25 +3,6 @@ import 'package:dezmente/widgets/Dialog/dialog.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 
-class _Cubes {
-  _Cubes(this.asset, this.correct);
-
-  String asset = "";
-  bool correct = false;
-}
-
-List<_Cubes> cubeFaces1 = [
-  _Cubes("assets/images/cube/face1.png", false),
-  _Cubes("assets/images/cube/face2.png", true),
-  _Cubes("assets/images/cube/face3.png", false)
-];
-
-List<_Cubes> cubeFaces2 = [
-  _Cubes("assets/images/cube/face4.png", false),
-  _Cubes("assets/images/cube/face5.png", false),
-  _Cubes("assets/images/cube/face6.png", false)
-];
-
 class TestAnimals extends SuperTest {
   @override
   final description = "Digite o nome dos animais que aparecem na tela";
@@ -31,8 +12,6 @@ class TestAnimals extends SuperTest {
   @override
   TestAnimalsState createState() => TestAnimalsState();
 }
-
-enum Boxes { face1, face2, face3, face4, face5, face6 }
 
 class TestAnimalsState extends SuperTestState {
   @override
@@ -44,8 +23,8 @@ class TestAnimalsState extends SuperTestState {
 
   Map<String, String> imageNames = {
     "leão": "leao.png",
-    "camelo": "camelo.png",
-    "rinoceronte": "rinoceronte.png",
+    "elefante": "elefante.png",
+    "girafa": "girafa.png",
   };
 
   String _animal = "", _file = "";
@@ -98,7 +77,7 @@ class TestAnimalsState extends SuperTestState {
   _buildImageBox() => Container(
       height: MediaQuery.of(context).size.width * 0.65,
       decoration: BoxDecoration(
-          color: const Color(0xffececec),
+          color: Colors.white,
           border: Border.all(color: const Color(0xffe984b8), width: 2.5),
           borderRadius: BorderRadius.circular(5),
           image: DecorationImage(
