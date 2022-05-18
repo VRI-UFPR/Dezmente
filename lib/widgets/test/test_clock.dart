@@ -14,22 +14,7 @@ class TestClock extends SuperTest {
 }
 
 class TestClockState extends SuperTestState {
-  List pointers = [
-    '1',
-    '2',
-    '3',
-    '4',
-    '5',
-    '6',
-    '7',
-    '8',
-    '9',
-    '10',
-    '11',
-    '12'
-  ];
-
-  Map<int, String> score = {};
+  Map<int, int> score = {};
 
   @override
   erase() {
@@ -41,10 +26,10 @@ class TestClockState extends SuperTestState {
 
   @override
   Widget build(BuildContext context) {
-    final double screenHeightFactor = MediaQuery.of(context).size.height / 640;
-    final double screenWidthFactor = MediaQuery.of(context).size.width / 360;
+    final double scrHfactor = MediaQuery.of(context).size.height / 640;
+    final double scrWfactor = MediaQuery.of(context).size.width / 360;
 
-    int length = 12;
+    int _length = 12;
 
     return Scaffold(
       body: Container(
@@ -54,8 +39,8 @@ class TestClockState extends SuperTestState {
           children: <Widget>[
             Center(
               child: SizedBox(
-                height: 135 * screenHeightFactor,
-                width: 400 * screenWidthFactor,
+                height: 135 * scrHfactor,
+                width: 400 * scrWfactor,
                 child: GridView.count(
                   primary: true,
                   shrinkWrap: true,
@@ -63,34 +48,35 @@ class TestClockState extends SuperTestState {
                   crossAxisSpacing: 7,
                   crossAxisCount: 6,
                   mainAxisSpacing: 9,
-                  children: pointers.map<Widget>((pointer) {
-                    return IgnorePointer(
-                      ignoring: score.containsValue(pointer),
-                      child: Opacity(
-                        opacity: score.containsValue(pointer) ? 0 : 1,
-                        child: Draggable<String>(
-                          data: pointer,
-                          feedback: _buildPointer(pointer),
-                          child: _buildPointer(pointer),
-                          childWhenDragging: const Opacity(
-                            opacity: 0,
+                  children: <Widget>[
+                    for (var i = 1; i <= _length; i++)
+                      IgnorePointer(
+                        ignoring: score.containsValue(i),
+                        child: Opacity(
+                          opacity: score.containsValue(i) ? 0 : 1,
+                          child: Draggable<int>(
+                            data: i,
+                            feedback: _buildPointer(i),
+                            child: _buildPointer(i),
+                            childWhenDragging: const Opacity(
+                              opacity: 0,
+                            ),
                           ),
                         ),
                       ),
-                    );
-                  }).toList(),
+                  ],
                 ),
               ),
             ),
             SizedBox(
-              height: 400 * screenHeightFactor,
-              width: 400 * screenWidthFactor,
+              height: 400 * scrHfactor,
+              width: 400 * scrWfactor,
               child: Stack(
                 children: [
                   Center(
                     child: Container(
-                      width: 390 * screenWidthFactor,
-                      height: 390 * screenHeightFactor,
+                      width: 390 * scrWfactor,
+                      height: 390 * scrHfactor,
                       decoration: const BoxDecoration(
                         color: Colors.black,
                         shape: BoxShape.circle,
@@ -100,12 +86,12 @@ class TestClockState extends SuperTestState {
                   LayoutBuilder(
                     builder: (context, constraints) {
                       return CircularWidgets(
-                        itemsLength: length,
+                        itemsLength: _length,
                         itemBuilder: (context, index) {
                           return _buildDragTarget(index);
                         },
-                        innerSpacing: 75 * screenWidthFactor,
-                        radiusOfItem: 40 * screenHeightFactor,
+                        innerSpacing: 75 * scrWfactor,
+                        radiusOfItem: 40 * scrHfactor,
                       );
                     },
                   ),
@@ -119,15 +105,18 @@ class TestClockState extends SuperTestState {
   }
 
   Widget _buildDragTarget(index) {
-    return DragTarget<String>(
+    return DragTarget<int>(
       builder: (context, incoming, accepted) {
+        final double scrHfactor = MediaQuery.of(context).size.height / 640;
+        final double scrWfactor = MediaQuery.of(context).size.width / 360;
+
         if (score.containsKey(index)) {
           return Container(
-            height: 20,
-            width: 20,
+            height: 20 * scrHfactor,
+            width: 20 * scrWfactor,
             child: Center(
               child: Text(
-                score[index] ?? " ",
+                "${score[index]}",
                 style: const TextStyle(
                   fontSize: 18,
                   color: Colors.white,
@@ -142,8 +131,8 @@ class TestClockState extends SuperTestState {
           );
         } else {
           return Container(
-            width: 20,
-            height: 20,
+            width: 20 * scrWfactor,
+            height: 20 * scrHfactor,
             decoration: const BoxDecoration(
               color: Colors.white,
               shape: BoxShape.circle,
@@ -163,12 +152,14 @@ class TestClockState extends SuperTestState {
   }
 
   Widget _buildPointer(pointer) {
+    final double scrHfactor = MediaQuery.of(context).size.height / 640;
+    final double scrWfactor = MediaQuery.of(context).size.width / 360;
     return Container(
-      height: 32,
-      width: 32,
+      height: 40 * scrHfactor,
+      width: 40 * scrWfactor,
       child: Center(
         child: Text(
-          pointer,
+          pointer.toString(),
           style: const TextStyle(
             decoration: TextDecoration.none,
             fontSize: 18,
