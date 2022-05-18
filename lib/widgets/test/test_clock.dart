@@ -64,46 +64,18 @@ class TestClockState extends SuperTestState {
                   crossAxisCount: 6,
                   mainAxisSpacing: 9,
                   children: pointers.map<Widget>((pointer) {
-                    return Draggable<String>(
-                      feedback: Container(
-                        height: 32,
-                        width: 32,
-                        child: Center(
-                          child: Text(
-                            pointer,
-                            style: const TextStyle(
-                              decoration: TextDecoration.none,
-                              fontSize: 18,
-                              color: Colors.white,
-                              fontWeight: FontWeight.w500,
-                            ),
+                    return IgnorePointer(
+                      ignoring: score.containsValue(pointer),
+                      child: Opacity(
+                        opacity: score.containsValue(pointer) ? 0 : 1,
+                        child: Draggable<String>(
+                          data: pointer,
+                          feedback: _buildPointer(pointer),
+                          child: _buildPointer(pointer),
+                          childWhenDragging: const Opacity(
+                            opacity: 0,
                           ),
                         ),
-                        decoration: const BoxDecoration(
-                          color: Colors.brown,
-                          shape: BoxShape.circle,
-                        ),
-                      ),
-                      child: Container(
-                        height: 20,
-                        width: 20,
-                        child: Center(
-                          child: Text(
-                            pointer,
-                            style: const TextStyle(
-                              fontSize: 18,
-                              color: Colors.white,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ),
-                        decoration: const BoxDecoration(
-                          color: Colors.brown,
-                          shape: BoxShape.circle,
-                        ),
-                      ),
-                      childWhenDragging: Container(
-                        color: Colors.white,
                       ),
                     );
                   }).toList(),
@@ -130,8 +102,7 @@ class TestClockState extends SuperTestState {
                       return CircularWidgets(
                         itemsLength: length,
                         itemBuilder: (context, index) {
-                          // Can be any widget, preferably a circle
-                          return _buildDragTarget();
+                          return _buildDragTarget(index);
                         },
                         innerSpacing: 75 * screenWidthFactor,
                         radiusOfItem: 40 * screenHeightFactor,
@@ -147,17 +118,17 @@ class TestClockState extends SuperTestState {
     );
   }
 
-  Widget _buildDragTarget() {
+  Widget _buildDragTarget(index) {
     return DragTarget<String>(
-      builder: (context, List<String?> incoming, List accepted) {
-        if (score.containsKey(context.hashCode)) {
+      builder: (context, incoming, accepted) {
+        if (score.containsKey(index)) {
           return Container(
             height: 20,
             width: 20,
-            child: const Center(
+            child: Center(
               child: Text(
-                "s",
-                style: TextStyle(
+                score[index] ?? " ",
+                style: const TextStyle(
                   fontSize: 18,
                   color: Colors.white,
                   fontWeight: FontWeight.w500,
@@ -180,14 +151,36 @@ class TestClockState extends SuperTestState {
           );
         }
       },
-      onWillAccept: (data) => data == data,
+      onWillAccept: (data) => true,
       onAccept: (data) {
-        print(score);
         setState(() {
-          score[context.hashCode] = data;
+          score[index] = data;
         });
+        print(score);
       },
       onLeave: (data) => {},
+    );
+  }
+
+  Widget _buildPointer(pointer) {
+    return Container(
+      height: 32,
+      width: 32,
+      child: Center(
+        child: Text(
+          pointer,
+          style: const TextStyle(
+            decoration: TextDecoration.none,
+            fontSize: 18,
+            color: Colors.white,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+      ),
+      decoration: const BoxDecoration(
+        color: Colors.brown,
+        shape: BoxShape.circle,
+      ),
     );
   }
 }
