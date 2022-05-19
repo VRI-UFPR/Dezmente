@@ -62,13 +62,14 @@ class TestCubeState extends SuperTestState {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                IntrinsicWidth(
+                SizedBox(
+                  width: 173 * MediaQuery.of(context).size.width / 360,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: cubeFaces1.mapIndexed<Widget>((index, face) {
                       return RadioListTile(
                           value: Boxes.values[index],
-                          secondary: Image.asset(face.asset),
+                          title: Image.asset(face.asset),
                           groupValue: _boxes,
                           onChanged: (Boxes? value) {
                             setState(() {
@@ -78,13 +79,14 @@ class TestCubeState extends SuperTestState {
                     }).toList(),
                   ),
                 ),
-                IntrinsicWidth(
+                SizedBox(
+                  width: 173 * MediaQuery.of(context).size.width / 360,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: cubeFaces2.mapIndexed<Widget>((index, face) {
                       return RadioListTile(
                           value: Boxes.values[index + cubeFaces1.length],
-                          secondary: Image.asset(face.asset),
+                          title: Image.asset(face.asset),
                           groupValue: _boxes,
                           onChanged: (Boxes? value) {
                             setState(() {

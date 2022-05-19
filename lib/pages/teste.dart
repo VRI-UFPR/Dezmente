@@ -1,11 +1,12 @@
 import 'package:dezmente/super/super.dart';
-import 'package:dezmente/widgets/test/test_clock.dart';
+import 'package:dezmente/widgets/test/test_abstraction.dart';
 import 'package:flutter/material.dart';
 
 import 'package:dezmente/widgets/help.dart';
 import 'package:dezmente/widgets/test/test_cube.dart';
 import 'package:dezmente/widgets/test/test_memory.dart';
 import 'package:dezmente/widgets/test/test_conection.dart';
+import 'package:dezmente/widgets/test/test_clock.dart';
 
 class Teste extends StatefulWidget {
   const Teste({Key? key}) : super(key: key);
@@ -25,10 +26,13 @@ List<Function> _testes = [
   () => TestCube(
         key: _globalKey,
       ),
+  () => TestMemory(
+        key: _globalKey,
+      ),
   () => TestClock(
         key: _globalKey,
       ),
-  () => TestMemory(
+  () => TestAbstraction(
         key: _globalKey,
       ),
 ];
