@@ -8,25 +8,25 @@ abstract class SuperTest extends StatefulWidget {
 }
 
 abstract class SuperTestState<T extends StatefulWidget> extends State<T> {
-  TestData _data = TestData(timeStamp: 0);
+  TestData data = TestData(timeStamp: 0);
 
   TestData getData() {
-    _data.timeStamp = DateTime.now().millisecondsSinceEpoch - _data.timeStamp;
-    return _data;
+    data.timeStamp = DateTime.now().millisecondsSinceEpoch - data.timeStamp;
+    return data;
   }
 
   init() {
-    _data.timeStamp = DateTime.now().millisecondsSinceEpoch;
+    data.timeStamp = DateTime.now().millisecondsSinceEpoch;
   }
 
   @factory
   erase();
 
-  @override
-  void initState() {
-    init();
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   init();
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,7 @@ abstract class SuperTestState<T extends StatefulWidget> extends State<T> {
 enum Code { next, stay }
 
 class TestData {
-  TestData({required this.timeStamp, this.code = Code.stay});
+  TestData({required this.timeStamp, this.code = Code.next});
   int timeStamp;
   Code code;
 }
