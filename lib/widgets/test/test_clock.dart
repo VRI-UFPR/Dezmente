@@ -98,12 +98,7 @@ class _TestClockState extends SuperTestState {
                       );
                     },
                   ),
-                  GestureDetector(
-                    child: _buildClockHands(4, 83),
-                  ),
-                  GestureDetector(
-                    child: _buildClockHands(5, 58),
-                  ),
+                  _buildClockHands(),
                 ],
               ),
             ),
@@ -184,81 +179,144 @@ class _TestClockState extends SuperTestState {
     );
   }
 
-  Widget _buildClockHands(double angle, double size) {
-    final double scrHfactor = MediaQuery.of(context).size.height / 640;
+  double angleHour = 0.0;
+  double angleMinute = 1.0;
+
+  Widget _buildClockHands() {
+    //final double scrHfactor = MediaQuery.of(context).size.height / 640;
     final double scrWfactor = MediaQuery.of(context).size.width / 360;
 
+    return Stack(
+      children: [
+        GestureDetector(
+          onPanUpdate: (details) {
+            setState(() {
+              angleMinute += _panHandler(details);
+            });
+          },
+          child: _clockHand(angleMinute, 115 * scrWfactor),
+        ),
+        GestureDetector(
+          onPanUpdate: (details) {
+            setState(() {
+              angleHour += _panHandler(details);
+            });
+          },
+          child: _clockHand(angleHour, 60 * scrWfactor),
+        ),
+      ],
+    );
+  }
+
+  Widget _clockHand(double angle, double size) {
     return RotatedBox(
       quarterTurns: 2,
       child: Transform.rotate(
-        angle: angle + 0.785,
-        child: Center(
-          child: SizedBox(
-            width: 200 * scrWfactor,
-            height: 200 * scrHfactor,
-            child: CustomPaint(
-              foregroundPainter: Arrow(size * scrWfactor),
+        angle: angle,
+        child: Transform.translate(
+          offset: Offset(0, size / 2),
+          child: Center(
+            child: Container(
+              height: size,
+              width: 4,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(32),
+              ),
             ),
           ),
         ),
       ),
     );
   }
-}
 
-class Arrow extends CustomPainter {
-  final double height;
+  double _panHandler(DragUpdateDetails d) {
+    /// Pan location on the wheel
+    bool onTop = d.localPosition.dy <= radius;
+    bool onLeftSide = d.localPosition.dx <= radius;
+    bool onRightSide = !onLeftSide;
+    bool onBottom = !onTop;
 
-  const Arrow(
-    this.height,
-  );
+    /// Pan movements
+    bool panUp = d.delta.dy <= 0.0;
+    bool panLeft = d.delta.dx <= 0.0;
+    bool panRight = !panLeft;
+    bool panDown = !panUp;
 
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..color = Colors.white
-      ..strokeWidth = 5;
+    /// Absoulte change on axis
+    double yChange = d.delta.dy.abs();
+    double xChange = d.delta.dx.abs();
 
-    canvas.drawLine(
-      Offset(size.width * 1 / 2 - 7, size.height * 1 / 2 - 7),
-      Offset((size.width * 1 / 2) + height, (size.height * 1 / 2) + height),
-      paint,
-    );
-  }
+    /// Directional change on wheel
+    double verticalRotation = (onRightSide && panDown) || (onLeftSide && panUp)
+        ? yChange
+        : yChange * -1;
 
-  @override
-  bool shouldRepaint(CustomPainter oldDelegate) => true;
-}
+    double horizontalRotation =
+        (onTop && panRight) || (onBottom && panLeft) ? xChange : xChange * -1;
 
-class RPSCustomPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    Paint paint0 = Paint()
-      ..color = const Color.fromARGB(255, 33, 150, 243)
-      ..style = PaintingStyle.fill
-      ..strokeWidth = 1;
-    paint0.shader = ui.Gradient.linear(
-        Offset(size.width * 0.42, size.height * 0.46),
-        Offset(size.width * 0.91, size.height * 0.46),
-        [const Color(0xffffffff), const Color(0xffffffff)],
-        [0.00, 1.00]);
+    // Total computed change
+    double rotationalChange =
+        (verticalRotation + horizontalRotation) * (d.delta.distance);
 
-    Path path0 = Path();
-    path0.moveTo(size.width * 0.4166667, size.height * 0.4166667);
-    path0.lineTo(size.width * 0.4166667, size.height * 0.4983333);
-    path0.lineTo(size.width * 0.8339083, size.height * 0.4990500);
-    path0.lineTo(size.width * 0.8333333, size.height * 0.5846333);
-    path0.lineTo(size.width * 0.9066667, size.height * 0.4583333);
-    path0.lineTo(size.width * 0.8333333, size.height * 0.3316667);
-    path0.lineTo(size.width * 0.8333333, size.height * 0.4159333);
-    path0.lineTo(size.width * 0.4166667, size.height * 0.4166667);
-    path0.close();
-
-    canvas.drawPath(path0, paint0);
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return true;
+    // Move the page view scroller
+    return rotationalChange * 0.05;
   }
 }
+
+// class Arrow extends CustomPainter {
+//   final double height;
+
+//   const Arrow(
+//     this.height,
+//   );
+
+//   @override
+//   void paint(Canvas canvas, Size size) {
+//     final paint = Paint()
+//       ..color = Colors.white
+//       ..strokeWidth = 5;
+
+//     canvas.drawLine(
+//       Offset(size.width * 1 / 2 - 7, size.height * 1 / 2 - 7),
+//       Offset((size.width * 1 / 2) + height, (size.height * 1 / 2) + height),
+//       paint,
+//     );
+//   }
+
+//   @override
+//   bool shouldRepaint(CustomPainter oldDelegate) => true;
+// }
+
+// class RPSCustomPainter extends CustomPainter {
+//   @override
+//   void paint(Canvas canvas, Size size) {
+//     Paint paint0 = Paint()
+//       ..color = const Color.fromARGB(255, 33, 150, 243)
+//       ..style = PaintingStyle.fill
+//       ..strokeWidth = 1;
+//     paint0.shader = ui.Gradient.linear(
+//         Offset(size.width * 0.42, size.height * 0.46),
+//         Offset(size.width * 0.91, size.height * 0.46),
+//         [const Color(0xffffffff), const Color(0xffffffff)],
+//         [0.00, 1.00]);
+
+//     Path path0 = Path();
+//     path0.moveTo(size.width * 0.4166667, size.height * 0.4166667);
+//     path0.lineTo(size.width * 0.4166667, size.height * 0.4983333);
+//     path0.lineTo(size.width * 0.8339083, size.height * 0.4990500);
+//     path0.lineTo(size.width * 0.8333333, size.height * 0.5846333);
+//     path0.lineTo(size.width * 0.9066667, size.height * 0.4583333);
+//     path0.lineTo(size.width * 0.8333333, size.height * 0.3316667);
+//     path0.lineTo(size.width * 0.8333333, size.height * 0.4159333);
+//     path0.lineTo(size.width * 0.4166667, size.height * 0.4166667);
+//     path0.close();
+
+//     canvas.drawPath(path0, paint0);
+//   }
+
+//   @override
+//   bool shouldRepaint(covariant CustomPainter oldDelegate) {
+//     return true;
+//   }
+// }
