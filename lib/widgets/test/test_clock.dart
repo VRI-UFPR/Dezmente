@@ -41,16 +41,19 @@ class TestClockState extends SuperTestState {
               child: SizedBox(
                 height: 135 * scrHfactor,
                 width: 400 * scrWfactor,
-                child: GridView.count(
-                  primary: true,
-                  shrinkWrap: true,
-                  childAspectRatio: 1.3,
-                  crossAxisSpacing: 7,
-                  crossAxisCount: 6,
-                  mainAxisSpacing: 9,
-                  children: <Widget>[
-                    for (var i = 1; i <= _length; i++)
-                      IgnorePointer(
+                child: GridView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: _length,
+                    primary: true,
+                    shrinkWrap: true,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            childAspectRatio: 1.3,
+                            crossAxisSpacing: 7,
+                            crossAxisCount: 6,
+                            mainAxisSpacing: 9),
+                    itemBuilder: (_, i) {
+                      return IgnorePointer(
                         ignoring: score.containsValue(i),
                         child: Opacity(
                           opacity: score.containsValue(i) ? 0 : 1,
@@ -63,9 +66,8 @@ class TestClockState extends SuperTestState {
                             ),
                           ),
                         ),
-                      ),
-                  ],
-                ),
+                      );
+                    }),
               ),
             ),
             SizedBox(

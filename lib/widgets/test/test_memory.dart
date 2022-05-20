@@ -51,6 +51,7 @@ class TestMemoryState extends SuperTestState {
       height: size.height - kToolbarHeight,
       alignment: Alignment.center,
       child: GridView.builder(
+        physics: const NeverScrollableScrollPhysics(),
         padding:
             EdgeInsetsDirectional.only(top: (size.height - itemHeight * 7)),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
