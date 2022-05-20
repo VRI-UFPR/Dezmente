@@ -1,5 +1,4 @@
-import 'package:dezmente/pages/teste.dart';
-import 'package:dezmente/super/superTest.dart';
+import 'package:dezmente/super/super.dart';
 import 'package:flutter/material.dart';
 import 'package:collection/collection.dart';
 
@@ -49,57 +48,57 @@ class TestCubeState extends SuperTestState {
   Boxes? _boxes;
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        body: Container(
-          margin: const EdgeInsets.fromLTRB(5, 30, 5, 30),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Center(
-                child: Image.asset(
-                  'assets/images/cube/cube.png',
-                  scale: 2,
+  Widget build(BuildContext context) => Container(
+        margin: const EdgeInsets.fromLTRB(5, 30, 5, 30),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Center(
+              child: Image.asset(
+                'assets/images/cube/cube.png',
+                scale: 2,
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                SizedBox(
+                  width: 173 * MediaQuery.of(context).size.width / 360,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: cubeFaces1.mapIndexed<Widget>((index, face) {
+                      return RadioListTile(
+                          value: Boxes.values[index],
+                          title: Image.asset(face.asset),
+                          groupValue: _boxes,
+                          onChanged: (Boxes? value) {
+                            setState(() {
+                              _boxes = value;
+                            });
+                          });
+                    }).toList(),
+                  ),
                 ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  IntrinsicWidth(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: cubeFaces1.mapIndexed<Widget>((index, face) {
-                        return RadioListTile(
-                            value: Boxes.values[index],
-                            secondary: Image.asset(face.asset),
-                            groupValue: _boxes,
-                            onChanged: (Boxes? value) {
-                              setState(() {
-                                _boxes = value;
-                              });
+                SizedBox(
+                  width: 173 * MediaQuery.of(context).size.width / 360,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: cubeFaces2.mapIndexed<Widget>((index, face) {
+                      return RadioListTile(
+                          value: Boxes.values[index + cubeFaces1.length],
+                          title: Image.asset(face.asset),
+                          groupValue: _boxes,
+                          onChanged: (Boxes? value) {
+                            setState(() {
+                              _boxes = value;
                             });
-                      }).toList(),
-                    ),
+                          });
+                    }).toList(),
                   ),
-                  IntrinsicWidth(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: cubeFaces2.mapIndexed<Widget>((index, face) {
-                        return RadioListTile(
-                            value: Boxes.values[index + cubeFaces1.length],
-                            secondary: Image.asset(face.asset),
-                            groupValue: _boxes,
-                            onChanged: (Boxes? value) {
-                              setState(() {
-                                _boxes = value;
-                              });
-                            });
-                      }).toList(),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
+                ),
+              ],
+            ),
+          ],
         ),
       );
 }
