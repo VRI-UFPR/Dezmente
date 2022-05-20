@@ -20,6 +20,7 @@ dependencies:
   confirm_dialog: ^1.0.0
   widget_arrows: ^0.2.0-nullsafety.0
   flutter_chat_bubble: ^2.0.0
+  circular_widgets: ^2.0.0
 
 dev_dependencies:
   flutter_test:

@@ -1,4 +1,4 @@
-import 'package:dezmente/super/supertest.dart';
+import 'package:dezmente/super/super.dart';
 import 'package:dezmente/widgets/Dialog/dialog.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
@@ -17,6 +17,26 @@ class TestAnimalsState extends SuperTestState {
   @override
   erase() {
     controller.text = "";
+  }
+
+  @override
+  TestData getData() {
+    if (imageNames.isEmpty) {
+      data.code = Code.next;
+    } else {
+      showAlertDialog(
+          context: context,
+          titleText: "Deseja ir para próxima imagem?",
+          contentText: "Não será possível retornar após esta ação.",
+          callback: setRandomImage);
+    }
+    return super.getData();
+  }
+
+  @override
+  init() {
+    super.init();
+    data.code = Code.stay;
   }
 
   final _random = Random();
@@ -69,7 +89,6 @@ class TestAnimalsState extends SuperTestState {
         const SizedBox(
           height: 30,
         ),
-        if (imageNames.isNotEmpty) _buildButton(),
       ]),
     );
   }
@@ -113,26 +132,5 @@ class TestAnimalsState extends SuperTestState {
             color: Color(0x9000B3BE),
             borderRadius: BorderRadius.all(Radius.circular(8))),
         child: _buildTextField(),
-      );
-
-  _buildButton() => ElevatedButton.icon(
-        icon: const Text('Próximo',
-            style: TextStyle(color: Color(0xff060607), fontSize: 16)),
-        label: const Icon(Icons.arrow_forward, color: Color(0xff060607)),
-        style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.resolveWith((states) =>
-              states.contains(MaterialState.pressed)
-                  ? const Color(0xcfe984b8)
-                  : const Color(0xffe984b8)),
-          padding: MaterialStateProperty.all(
-              const EdgeInsets.symmetric(vertical: 10, horizontal: 20)),
-        ),
-        onPressed: () {
-          showAlertDialog(
-              context: context,
-              titleText: "Deseja ir para próxima imagem?",
-              contentText: "Não será possível retornar após esta ação.",
-              callback: setRandomImage);
-        },
       );
 }

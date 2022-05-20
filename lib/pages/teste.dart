@@ -1,10 +1,15 @@
-import 'package:dezmente/super/supertest.dart';
+import 'package:dezmente/super/super.dart';
 import 'package:dezmente/widgets/test/test_animals.dart';
 import 'package:dezmente/widgets/test/test_conection.dart';
+import 'package:dezmente/widgets/test/test_cube.dart';
 import 'package:flutter/material.dart';
 
 import 'package:dezmente/widgets/help.dart';
-import 'package:dezmente/widgets/test/test_cube.dart';
+import 'package:dezmente/widgets/debugSelectTest.dart';
+
+import 'package:dezmente/widgets/test/test_abstraction.dart';
+import 'package:dezmente/widgets/test/test_clock.dart';
+import 'package:dezmente/widgets/test/test_memory.dart';
 
 class Teste extends StatefulWidget {
   const Teste({Key? key}) : super(key: key);
@@ -13,7 +18,9 @@ class Teste extends StatefulWidget {
   State<Teste> createState() => _TesteState();
 }
 
-SuperTest? currentTest;
+const debugMode = true;
+
+SuperTest currentTest = _testes.first();
 GlobalObjectKey<SuperTestState> _globalKey = const GlobalObjectKey("key");
 
 int index = 0;
@@ -27,6 +34,29 @@ List<Function> _testes = [
   () => TestAnimals(
         key: _globalKey,
       ),
+  () => TestMemory(
+        key: _globalKey,
+        editMode: false,
+      ),
+  () => TestClock(
+        key: _globalKey,
+      ),
+  () => TestAbstraction(
+        key: _globalKey,
+      ),
+  () => TestMemory(
+        key: _globalKey,
+        editMode: true,
+      ),
+];
+
+List<String> _testeNames = [
+  "Test Conection",
+  "Test Cube",
+  "Test Memory Memorize",
+  "Test Clock",
+  "Test Abstraction",
+  "Test Memory Check",
 ];
 
 class _TesteState extends State<Teste> {
@@ -44,7 +74,7 @@ class _TesteState extends State<Teste> {
                 Navigator.pop(this.context);
               },
               title: "",
-              description: currentTest!.description,
+              description: currentTest.description,
               buttonText: "Começar",
             ),
           ),
@@ -55,7 +85,6 @@ class _TesteState extends State<Teste> {
 
   @override
   Widget build(BuildContext context) {
-    currentTest = _testes[index]();
     return Scaffold(
       body: currentTest,
       backgroundColor: const Color(0xffffffff),
@@ -71,9 +100,11 @@ class _TesteState extends State<Teste> {
                 style: TextStyle(color: Color(0xff060607)),
               ),
               onPressed: () {
-                setState(() {
-                  _globalKey.currentState?.erase();
-                });
+                setState(
+                  () {
+                    _globalKey.currentState?.erase();
+                  },
+                );
               },
             ),
             TextButton.icon(
@@ -82,27 +113,49 @@ class _TesteState extends State<Teste> {
                 "Concluir",
                 style: TextStyle(color: Color(0xff060607)),
               ),
+              onLongPress: !debugMode
+                  ? null
+                  : () {
+                      setState(
+                        () {
+                          currentTest = DebugSelectTest(
+                            testList: _testeNames,
+                            onTestSelected: (i) {
+                              setState(() {
+                                currentTest = _testes[i]();
+                              });
+                            },
+                          );
+                        },
+                      );
+                    },
               onPressed: () {
-                setState(() {
-                  timeSpended =
-                      DateTime.now().millisecondsSinceEpoch - timeSpended;
-                  if (index < _testes.length - 1) {
-                    index++;
-                    currentTest = _testes[index]();
+                setState(
+                  () {
+                    if (_globalKey.currentState?.getData().code == Code.next) {
+                      if (index < _testes.length - 1) {
+                        index++;
+                        currentTest = _testes[index]();
 
-                    Navigator.of(context).push(PageRouteBuilder(
-                        opaque: false,
-                        pageBuilder: (context, animation, secondaryAnimation) =>
-                            HelpTemplateButton(
+                        Navigator.of(context).push(
+                          PageRouteBuilder(
+                            opaque: false,
+                            pageBuilder:
+                                (context, animation, secondaryAnimation) =>
+                                    HelpTemplateButton(
                               callback: () {
                                 Navigator.pop(this.context);
                               },
                               title: "",
-                              description: currentTest!.description,
+                              description: currentTest.description,
                               buttonText: "Começar",
-                            )));
-                  }
-                });
+                            ),
+                          ),
+                        );
+                      }
+                    }
+                  },
+                );
               },
             ),
             TextButton.icon(
@@ -115,7 +168,7 @@ class _TesteState extends State<Teste> {
                             Navigator.pop(this.context);
                           },
                           title: "",
-                          description: currentTest!.description,
+                          description: currentTest.description,
                           buttonText: "Voltar",
                         )));
               },
