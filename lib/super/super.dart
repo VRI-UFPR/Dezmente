@@ -33,7 +33,7 @@ abstract class SuperTestState<T extends StatefulWidget> extends State<T> {
 enum Code { next, stay }
 
 class TestData {
-  TestData({required this.timeStamp, this.code = Code.next});
+  TestData({required this.timeStamp, this.code = Code.stay});
   int timeStamp;
   Code code;
 }

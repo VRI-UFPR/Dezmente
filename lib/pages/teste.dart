@@ -1,4 +1,7 @@
 import 'package:dezmente/super/super.dart';
+import 'package:dezmente/widgets/test/test_animals.dart';
+import 'package:dezmente/widgets/test/test_conection.dart';
+import 'package:dezmente/widgets/test/test_cube.dart';
 import 'package:flutter/material.dart';
 
 import 'package:dezmente/widgets/help.dart';
@@ -6,9 +9,7 @@ import 'package:dezmente/widgets/debugSelectTest.dart';
 
 import 'package:dezmente/widgets/test/test_abstraction.dart';
 import 'package:dezmente/widgets/test/test_clock.dart';
-import 'package:dezmente/widgets/test/test_cube.dart';
 import 'package:dezmente/widgets/test/test_memory.dart';
-import 'package:dezmente/widgets/test/test_conection.dart';
 
 class Teste extends StatefulWidget {
   const Teste({Key? key}) : super(key: key);
@@ -28,6 +29,9 @@ List<Function> _testes = [
         key: _globalKey,
       ),
   () => TestCube(
+        key: _globalKey,
+      ),
+  () => TestAnimals(
         key: _globalKey,
       ),
   () => TestMemory(
@@ -128,7 +132,7 @@ class _TesteState extends State<Teste> {
               onPressed: () {
                 setState(
                   () {
-                    if (_globalKey.currentState?.data.code == Code.next) {
+                    if (_globalKey.currentState?.getData().code == Code.next) {
                       if (index < _testes.length - 1) {
                         index++;
                         currentTest = _testes[index]();
