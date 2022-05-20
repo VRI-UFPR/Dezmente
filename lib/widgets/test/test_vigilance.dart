@@ -25,8 +25,7 @@ class TestVigilanceState extends SuperTestState {
   @override
   init() {
     super.init();
-    data.code = Code.next;
-    setTimer();
+    Future.delayed(const Duration(milliseconds: 500), setTimer);
   }
 
   String _char = "";
