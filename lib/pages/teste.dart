@@ -1,4 +1,7 @@
 import 'package:dezmente/super/super.dart';
+import 'package:dezmente/widgets/test/test_animals.dart';
+import 'package:dezmente/widgets/test/test_conection.dart';
+import 'package:dezmente/widgets/test/test_cube.dart';
 import 'package:flutter/material.dart';
 
 import 'package:dezmente/widgets/help.dart';
@@ -6,9 +9,7 @@ import 'package:dezmente/widgets/debugSelectTest.dart';
 
 import 'package:dezmente/widgets/test/test_abstraction.dart';
 import 'package:dezmente/widgets/test/test_clock.dart';
-import 'package:dezmente/widgets/test/test_cube.dart';
 import 'package:dezmente/widgets/test/test_memory.dart';
-import 'package:dezmente/widgets/test/test_conection.dart';
 
 class Teste extends StatefulWidget {
   const Teste({Key? key}) : super(key: key);
@@ -23,11 +24,15 @@ SuperTest currentTest = _testes.first();
 GlobalObjectKey<SuperTestState> _globalKey = const GlobalObjectKey("key");
 
 int index = 0;
+
 List<Function> _testes = [
   () => TestConection(
         key: _globalKey,
       ),
   () => TestCube(
+        key: _globalKey,
+      ),
+  () => TestAnimals(
         key: _globalKey,
       ),
   () => TestMemory(
@@ -49,6 +54,7 @@ List<Function> _testes = [
 List<String> _testeNames = [
   "Test Conection",
   "Test Cube",
+  "Test Animals",
   "Test Memory Memorize",
   "Test Clock",
   "Test Abstraction",
@@ -60,8 +66,8 @@ class _TesteState extends State<Teste> {
   void initState() {
     super.initState();
     WidgetsBinding.instance!.addPostFrameCallback(
-      (timeStamp) {
-        Navigator.of(context).push(
+      (timeStamp) async {
+        await Navigator.of(context).push(
           PageRouteBuilder(
             opaque: false,
             pageBuilder: (context, animation, secondaryAnimation) =>
@@ -75,6 +81,7 @@ class _TesteState extends State<Teste> {
             ),
           ),
         );
+        _globalKey.currentState?.init();
       },
     );
   }
@@ -127,13 +134,13 @@ class _TesteState extends State<Teste> {
                     },
               onPressed: () {
                 setState(
-                  () {
-                    if (_globalKey.currentState?.data.code == Code.next) {
+                  () async {
+                    if (_globalKey.currentState?.getData().code == Code.next) {
                       if (index < _testes.length - 1) {
                         index++;
                         currentTest = _testes[index]();
 
-                        Navigator.of(context).push(
+                        await Navigator.of(context).push(
                           PageRouteBuilder(
                             opaque: false,
                             pageBuilder:
@@ -148,6 +155,7 @@ class _TesteState extends State<Teste> {
                             ),
                           ),
                         );
+                        _globalKey.currentState?.init();
                       }
                     }
                   },

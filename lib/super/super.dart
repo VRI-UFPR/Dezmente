@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
 abstract class SuperTest extends StatefulWidget {
-  // final ValueGetter<TestData> getData;
-
   @override
   const SuperTest({Key? key}) : super(key: key);
 
@@ -23,6 +21,12 @@ abstract class SuperTestState<T extends StatefulWidget> extends State<T> {
 
   @factory
   erase();
+
+  // @override
+  // void initState() {
+  //   init();
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
