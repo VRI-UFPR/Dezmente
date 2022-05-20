@@ -23,7 +23,7 @@ class HelpTemplateButton extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white70,
       body: Container(
-        margin: const EdgeInsets.fromLTRB(20, 30, 20, 20),
+        margin: const EdgeInsets.all(30),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
