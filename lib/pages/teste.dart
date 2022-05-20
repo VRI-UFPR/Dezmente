@@ -24,6 +24,7 @@ SuperTest currentTest = _testes.first();
 GlobalObjectKey<SuperTestState> _globalKey = const GlobalObjectKey("key");
 
 int index = 0;
+
 List<Function> _testes = [
   () => TestConection(
         key: _globalKey,
@@ -53,6 +54,7 @@ List<Function> _testes = [
 List<String> _testeNames = [
   "Test Conection",
   "Test Cube",
+  "Test Animals",
   "Test Memory Memorize",
   "Test Clock",
   "Test Abstraction",
@@ -64,8 +66,8 @@ class _TesteState extends State<Teste> {
   void initState() {
     super.initState();
     WidgetsBinding.instance!.addPostFrameCallback(
-      (timeStamp) {
-        Navigator.of(context).push(
+      (timeStamp) async {
+        await Navigator.of(context).push(
           PageRouteBuilder(
             opaque: false,
             pageBuilder: (context, animation, secondaryAnimation) =>
@@ -79,6 +81,7 @@ class _TesteState extends State<Teste> {
             ),
           ),
         );
+        _globalKey.currentState?.init();
       },
     );
   }
@@ -131,13 +134,13 @@ class _TesteState extends State<Teste> {
                     },
               onPressed: () {
                 setState(
-                  () {
+                  () async {
                     if (_globalKey.currentState?.getData().code == Code.next) {
                       if (index < _testes.length - 1) {
                         index++;
                         currentTest = _testes[index]();
 
-                        Navigator.of(context).push(
+                        await Navigator.of(context).push(
                           PageRouteBuilder(
                             opaque: false,
                             pageBuilder:
@@ -152,6 +155,7 @@ class _TesteState extends State<Teste> {
                             ),
                           ),
                         );
+                        _globalKey.currentState?.init();
                       }
                     }
                   },

@@ -20,12 +20,13 @@ class DebugSelectTestState extends SuperTestState<DebugSelectTest> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-        itemCount: widget.testList.length,
-        itemBuilder: (_, int index) {
-          return ListTile(
-              onTap: () => widget.onTestSelected(index),
-              trailing: const SizedBox.shrink(),
-              title: Text(widget.testList[index]));
-        });
+      itemCount: widget.testList.length,
+      itemBuilder: (_, int index) {
+        return ListTile(
+            onTap: () => widget.onTestSelected(index),
+            trailing: const SizedBox.shrink(),
+            title: Text(widget.testList[index]));
+      },
+    );
   }
 }
