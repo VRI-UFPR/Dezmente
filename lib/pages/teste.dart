@@ -24,6 +24,7 @@ SuperTest currentTest = _testes.first();
 GlobalObjectKey<SuperTestState> _globalKey = const GlobalObjectKey("key");
 
 int index = 0;
+
 List<Function> _testes = [
   () => TestConection(
         key: _globalKey,
