@@ -32,7 +32,7 @@ class TestMemoryState extends SuperTestState<TestMemory> {
   erase() {}
 
   initMemorize() {
-    final randomPicker = List<int>.generate(12, (i) => i + 1)..shuffle();
+    final randomPicker = List<int>.generate(12, (i) => i)..shuffle();
 
     for (int i = 0; i < 4; i++) {
       words[randomPicker[i]].selected = true;

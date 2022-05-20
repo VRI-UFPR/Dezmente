@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 class DebugSelectTest extends SuperTest {
   final List<String> testList;
   final ValueSetter<int> onTestSelected;
+
   const DebugSelectTest(
       {Key? key, required this.testList, required this.onTestSelected})
       : super(key: key);
@@ -18,15 +19,13 @@ class DebugSelectTestState extends SuperTestState<DebugSelectTest> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: ListView.builder(
-          itemCount: widget.testList.length,
-          itemBuilder: (_, int index) {
-            return ListTile(
-                onTap: () => widget.onTestSelected(index),
-                trailing: const SizedBox.shrink(),
-                title: Text(widget.testList[index]));
-          }),
-    );
+    return ListView.builder(
+        itemCount: widget.testList.length,
+        itemBuilder: (_, int index) {
+          return ListTile(
+              onTap: () => widget.onTestSelected(index),
+              trailing: const SizedBox.shrink(),
+              title: Text(widget.testList[index]));
+        });
   }
 }

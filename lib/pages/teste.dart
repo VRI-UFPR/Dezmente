@@ -96,9 +96,11 @@ class _TesteState extends State<Teste> {
                 style: TextStyle(color: Color(0xff060607)),
               ),
               onPressed: () {
-                setState(() {
-                  _globalKey.currentState?.erase();
-                });
+                setState(
+                  () {
+                    _globalKey.currentState?.erase();
+                  },
+                );
               },
             ),
             TextButton.icon(
@@ -110,38 +112,46 @@ class _TesteState extends State<Teste> {
               onLongPress: !debugMode
                   ? null
                   : () {
-                      setState(() {
-                        currentTest = DebugSelectTest(
-                          testList: _testeNames,
-                          onTestSelected: (i) {
-                            setState(() {
-                              currentTest = _testes[i]();
-                            });
-                          },
-                        );
-                      });
+                      setState(
+                        () {
+                          currentTest = DebugSelectTest(
+                            testList: _testeNames,
+                            onTestSelected: (i) {
+                              setState(() {
+                                currentTest = _testes[i]();
+                              });
+                            },
+                          );
+                        },
+                      );
                     },
               onPressed: () {
-                setState(() {
-                  timeSpended =
-                      DateTime.now().millisecondsSinceEpoch - timeSpended;
-                  if (index < _testes.length - 1) {
-                    index++;
-                    currentTest = _testes[index]();
+                setState(
+                  () {
+                    if (_globalKey.currentState?.data.code == Code.next) {
+                      if (index < _testes.length - 1) {
+                        index++;
+                        currentTest = _testes[index]();
 
-                    Navigator.of(context).push(PageRouteBuilder(
-                        opaque: false,
-                        pageBuilder: (context, animation, secondaryAnimation) =>
-                            HelpTemplateButton(
+                        Navigator.of(context).push(
+                          PageRouteBuilder(
+                            opaque: false,
+                            pageBuilder:
+                                (context, animation, secondaryAnimation) =>
+                                    HelpTemplateButton(
                               callback: () {
                                 Navigator.pop(this.context);
                               },
                               title: "",
                               description: currentTest.description,
                               buttonText: "Começar",
-                            )));
-                  }
-                });
+                            ),
+                          ),
+                        );
+                      }
+                    }
+                  },
+                );
               },
             ),
             TextButton.icon(
