@@ -5,7 +5,9 @@ class TestMemory extends SuperTest {
   @override
   final description = "Leia as palavras destacadas em voz alta e as memorize";
 
-  const TestMemory({Key? key}) : super(key: key);
+  final bool editMode;
+
+  const TestMemory({Key? key, required this.editMode}) : super(key: key);
 
   @override
   TestMemoryState createState() => TestMemoryState();
@@ -18,26 +20,39 @@ class _Word {
   bool selected = false;
 }
 
-class TestMemoryState extends SuperTestState {
+class TestMemoryState extends SuperTestState<TestMemory> {
   @override
-  erase() {
-    print("hey");
+  void initState() {
+    super.initState();
+
+    if (!widget.editMode) initMemorize();
+  }
+
+  @override
+  erase() {}
+
+  initMemorize() {
+    final randomPicker = List<int>.generate(12, (i) => i + 1)..shuffle();
+
+    for (int i = 0; i < 4; i++) {
+      words[randomPicker[i]].selected = true;
+    }
   }
 
   List<_Word> words = [
     _Word("Amarelo", false),
     _Word("Seda", false),
-    _Word("Barriga", true),
+    _Word("Barriga", false),
     _Word("Orquidea", false),
     _Word("Perna", false),
     _Word("Casa", false),
-    _Word("Azul", true),
+    _Word("Azul", false),
     _Word("Braço", false),
-    _Word("Porcelana", true),
+    _Word("Porcelana", false),
     _Word("Algodão", false),
     _Word("Rosa", false),
     _Word("Igreja", false),
-    _Word("Violeta", true),
+    _Word("Violeta", false),
     _Word("Pescoço", false),
   ];
 
@@ -59,18 +74,20 @@ class TestMemoryState extends SuperTestState {
         itemCount: 12,
         itemBuilder: (_, int index) {
           return InkWell(
-            onTap: () {
-              setState(() {
-                words[index].selected = !words[index].selected;
-              });
-            },
+            onTap: !widget.editMode
+                ? null
+                : () {
+                    setState(() {
+                      words[index].selected = !words[index].selected;
+                    });
+                  },
             child: GridTile(
               child: Container(
                 height: 10,
                 alignment: Alignment.center,
                 margin: EdgeInsets.symmetric(
                     horizontal: 30, vertical: itemHeight / 4),
-                decoration: !words[index].selected
+                decoration: words[index].selected
                     ? BoxDecoration(
                         color: Colors.amber,
                         //borderRadius: BorderRadius.circular(100),
@@ -83,7 +100,7 @@ class TestMemoryState extends SuperTestState {
                       ),
                 child: Text(
                   words[index].text,
-                  style: !words[index].selected
+                  style: words[index].selected
                       ? const TextStyle(
                           color: Colors.black,
                           fontFamily: 'Montserrat',

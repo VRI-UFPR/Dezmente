@@ -32,6 +32,7 @@ List<Function> _testes = [
       ),
   () => TestMemory(
         key: _globalKey,
+        editMode: false,
       ),
   () => TestClock(
         key: _globalKey,
@@ -39,14 +40,19 @@ List<Function> _testes = [
   () => TestAbstraction(
         key: _globalKey,
       ),
+  () => TestMemory(
+        key: _globalKey,
+        editMode: true,
+      ),
 ];
 
 List<String> _testeNames = [
   "Test Conection",
   "Test Cube",
-  "Test Memory",
+  "Test Memory Memorize",
   "Test Clock",
-  "Test Abstraction"
+  "Test Abstraction",
+  "Test Memory Check",
 ];
 
 class _TesteState extends State<Teste> {
