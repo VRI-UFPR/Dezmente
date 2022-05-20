@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:dezmente/super/supertest.dart';
+import 'package:dezmente/super/super.dart';
 import 'package:flutter/material.dart';
 
 class TestVigilance extends SuperTest {
@@ -21,6 +21,13 @@ const chars = [
 class TestVigilanceState extends SuperTestState {
   @override
   erase() {}
+
+  @override
+  init() {
+    super.init();
+    data.code = Code.next;
+    setTimer();
+  }
 
   String _char = "";
   int _acertos = 0;
@@ -48,14 +55,6 @@ class TestVigilanceState extends SuperTestState {
       _char = chars[_index];
     });
   }
-
-  @override
-  initState() {
-    super.initState();
-    setTimer();
-  }
-
-  int timeSpended = DateTime.now().millisecondsSinceEpoch;
 
   @override
   Widget build(BuildContext context) => GestureDetector(
