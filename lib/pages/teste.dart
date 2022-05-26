@@ -1,4 +1,5 @@
 import 'package:dezmente/super/super.dart';
+import 'package:dezmente/widgets/debug_select_test.dart';
 import 'package:dezmente/widgets/test/test_abstraction.dart';
 import 'package:dezmente/widgets/test/test_animals.dart';
 import 'package:dezmente/widgets/test/test_clock.dart';
@@ -9,7 +10,6 @@ import 'package:dezmente/widgets/test/test_vigilance.dart';
 import 'package:flutter/material.dart';
 
 import 'package:dezmente/widgets/help.dart';
-import 'package:dezmente/widgets/debugSelectTest.dart';
 
 class Teste extends StatefulWidget {
   const Teste({Key? key}) : super(key: key);
@@ -59,6 +59,7 @@ List<String> _testeNames = [
   "Test Cube",
   "Test Animals",
   "Test Memory Memorize",
+  "Test Vigilance",
   "Test Clock",
   "Test Abstraction",
   "Test Memory Check",
