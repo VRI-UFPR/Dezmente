@@ -5,7 +5,7 @@ import 'package:dezmente/widgets/test/test_cube.dart';
 import 'package:flutter/material.dart';
 
 import 'package:dezmente/widgets/help.dart';
-import 'package:dezmente/widgets/debugSelectTest.dart';
+import 'package:dezmente/widgets/debug_select_test.dart';
 
 import 'package:dezmente/widgets/test/test_abstraction.dart';
 import 'package:dezmente/widgets/test/test_clock.dart';
