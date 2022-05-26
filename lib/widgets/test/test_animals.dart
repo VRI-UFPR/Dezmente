@@ -62,6 +62,7 @@ class TestAnimalsState extends SuperTestState {
 
   @override
   initState() {
+    super.initState();
     int max = imageNames.length;
     int randomIndex = _random.nextInt(max - 0);
     _file = imageNames.values.elementAt(randomIndex);

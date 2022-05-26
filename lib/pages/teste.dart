@@ -132,34 +132,31 @@ class _TesteState extends State<Teste> {
                         },
                       );
                     },
-              onPressed: () {
-                setState(
-                  () async {
-                    if (_globalKey.currentState?.getData().code == Code.next) {
-                      if (index < _testes.length - 1) {
-                        index++;
-                        currentTest = _testes[index]();
+              onPressed: () async {
+                if (_globalKey.currentState?.getData().code == Code.next) {
+                  if (index < _testes.length - 1) {
+                    setState(() {
+                      index++;
+                      currentTest = _testes[index]();
+                    });
 
-                        await Navigator.of(context).push(
-                          PageRouteBuilder(
-                            opaque: false,
-                            pageBuilder:
-                                (context, animation, secondaryAnimation) =>
-                                    HelpTemplateButton(
-                              callback: () {
-                                Navigator.pop(this.context);
-                              },
-                              title: "",
-                              description: currentTest.description,
-                              buttonText: "Começar",
-                            ),
-                          ),
-                        );
-                        _globalKey.currentState?.init();
-                      }
-                    }
-                  },
-                );
+                    await Navigator.of(context).push(
+                      PageRouteBuilder(
+                        opaque: false,
+                        pageBuilder: (context, animation, secondaryAnimation) =>
+                            HelpTemplateButton(
+                          callback: () {
+                            Navigator.pop(this.context);
+                          },
+                          title: "",
+                          description: currentTest.description,
+                          buttonText: "Começar",
+                        ),
+                      ),
+                    );
+                    _globalKey.currentState?.init();
+                  }
+                }
               },
             ),
             TextButton.icon(
