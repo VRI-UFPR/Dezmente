@@ -34,7 +34,7 @@ List<_ConectButtons> _buttons = [
 
 class TestConection extends SuperTest {
   @override
-  final description =
+  get description =>
       "Clique no número e depois na letra em ordem ascendente Ex: 1-A-2";
 
   const TestConection({Key? key}) : super(key: key);

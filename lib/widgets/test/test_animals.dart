@@ -5,7 +5,7 @@ import 'dart:math';
 
 class TestAnimals extends SuperTest {
   @override
-  final description = "Digite o nome dos animais que aparecem na tela";
+  get description => "Digite o nome dos animais que aparecem na tela";
 
   const TestAnimals({Key? key}) : super(key: key);
 

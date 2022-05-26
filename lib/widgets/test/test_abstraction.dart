@@ -3,7 +3,7 @@ import 'package:dezmente/super/super.dart';
 
 class TestAbstraction extends SuperTest {
   @override
-  final description = "Clique na imagem que não pertence ao grupo";
+  get description => "Clique na imagem que não pertence ao grupo";
 
   const TestAbstraction({Key? key}) : super(key: key);
 
