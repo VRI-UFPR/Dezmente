@@ -10,11 +10,13 @@ abstract class SuperTest extends StatefulWidget {
 abstract class SuperTestState<T extends StatefulWidget> extends State<T> {
   TestData data = TestData(timeStamp: 0);
 
+  @mustCallSuper
   TestData getData() {
     data.timeStamp = DateTime.now().millisecondsSinceEpoch - data.timeStamp;
     return data;
   }
 
+  @mustCallSuper
   init() {
     data.timeStamp = DateTime.now().millisecondsSinceEpoch;
   }
