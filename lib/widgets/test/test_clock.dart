@@ -232,8 +232,8 @@ class _TestClockState extends SuperTestState {
 
   double _panHandler(DragUpdateDetails d) {
     /// Pan location on the wheel
-    bool onTop = d.localPosition.dy <= radius;
-    bool onLeftSide = d.localPosition.dx <= radius;
+    bool onTop = d.localPosition.dy <= 150;
+    bool onLeftSide = d.localPosition.dx <= 150;
     bool onRightSide = !onLeftSide;
     bool onBottom = !onTop;
 
