@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class TestMemory extends SuperTest {
   @override
-  final description = "Leia as palavras destacadas em voz alta e as memorize";
+  get description => "Leia as palavras destacadas em voz alta e as memorize";
 
   final bool editMode;
 
@@ -25,18 +25,21 @@ class TestMemoryState extends SuperTestState<TestMemory> {
   void initState() {
     super.initState();
 
-    if (!widget.editMode) initMemorize();
+    if (!widget.editMode) {
+      final randomPicker = List<int>.generate(12, (i) => i)..shuffle();
+
+      for (int i = 0; i < 4; i++) {
+        words[randomPicker[i]].selected = true;
+      }
+    }
   }
 
   @override
   erase() {}
 
-  initMemorize() {
-    final randomPicker = List<int>.generate(12, (i) => i)..shuffle();
-
-    for (int i = 0; i < 4; i++) {
-      words[randomPicker[i]].selected = true;
-    }
+  @override
+  TestData getData() {
+    return super.getData();
   }
 
   List<_Word> words = [

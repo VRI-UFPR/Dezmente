@@ -146,7 +146,6 @@ class _TestClockState extends SuperTestState {
         setState(() {
           score[index] = data;
         });
-        print(score);
       },
       onLeave: (data) => {},
     );
