@@ -19,56 +19,90 @@ class Teste extends StatefulWidget {
 }
 
 const debugMode = true;
-
-SuperTest currentTest = _testes.first();
 GlobalObjectKey<SuperTestState> _globalKey = const GlobalObjectKey("key");
 
-int index = 0;
-
-List<Function> _testes = [
-  () => TestConection(
-        key: _globalKey,
-      ),
-  () => TestCube(
-        key: _globalKey,
-      ),
-  () => TestAnimals(
-        key: _globalKey,
-      ),
-  () => TestMemory(
-        key: _globalKey,
-        editMode: false,
-      ),
-  () => TestVigilance(
-        key: _globalKey,
-      ),
-  () => TestClock(
-        key: _globalKey,
-      ),
-  () => TestAbstraction(
-        key: _globalKey,
-      ),
-  () => TestMemory(
-        key: _globalKey,
-        editMode: true,
-      ),
-];
-
-List<String> _testeNames = [
-  "Test Conection",
-  "Test Cube",
-  "Test Animals",
-  "Test Memory Memorize",
-  "Test Vigilance",
-  "Test Clock",
-  "Test Abstraction",
-  "Test Memory Check",
-];
-
 class _TesteState extends State<Teste> {
+  late SuperTest currentTest;
+  int index = 0;
+
+  void nextTest() async {
+    if (_globalKey.currentState?.getData().code == Code.next) {
+      if (index < _testes.length - 1) {
+        setState(() {
+          index++;
+          currentTest = _testes[index]();
+        });
+
+        await Navigator.of(context).push(
+          PageRouteBuilder(
+            opaque: false,
+            pageBuilder: (context, animation, secondaryAnimation) =>
+                HelpTemplateButton(
+              callback: () {
+                Navigator.pop(this.context);
+              },
+              title: "",
+              description: currentTest.description,
+              buttonText: "Começar",
+            ),
+          ),
+        );
+        _globalKey.currentState?.init();
+      }
+    }
+  }
+
+  late final List<Function> _testes;
+
+  final List<String> _testeNames = [
+    "Test Conection",
+    "Test Cube",
+    "Test Animals",
+    "Test Memory Memorize",
+    "Test Vigilance",
+    "Test Clock",
+    "Test Abstraction",
+    "Test Memory Check",
+  ];
+
   @override
   void initState() {
     super.initState();
+
+    _testes = [
+      () => TestConection(
+            key: _globalKey,
+          ),
+      () => TestCube(
+            key: _globalKey,
+          ),
+      () => TestAnimals(
+            key: _globalKey,
+          ),
+      () => TestMemory(
+            key: _globalKey,
+            editMode: false,
+          ),
+      () => TestVigilance(
+            key: _globalKey,
+            completeOnFinalChar: () {
+              nextTest();
+            },
+          ),
+      () => TestClock(
+            key: _globalKey,
+          ),
+      () => TestAbstraction(
+            key: _globalKey,
+          ),
+      () => TestMemory(
+            key: _globalKey,
+            editMode: true,
+          ),
+    ];
+
+    currentTest = _testes.first();
+
     WidgetsBinding.instance!.addPostFrameCallback(
       (timeStamp) async {
         await Navigator.of(context).push(
@@ -136,31 +170,8 @@ class _TesteState extends State<Teste> {
                         },
                       );
                     },
-              onPressed: () async {
-                if (_globalKey.currentState?.getData().code == Code.next) {
-                  if (index < _testes.length - 1) {
-                    setState(() {
-                      index++;
-                      currentTest = _testes[index]();
-                    });
-
-                    await Navigator.of(context).push(
-                      PageRouteBuilder(
-                        opaque: false,
-                        pageBuilder: (context, animation, secondaryAnimation) =>
-                            HelpTemplateButton(
-                          callback: () {
-                            Navigator.pop(this.context);
-                          },
-                          title: "",
-                          description: currentTest.description,
-                          buttonText: "Começar",
-                        ),
-                      ),
-                    );
-                    _globalKey.currentState?.init();
-                  }
-                }
+              onPressed: () {
+                nextTest();
               },
             ),
             TextButton.icon(

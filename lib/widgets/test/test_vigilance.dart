@@ -5,9 +5,11 @@ import 'package:flutter/material.dart';
 
 class TestVigilance extends SuperTest {
   @override
-  final description = "Clique no botão na tela toda vez que aparecer a letra A";
+  get description => "Clique no botão na tela toda vez que aparecer a letra A";
+  final VoidCallback completeOnFinalChar;
 
-  const TestVigilance({Key? key}) : super(key: key);
+  const TestVigilance({Key? key, required this.completeOnFinalChar})
+      : super(key: key);
 
   @override
   TestVigilanceState createState() => TestVigilanceState();
@@ -18,7 +20,7 @@ const chars = [
   "A", "K", "D", "E", "A", "A", "A", "J", "A", "M", "O", "F", "A", "A", "B"
 ];
 
-class TestVigilanceState extends SuperTestState {
+class TestVigilanceState extends SuperTestState<TestVigilance> {
   @override
   erase() {}
 
@@ -39,6 +41,7 @@ class TestVigilanceState extends SuperTestState {
   void setTimer() {
     if (_index == chars.length - 1) {
       print(_acertos / chars.length);
+      widget.completeOnFinalChar();
       return;
     }
     setNextChar();
