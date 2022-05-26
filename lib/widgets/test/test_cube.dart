@@ -26,7 +26,7 @@ int timeSpended = DateTime.now().millisecondsSinceEpoch;
 
 class TestCube extends SuperTest {
   @override
-  final description =
+  get description =>
       "Clique na imagem que forma o cubo com uma face pintada de cinza e a oposta de quadriculado, conforme a figura:";
 
   const TestCube({Key? key}) : super(key: key);

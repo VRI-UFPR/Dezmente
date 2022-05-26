@@ -1,13 +1,10 @@
-import 'dart:ui' as ui;
-import 'dart:math';
-
 import 'package:circular_widgets/circular_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:dezmente/super/super.dart';
 
 class TestClock extends SuperTest {
   @override
-  final description =
+  get description =>
       "Coloque os números no lugar apropriado no relógio e indique o horário 14:50 com os ponteiros:";
 
   const TestClock({Key? key}) : super(key: key);
@@ -232,8 +229,8 @@ class _TestClockState extends SuperTestState {
 
   double _panHandler(DragUpdateDetails d) {
     /// Pan location on the wheel
-    bool onTop = d.localPosition.dy <= radius;
-    bool onLeftSide = d.localPosition.dx <= radius;
+    bool onTop = d.localPosition.dy <= 150;
+    bool onLeftSide = d.localPosition.dx <= 150;
     bool onRightSide = !onLeftSide;
     bool onBottom = !onTop;
 
