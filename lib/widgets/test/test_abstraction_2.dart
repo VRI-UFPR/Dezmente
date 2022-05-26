@@ -6,9 +6,7 @@ class TesteAbstraction2 extends SuperTest {
   @override
   final description = "Selecione a imagem que completa a figura";
 
-  final bool editMode;
-
-  const TesteAbstraction2({Key? key, required this.editMode}) : super(key: key);
+  const TesteAbstraction2({Key? key}) : super(key: key);
 
   @override
   TesteAbstraction2State createState() => TesteAbstraction2State();
@@ -17,6 +15,16 @@ class TesteAbstraction2 extends SuperTest {
 class TesteAbstraction2State extends SuperTestState<TesteAbstraction2> {
   @override
   erase() {}
+
+  @override
+  TestData getData() {
+    if (selected == 4) {
+      print("Acertou");
+    } else {
+      print("Errou");
+    }
+    return super.getData();
+  }
 
   int selected = -1;
 
@@ -53,13 +61,11 @@ class TesteAbstraction2State extends SuperTestState<TesteAbstraction2> {
       ]);
 
   Widget _buildSelectable(_, int index) => InkWell(
-        onTap: !widget.editMode
-            ? null
-            : () {
-                setState(() {
-                  selected = index;
-                });
-              },
+        onTap: () {
+          setState(() {
+            selected = index;
+          });
+        },
         child: Container(
           margin: const EdgeInsets.all(5),
           padding: index == selected
