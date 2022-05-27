@@ -231,17 +231,13 @@ class _TestClockState extends SuperTestState {
   }
 
   double _panHandler(DragUpdateDetails d, double radius) {
-    double xb = 150;
-    double xa = d.localPosition.dx;
-    double yb = 150;
-    double ya = d.localPosition.dy;
+    double xa = 150;
+    double xb = d.localPosition.dx;
+    double ya = 150;
+    double yb = d.localPosition.dy;
 
-    double ham = atan((xb - xa) / (ya - yb));
+    double ham = atan2((xb - xa), (ya - yb));
 
-    double sen = 0;
-
-    yb > ya ? sen = 1 : sen = -1;
-
-    return sen == 1 ? ham : pi + ham;
+    return ham;
   }
 }
