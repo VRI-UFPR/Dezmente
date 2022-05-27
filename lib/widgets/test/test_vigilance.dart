@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:audioplayers/audio_cache.dart';
 import 'package:dezmente/super/super.dart';
 import 'package:flutter/material.dart';
 
@@ -23,6 +24,8 @@ const chars = [
 class TestVigilanceState extends SuperTestState<TestVigilance> {
   @override
   erase() {}
+
+  final AudioCache _audioCache = AudioCache();
 
   @override
   init() {
@@ -56,6 +59,13 @@ class TestVigilanceState extends SuperTestState<TestVigilance> {
     setState(() {
       _char = chars[_index];
     });
+  }
+
+  Future<void> onTap() async {
+    clearTimer();
+    await _audioCache.play('audio/bell-ding.mp3');
+    if (_char == "A") _acertos++;
+    setTimer();
   }
 
   @override
@@ -99,11 +109,7 @@ class TestVigilanceState extends SuperTestState<TestVigilance> {
                 style: TextStyle(fontSize: 24),
               ),
             ),
-            onTap: () {
-              clearTimer();
-              if (_char == "A") _acertos++;
-              setTimer();
-            },
+            onTap: onTap,
           ),
         ),
       );
