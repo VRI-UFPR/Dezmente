@@ -242,6 +242,6 @@ class _TestClockState extends SuperTestState {
 
     yb > ya ? sen = 1 : sen = -1;
 
-    return sen == 1 ? asin(sin(ham)) : pi + asin(sin(ham));
+    return sen == 1 ? ham : pi + ham;
   }
 }
