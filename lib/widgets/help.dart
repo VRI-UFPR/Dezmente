@@ -21,7 +21,7 @@ class HelpTemplateButton extends StatelessWidget {
     final double screenHeightFactor = MediaQuery.of(context).size.height / 640;
     //final double screenWidthFactor = MediaQuery.of(context).size.width / 360;
     return Scaffold(
-      backgroundColor: Colors.white70,
+      backgroundColor: Color.fromARGB(200, 255, 255, 255),
       body: Container(
         margin: const EdgeInsets.all(30),
         child: Column(
