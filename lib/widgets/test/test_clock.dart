@@ -1,10 +1,13 @@
+import 'dart:ui' as ui;
+import 'dart:math';
+
 import 'package:circular_widgets/circular_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:dezmente/super/super.dart';
 
 class TestClock extends SuperTest {
   @override
-  get description =>
+  final description =
       "Coloque os números no lugar apropriado no relógio e indique o horário 14:50 com os ponteiros:";
 
   const TestClock({Key? key}) : super(key: key);
@@ -146,6 +149,7 @@ class _TestClockState extends SuperTestState {
         setState(() {
           score[index] = data;
         });
+        print(score);
       },
       onLeave: (data) => {},
     );
@@ -187,7 +191,7 @@ class _TestClockState extends SuperTestState {
         GestureDetector(
           onPanUpdate: (details) {
             setState(() {
-              angleMinute += _panHandler(details);
+              angleMinute += _panHandler(details, 390 * scrWfactor);
             });
           },
           child: _clockHand(angleMinute, 115 * scrWfactor),
@@ -195,7 +199,7 @@ class _TestClockState extends SuperTestState {
         GestureDetector(
           onPanUpdate: (details) {
             setState(() {
-              angleHour += _panHandler(details);
+              angleHour += _panHandler(details, (390 * scrWfactor / 2) - 150);
             });
           },
           child: _clockHand(angleHour, 60 * scrWfactor),
@@ -226,37 +230,45 @@ class _TestClockState extends SuperTestState {
     );
   }
 
-  double _panHandler(DragUpdateDetails d) {
-    /// Pan location on the wheel
+  double _panHandler(DragUpdateDetails d, double radius) {
+    const zero = 150;
+
+    // localizacao do mouse
     bool onTop = d.localPosition.dy <= 150;
     bool onLeftSide = d.localPosition.dx <= 150;
     bool onRightSide = !onLeftSide;
     bool onBottom = !onTop;
 
-    /// Pan movements
+    // movimento do mouse
     bool panUp = d.delta.dy <= 0.0;
     bool panLeft = d.delta.dx <= 0.0;
     bool panRight = !panLeft;
     bool panDown = !panUp;
 
-    /// Absoulte change on axis
-    double yChange = d.delta.dy.abs();
-    double xChange = d.delta.dx.abs();
+    // se o movimento e no sentido horario
+    bool clockwise = (onTop && onRightSide && panDown && panRight) ||
+        (onBottom && onRightSide && panDown && panLeft) ||
+        (onBottom && onLeftSide && panUp && panLeft) ||
+        (onTop && onLeftSide && panUp && panRight);
 
-    /// Directional change on wheel
-    double verticalRotation = (onRightSide && panDown) || (onLeftSide && panUp)
-        ? yChange
-        : yChange * -1;
+    double a = sqrt(// cateto A
+        ((d.localPosition.dx - zero) * (d.localPosition.dx - zero)) +
+            ((d.localPosition.dy - zero) * (d.localPosition.dy - zero)));
 
-    double horizontalRotation =
-        (onTop && panRight) || (onBottom && panLeft) ? xChange : xChange * -1;
+    double b = sqrt(((d.localPosition.dx - zero + d.delta.dx) * // cateto B
+            (d.localPosition.dx - zero + d.delta.dx)) +
+        ((d.localPosition.dy - zero + d.delta.dy) *
+            (d.localPosition.dy - zero + d.delta.dy)));
 
-    // Total computed change
-    double rotationalChange =
-        (verticalRotation + horizontalRotation) * (d.delta.distance);
+    double cSq = (d.delta.dx * d.delta.dx) +
+        (d.delta.dy * d.delta.dy); // cateto C ao quadrado
 
-    // Move the page view scroller
-    return rotationalChange * 0.05;
+    double cosAlpha = (cSq - (a * a) - (b * b)) /
+        (-2 * a * b); // lei dos cossenos isolando o cos
+
+    double alpha = acos(cosAlpha); // delta do angulo
+
+    return clockwise ? alpha : alpha; //* -1;
   }
 }
 
