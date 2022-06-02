@@ -1,10 +1,13 @@
+import 'dart:ui' as ui;
+import 'dart:math';
+
 import 'package:circular_widgets/circular_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:dezmente/super/super.dart';
 
 class TestClock extends SuperTest {
   @override
-  get description =>
+  final description =
       "Coloque os números no lugar apropriado no relógio e indique o horário 14:50 com os ponteiros:";
 
   const TestClock({Key? key}) : super(key: key);
@@ -188,7 +191,7 @@ class _TestClockState extends SuperTestState {
         GestureDetector(
           onPanUpdate: (details) {
             setState(() {
-              angleMinute += _panHandler(details);
+              angleMinute = _panHandler(details, 390 * scrWfactor);
             });
           },
           child: _clockHand(angleMinute, 115 * scrWfactor),
@@ -196,7 +199,7 @@ class _TestClockState extends SuperTestState {
         GestureDetector(
           onPanUpdate: (details) {
             setState(() {
-              angleHour += _panHandler(details);
+              angleHour = _panHandler(details, (390 * scrWfactor / 2) - 150);
             });
           },
           child: _clockHand(angleHour, 60 * scrWfactor),
@@ -227,93 +230,14 @@ class _TestClockState extends SuperTestState {
     );
   }
 
-  double _panHandler(DragUpdateDetails d) {
-    /// Pan location on the wheel
-    bool onTop = d.localPosition.dy <= 150;
-    bool onLeftSide = d.localPosition.dx <= 150;
-    bool onRightSide = !onLeftSide;
-    bool onBottom = !onTop;
+  double _panHandler(DragUpdateDetails d, double radius) {
+    double xa = 150;
+    double xb = d.localPosition.dx;
+    double ya = 150;
+    double yb = d.localPosition.dy;
 
-    /// Pan movements
-    bool panUp = d.delta.dy <= 0.0;
-    bool panLeft = d.delta.dx <= 0.0;
-    bool panRight = !panLeft;
-    bool panDown = !panUp;
+    double ham = atan2((xb - xa), (ya - yb));
 
-    /// Absoulte change on axis
-    double yChange = d.delta.dy.abs();
-    double xChange = d.delta.dx.abs();
-
-    /// Directional change on wheel
-    double verticalRotation = (onRightSide && panDown) || (onLeftSide && panUp)
-        ? yChange
-        : yChange * -1;
-
-    double horizontalRotation =
-        (onTop && panRight) || (onBottom && panLeft) ? xChange : xChange * -1;
-
-    // Total computed change
-    double rotationalChange =
-        (verticalRotation + horizontalRotation) * (d.delta.distance);
-
-    // Move the page view scroller
-    return rotationalChange * 0.05;
+    return ham;
   }
 }
-
-// class Arrow extends CustomPainter {
-//   final double height;
-
-//   const Arrow(
-//     this.height,
-//   );
-
-//   @override
-//   void paint(Canvas canvas, Size size) {
-//     final paint = Paint()
-//       ..color = Colors.white
-//       ..strokeWidth = 5;
-
-//     canvas.drawLine(
-//       Offset(size.width * 1 / 2 - 7, size.height * 1 / 2 - 7),
-//       Offset((size.width * 1 / 2) + height, (size.height * 1 / 2) + height),
-//       paint,
-//     );
-//   }
-
-//   @override
-//   bool shouldRepaint(CustomPainter oldDelegate) => true;
-// }
-
-// class RPSCustomPainter extends CustomPainter {
-//   @override
-//   void paint(Canvas canvas, Size size) {
-//     Paint paint0 = Paint()
-//       ..color = const Color.fromARGB(255, 33, 150, 243)
-//       ..style = PaintingStyle.fill
-//       ..strokeWidth = 1;
-//     paint0.shader = ui.Gradient.linear(
-//         Offset(size.width * 0.42, size.height * 0.46),
-//         Offset(size.width * 0.91, size.height * 0.46),
-//         [const Color(0xffffffff), const Color(0xffffffff)],
-//         [0.00, 1.00]);
-
-//     Path path0 = Path();
-//     path0.moveTo(size.width * 0.4166667, size.height * 0.4166667);
-//     path0.lineTo(size.width * 0.4166667, size.height * 0.4983333);
-//     path0.lineTo(size.width * 0.8339083, size.height * 0.4990500);
-//     path0.lineTo(size.width * 0.8333333, size.height * 0.5846333);
-//     path0.lineTo(size.width * 0.9066667, size.height * 0.4583333);
-//     path0.lineTo(size.width * 0.8333333, size.height * 0.3316667);
-//     path0.lineTo(size.width * 0.8333333, size.height * 0.4159333);
-//     path0.lineTo(size.width * 0.4166667, size.height * 0.4166667);
-//     path0.close();
-
-//     canvas.drawPath(path0, paint0);
-//   }
-
-//   @override
-//   bool shouldRepaint(covariant CustomPainter oldDelegate) {
-//     return true;
-//   }
-// }
