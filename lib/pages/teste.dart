@@ -6,6 +6,8 @@ import 'package:dezmente/widgets/test/test_clock.dart';
 import 'package:dezmente/widgets/test/test_conection.dart';
 import 'package:dezmente/widgets/test/test_cube.dart';
 import 'package:dezmente/widgets/test/test_memory.dart';
+import 'package:dezmente/widgets/test/test_memory_questions.dart';
+import 'package:dezmente/widgets/test/test_memory_text.dart';
 import 'package:dezmente/widgets/test/test_vigilance.dart';
 import 'package:flutter/material.dart';
 
@@ -82,6 +84,12 @@ class _TesteState extends State<Teste> {
       () => TestMemory(
             key: _globalKey,
             editMode: false,
+          ),
+      () => TestMemoryText(
+            key: _globalKey,
+          ),
+      () => TestMemoryQuestions(
+            key: _globalKey,
           ),
       () => TestVigilance(
             key: _globalKey,
