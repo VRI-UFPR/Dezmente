@@ -61,6 +61,8 @@ class _TesteState extends State<Teste> {
     "Test Cube",
     "Test Animals",
     "Test Memory Memorize",
+    "Test Memory Text",
+    "Test Memory Questions",
     "Test Vigilance",
     "Test Clock",
     "Test Abstraction",
