@@ -9,6 +9,7 @@ environment:
   sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
+  audioplayers: any
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
@@ -35,6 +36,7 @@ flutter:
     - assets/images/cube/
     - assets/images/animals/
     - assets/images/slices/
+    - assets/audio/
   fonts:
     - family: Montserrat
       fonts:
