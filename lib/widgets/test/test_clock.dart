@@ -231,13 +231,8 @@ class _TestClockState extends SuperTestState {
   }
 
   double _panHandler(DragUpdateDetails d, double radius) {
-    double xa = 150;
-    double xb = d.localPosition.dx;
-    double ya = 150;
-    double yb = d.localPosition.dy;
+    double x = 150 * MediaQuery.of(context).size.width / 360;
 
-    double ham = atan2((xb - xa), (ya - yb));
-
-    return ham;
+    return atan2((d.localPosition.dx - x), (x - d.localPosition.dy));
   }
 }
