@@ -1,4 +1,5 @@
 import 'package:dezmente/super/super.dart';
+import 'package:dezmente/widgets/test/test_abstraction_2.dart';
 import 'package:dezmente/widgets/debug_select_test.dart';
 import 'package:dezmente/widgets/test/test_abstraction.dart';
 import 'package:dezmente/widgets/test/test_animals.dart';
@@ -8,6 +9,8 @@ import 'package:dezmente/widgets/test/test_conection.dart';
 import 'package:dezmente/widgets/test/test_cube.dart';
 import 'package:dezmente/widgets/test/test_memory.dart';
 import 'package:dezmente/widgets/test/test_space_orientation.dart';
+import 'package:dezmente/widgets/test/test_memory_questions.dart';
+import 'package:dezmente/widgets/test/test_memory_text.dart';
 import 'package:dezmente/widgets/test/test_vigilance.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -27,11 +30,11 @@ class _TesteState extends State<Teste> {
   late SuperTest currentTest;
   int index = 0;
 
-  void nextTest() async {
-    if (_globalKey.currentState?.getData().code == Code.next) {
-      if (index < _testes.length - 1) {
+  void nextTest({int i = -1}) async {
+    if (_globalKey.currentState?.getData().code == Code.next || i != -1) {
+      if (i != -1 || index < _testes.length - 1) {
         setState(() {
-          index++;
+          i == -1 ? index++ : index = i;
           currentTest = _testes[index]();
         });
 
@@ -61,9 +64,12 @@ class _TesteState extends State<Teste> {
     "Test Cube",
     "Test Animals",
     "Test Memory Memorize",
+    "Test Memory Text",
+    "Test Memory Questions",
     "Test Vigilance",
     "Test Clock",
     "Test Abstraction",
+    "Test Abstraction 2",
     "Test Memory Check",
     "Test Atention",
     "Test Space Orientation"
@@ -87,6 +93,12 @@ class _TesteState extends State<Teste> {
             key: _globalKey,
             editMode: false,
           ),
+      () => TestMemoryText(
+            key: _globalKey,
+          ),
+      () => TestMemoryQuestions(
+            key: _globalKey,
+          ),
       () => TestVigilance(
             key: _globalKey,
             completeOnFinalChar: () {
@@ -97,6 +109,9 @@ class _TesteState extends State<Teste> {
             key: _globalKey,
           ),
       () => TestAbstraction(
+            key: _globalKey,
+          ),
+      () => TestAbstraction2(
             key: _globalKey,
           ),
       () => TestMemory(
@@ -175,7 +190,7 @@ class _TesteState extends State<Teste> {
                             testList: _testeNames,
                             onTestSelected: (i) {
                               setState(() {
-                                currentTest = _testes[i]();
+                                nextTest(i: i);
                               });
                             },
                           );

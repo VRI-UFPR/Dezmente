@@ -22,6 +22,7 @@ dependencies:
   widget_arrows: ^0.2.0-nullsafety.0
   flutter_chat_bubble: ^2.0.0
   circular_widgets: ^2.0.0
+  flutter_svg: ^1.0.3
 
 dev_dependencies:
   flutter_test:
@@ -34,6 +35,7 @@ flutter:
     - assets/images/
     - assets/images/cube/
     - assets/images/animals/
+    - assets/images/slices/
     - assets/audio/
   fonts:
     - family: Montserrat
