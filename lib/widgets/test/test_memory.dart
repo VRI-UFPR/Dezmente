@@ -31,6 +31,8 @@ class TestMemoryState extends SuperTestState<TestMemory> {
       for (int i = 0; i < words.length; i++) {
         words[i].corrected ? words[i].selected = true : null;
       }
+    } else {
+      words.shuffle();
     }
 
     // if (!widget.editMode) {
