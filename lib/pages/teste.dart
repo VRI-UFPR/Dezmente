@@ -3,6 +3,7 @@ import 'package:dezmente/widgets/test/test_abstraction_2.dart';
 import 'package:dezmente/widgets/debug_select_test.dart';
 import 'package:dezmente/widgets/test/test_abstraction.dart';
 import 'package:dezmente/widgets/test/test_animals.dart';
+import 'package:dezmente/widgets/test/test_atention.dart';
 import 'package:dezmente/widgets/test/test_clock.dart';
 import 'package:dezmente/widgets/test/test_conection.dart';
 import 'package:dezmente/widgets/test/test_cube.dart';
@@ -107,12 +108,15 @@ class _TesteState extends State<Teste> {
       () => TestAbstraction(
             key: _globalKey,
           ),
-      () => TesteAbstraction2(
+      () => TestAbstraction2(
             key: _globalKey,
           ),
       () => TestMemory(
             key: _globalKey,
             editMode: true,
+          ),
+      () => TestAtention(
+            key: _globalKey,
           ),
     ];
 

@@ -2,17 +2,17 @@ import 'package:dezmente/super/super.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-class TesteAbstraction2 extends SuperTest {
+class TestAbstraction2 extends SuperTest {
   @override
   final description = "Selecione a imagem que completa a figura";
 
-  const TesteAbstraction2({Key? key}) : super(key: key);
+  const TestAbstraction2({Key? key}) : super(key: key);
 
   @override
-  TesteAbstraction2State createState() => TesteAbstraction2State();
+  TestAbstraction2State createState() => TestAbstraction2State();
 }
 
-class TesteAbstraction2State extends SuperTestState<TesteAbstraction2> {
+class TestAbstraction2State extends SuperTestState<TestAbstraction2> {
   @override
   erase() {}
 
