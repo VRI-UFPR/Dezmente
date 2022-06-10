@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 
 class TestMemory extends SuperTest {
   @override
-  get description => "Leia as palavras destacadas em voz alta e as memorize";
+  get description => editMode
+      ? "Clique nas palavras que estavam em azul na lista anterior"
+      : "Leia as palavras destacadas em voz alta e as memorize";
 
   final bool editMode;
 
