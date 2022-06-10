@@ -14,9 +14,9 @@ class TestMemory extends SuperTest {
 }
 
 class _Word {
-  _Word(this.text, this.selected);
-
+  _Word(this.text, this.corrected, this.selected);
   String text = "";
+  bool corrected = false;
   bool selected = false;
 }
 
@@ -26,12 +26,18 @@ class TestMemoryState extends SuperTestState<TestMemory> {
     super.initState();
 
     if (!widget.editMode) {
-      final randomPicker = List<int>.generate(12, (i) => i)..shuffle();
-
-      for (int i = 0; i < 4; i++) {
-        words[randomPicker[i]].selected = true;
+      for (int i = 0; i < words.length; i++) {
+        words[i].corrected ? words[i].selected = true : null;
       }
     }
+
+    // if (!widget.editMode) {
+    //   final randomPicker = List<int>.generate(12, (i) => i)..shuffle();
+
+    //   for (int i = 0; i < 4; i++) {
+    //     words[randomPicker[i]].selected = true;
+    //   }
+    // }
   }
 
   @override
@@ -43,26 +49,26 @@ class TestMemoryState extends SuperTestState<TestMemory> {
   }
 
   List<_Word> words = [
-    _Word("Amarelo", false),
-    _Word("Seda", false),
-    _Word("Barriga", false),
-    _Word("Orquidea", false),
-    _Word("Perna", false),
-    _Word("Casa", false),
-    _Word("Azul", false),
-    _Word("Braço", false),
-    _Word("Porcelana", false),
-    _Word("Algodão", false),
-    _Word("Rosa", false),
-    _Word("Igreja", false),
-    _Word("Violeta", false),
-    _Word("Pescoço", false),
+    _Word("Amarelo", false, false),
+    _Word("Braço", true, false),
+    _Word("Seda", true, false),
+    _Word("Porcelana", false, false),
+    _Word("Barriga", false, false),
+    _Word("Algodão", false, false),
+    _Word("Orquidea", true, false),
+    _Word("Rosa", false, false),
+    _Word("Perna", false, false),
+    _Word("Igreja", true, false),
+    _Word("Casa", false, false),
+    _Word("Violeta", false, false),
+    _Word("Azul", true, false),
+    _Word("Pescoço", false, false),
   ];
 
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    final double itemHeight = (size.height - kToolbarHeight) / 7;
+    final double itemHeight = (size.height - kToolbarHeight) / 8;
     final double itemWidth = size.width / 2;
 
     return Container(
@@ -71,10 +77,10 @@ class TestMemoryState extends SuperTestState<TestMemory> {
       child: GridView.builder(
         physics: const NeverScrollableScrollPhysics(),
         padding:
-            EdgeInsetsDirectional.only(top: (size.height - itemHeight * 7)),
+            EdgeInsetsDirectional.only(top: (size.height - itemHeight * 8)),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2, childAspectRatio: (itemWidth / itemHeight)),
-        itemCount: 12,
+        itemCount: 14,
         itemBuilder: (_, int index) {
           return InkWell(
             onTap: !widget.editMode
@@ -89,7 +95,7 @@ class TestMemoryState extends SuperTestState<TestMemory> {
                 height: 10,
                 alignment: Alignment.center,
                 margin: EdgeInsets.symmetric(
-                    horizontal: 30, vertical: itemHeight / 4),
+                    horizontal: 30, vertical: itemHeight / 5),
                 decoration: words[index].selected
                     ? BoxDecoration(
                         color: Colors.amber,
