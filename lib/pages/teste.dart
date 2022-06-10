@@ -1,4 +1,5 @@
 import 'package:dezmente/super/super.dart';
+import 'package:dezmente/widgets/test/test_abstraction_2.dart';
 import 'package:dezmente/widgets/debug_select_test.dart';
 import 'package:dezmente/widgets/test/test_abstraction.dart';
 import 'package:dezmente/widgets/test/test_animals.dart';
@@ -66,6 +67,7 @@ class _TesteState extends State<Teste> {
     "Test Vigilance",
     "Test Clock",
     "Test Abstraction",
+    "Test Abstraction 2",
     "Test Memory Check",
   ];
 
@@ -103,6 +105,9 @@ class _TesteState extends State<Teste> {
             key: _globalKey,
           ),
       () => TestAbstraction(
+            key: _globalKey,
+          ),
+      () => TesteAbstraction2(
             key: _globalKey,
           ),
       () => TestMemory(
