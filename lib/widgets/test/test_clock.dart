@@ -93,7 +93,7 @@ class _TestClockState extends SuperTestState {
                         itemBuilder: (context, index) {
                           return _buildDragTarget(index);
                         },
-                        innerSpacing: 75 * scrWfactor,
+                        innerSpacing: 75 * scrHfactor,
                         radiusOfItem: 40 * scrHfactor,
                       );
                     },

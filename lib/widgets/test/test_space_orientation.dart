@@ -61,6 +61,65 @@ class TestSpaceOrientState extends SuperTestState {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            Container(
+              margin: const EdgeInsets.only(top: 16),
+              width: 320 * scrWfactor,
+              height: 80 * scrHfactor,
+              child: TextField(
+                controller: _monthController,
+                cursorColor: Colors.transparent,
+                style: const TextStyle(
+                  fontFamily: "montserrat",
+                  fontSize: 22,
+                  fontWeight: FontWeight.w600,
+                ),
+                decoration: const InputDecoration(
+                  border: InputBorder.none,
+                  counterStyle: TextStyle(color: Colors.transparent),
+                  fillColor: Color(0xff4cc9f0),
+                  filled: true,
+                  hintText: "Em que dia dos mês nós estamos?",
+                  hintStyle: TextStyle(
+                    fontFamily: "montserrat",
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                keyboardType: TextInputType.number,
+                autocorrect: false,
+                maxLength: 3,
+                onSubmitted: (input) {},
+              ),
+            ),
+            SizedBox(
+              width: 320 * scrWfactor,
+              height: 80 * scrHfactor,
+              child: TextField(
+                controller: _yearController,
+                cursorColor: Colors.transparent,
+                style: const TextStyle(
+                  fontFamily: "montserrat",
+                  fontSize: 22,
+                  fontWeight: FontWeight.w600,
+                ),
+                decoration: const InputDecoration(
+                  border: InputBorder.none,
+                  counterStyle: TextStyle(color: Colors.transparent),
+                  fillColor: Color(0xff4cc9f0),
+                  filled: true,
+                  hintText: "Em que ano estamos?",
+                  hintStyle: TextStyle(
+                    fontFamily: "montserrat",
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                keyboardType: TextInputType.number,
+                autocorrect: false,
+                maxLength: 5,
+                onSubmitted: (input) {},
+              ),
+            ),
             SizedBox(
               width: 320 * scrWfactor,
               height: 80 * scrHfactor,
@@ -80,7 +139,7 @@ class TestSpaceOrientState extends SuperTestState {
                   hintText: "Em que cidade você está?",
                   hintStyle: TextStyle(
                     fontFamily: "montserrat",
-                    fontSize: 18,
+                    fontSize: 13,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -162,65 +221,6 @@ class TestSpaceOrientState extends SuperTestState {
                 onChanged: (value) => setState(() {
                   _dayPeriod = value;
                 }),
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(top: 16),
-              width: 320 * scrWfactor,
-              height: 80 * scrHfactor,
-              child: TextField(
-                controller: _monthController,
-                cursorColor: Colors.transparent,
-                style: const TextStyle(
-                  fontFamily: "montserrat",
-                  fontSize: 22,
-                  fontWeight: FontWeight.w600,
-                ),
-                decoration: const InputDecoration(
-                  border: InputBorder.none,
-                  counterStyle: TextStyle(color: Colors.transparent),
-                  fillColor: Color(0xff4cc9f0),
-                  filled: true,
-                  hintText: "Em que dia dos mês nós estamos?",
-                  hintStyle: TextStyle(
-                    fontFamily: "montserrat",
-                    fontSize: 13,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                keyboardType: TextInputType.name,
-                autocorrect: false,
-                maxLength: 3,
-                onSubmitted: (input) {},
-              ),
-            ),
-            SizedBox(
-              width: 320 * scrWfactor,
-              height: 80 * scrHfactor,
-              child: TextField(
-                controller: _yearController,
-                cursorColor: Colors.transparent,
-                style: const TextStyle(
-                  fontFamily: "montserrat",
-                  fontSize: 22,
-                  fontWeight: FontWeight.w600,
-                ),
-                decoration: const InputDecoration(
-                  border: InputBorder.none,
-                  counterStyle: TextStyle(color: Colors.transparent),
-                  fillColor: Color(0xff4cc9f0),
-                  filled: true,
-                  hintText: "Em que ano estamos?",
-                  hintStyle: TextStyle(
-                    fontFamily: "montserrat",
-                    fontSize: 13,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                keyboardType: TextInputType.name,
-                autocorrect: false,
-                maxLength: 5,
-                onSubmitted: (input) {},
               ),
             ),
           ],

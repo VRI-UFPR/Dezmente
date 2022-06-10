@@ -7,9 +7,10 @@ import 'package:dezmente/widgets/test/test_clock.dart';
 import 'package:dezmente/widgets/test/test_conection.dart';
 import 'package:dezmente/widgets/test/test_cube.dart';
 import 'package:dezmente/widgets/test/test_memory.dart';
+import 'package:dezmente/widgets/test/test_space_orientation.dart';
 import 'package:dezmente/widgets/test/test_vigilance.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter/services.dart';
 import 'package:dezmente/widgets/help.dart';
 
 class Teste extends StatefulWidget {
@@ -64,7 +65,8 @@ class _TesteState extends State<Teste> {
     "Test Clock",
     "Test Abstraction",
     "Test Memory Check",
-    "Test Atention"
+    "Test Atention",
+    "Test Space Orientation"
   ];
 
   @override
@@ -72,9 +74,6 @@ class _TesteState extends State<Teste> {
     super.initState();
 
     _testes = [
-      () => TestAtention(
-            key: _globalKey,
-          ),
       () => TestConection(
             key: _globalKey,
           ),
@@ -104,6 +103,12 @@ class _TesteState extends State<Teste> {
             key: _globalKey,
             editMode: true,
           ),
+      () => TestAtention(
+            key: _globalKey,
+          ),
+      () => TestSpaceOrient(
+            key: _globalKey,
+          ),
     ];
 
     currentTest = _testes.first();
@@ -131,7 +136,9 @@ class _TesteState extends State<Teste> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.leanBack);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: currentTest,
       backgroundColor: const Color(0xffffffff),
       bottomNavigationBar: BottomAppBar(
