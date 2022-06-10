@@ -29,11 +29,11 @@ class _TesteState extends State<Teste> {
   late SuperTest currentTest;
   int index = 0;
 
-  void nextTest() async {
-    if (_globalKey.currentState?.getData().code == Code.next) {
-      if (index < _testes.length - 1) {
+  void nextTest({int i = -1}) async {
+    if (_globalKey.currentState?.getData().code == Code.next || i != -1) {
+      if (i != -1 || index < _testes.length - 1) {
         setState(() {
-          index++;
+          i == -1 ? index++ : index = i;
           currentTest = _testes[index]();
         });
 
@@ -182,7 +182,7 @@ class _TesteState extends State<Teste> {
                             testList: _testeNames,
                             onTestSelected: (i) {
                               setState(() {
-                                currentTest = _testes[i]();
+                                nextTest(i: i);
                               });
                             },
                           );
