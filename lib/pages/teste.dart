@@ -2,6 +2,7 @@ import 'package:dezmente/super/super.dart';
 import 'package:dezmente/widgets/debug_select_test.dart';
 import 'package:dezmente/widgets/test/test_abstraction.dart';
 import 'package:dezmente/widgets/test/test_animals.dart';
+import 'package:dezmente/widgets/test/test_atention.dart';
 import 'package:dezmente/widgets/test/test_clock.dart';
 import 'package:dezmente/widgets/test/test_conection.dart';
 import 'package:dezmente/widgets/test/test_cube.dart';
@@ -63,6 +64,7 @@ class _TesteState extends State<Teste> {
     "Test Clock",
     "Test Abstraction",
     "Test Memory Check",
+    "Test Atention"
   ];
 
   @override
@@ -70,6 +72,9 @@ class _TesteState extends State<Teste> {
     super.initState();
 
     _testes = [
+      () => TestAtention(
+            key: _globalKey,
+          ),
       () => TestConection(
             key: _globalKey,
           ),

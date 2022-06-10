@@ -16,7 +16,9 @@ class TestAtention extends SuperTest {
 
 class TestAtentionState extends SuperTestState {
   @override
-  erase() {}
+  erase() {
+    _textController.clear();
+  }
 
   final List<String> questions = [
     "01) Após dar 7 reais ao primeiro neto, com quantos reais seu Maurício ficou?",
@@ -28,10 +30,11 @@ class TestAtentionState extends SuperTestState {
 
   int questionIndex = -1;
   List<String> answers = [];
+  var _textController = TextEditingController();
 
   @override
   TestData getData() {
-    if (questionIndex == 5) {
+    if (questionIndex == 4) {
       data.code = Code.next;
     } else {
       if (questionIndex == -1) {
@@ -42,6 +45,7 @@ class TestAtentionState extends SuperTestState {
           callback: () {
             setState(() {
               questionIndex++;
+              _textController.clear();
             });
           },
         );
@@ -53,6 +57,7 @@ class TestAtentionState extends SuperTestState {
           callback: () {
             setState(() {
               questionIndex++;
+              _textController.clear();
             });
           },
         );
@@ -170,6 +175,7 @@ class TestAtentionState extends SuperTestState {
             width: 70 * scrWfactor,
             height: 92 * scrHfactor,
             child: TextField(
+              controller: _textController,
               cursorColor: Colors.transparent,
               style: const TextStyle(
                 fontFamily: "montserrat",
@@ -188,6 +194,7 @@ class TestAtentionState extends SuperTestState {
                 setState(() {
                   answers.insert(questionIndex, input);
                   print(answers);
+                  print(questionIndex);
                 });
               },
             ),
