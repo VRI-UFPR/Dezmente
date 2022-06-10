@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:audioplayers/audio_cache.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:dezmente/super/super.dart';
 import 'package:flutter/material.dart';
 

@@ -191,7 +191,7 @@ class _TestClockState extends SuperTestState {
         GestureDetector(
           onPanUpdate: (details) {
             setState(() {
-              angleMinute = _panHandler(details, 390 * scrWfactor);
+              angleMinute = _panHandler(details);
             });
           },
           child: _clockHand(angleMinute, 115 * scrWfactor),
@@ -199,7 +199,7 @@ class _TestClockState extends SuperTestState {
         GestureDetector(
           onPanUpdate: (details) {
             setState(() {
-              angleHour = _panHandler(details, (390 * scrWfactor / 2) - 150);
+              angleHour = _panHandler(details);
             });
           },
           child: _clockHand(angleHour, 60 * scrWfactor),
@@ -230,7 +230,7 @@ class _TestClockState extends SuperTestState {
     );
   }
 
-  double _panHandler(DragUpdateDetails d, double radius) {
+  double _panHandler(DragUpdateDetails d) {
     double x = 150 * MediaQuery.of(context).size.width / 360;
 
     return atan2((d.localPosition.dx - x), (x - d.localPosition.dy));
