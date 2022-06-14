@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:audioplayers/audioplayers.dart';
 import 'package:dezmente/super/super.dart';
 import 'package:flutter/material.dart';
 
@@ -24,8 +23,6 @@ const chars = [
 class TestVigilanceState extends SuperTestState<TestVigilance> {
   @override
   erase() {}
-
-  final AudioCache _audioCache = AudioCache();
 
   @override
   init() {
@@ -63,7 +60,7 @@ class TestVigilanceState extends SuperTestState<TestVigilance> {
 
   Future<void> onTap() async {
     clearTimer();
-    await _audioCache.play('audio/bell-ding.mp3');
+
     if (_char == "A") _acertos++;
     setTimer();
   }
@@ -101,15 +98,16 @@ class TestVigilanceState extends SuperTestState<TestVigilance> {
               color: Color(0xfff95f62),
               borderRadius: BorderRadius.all(Radius.circular(125))),
           child: InkWell(
+            enableFeedback: true,
             splashColor: Colors.pink[200],
             borderRadius: const BorderRadius.all(Radius.circular(125)),
+            onTap: onTap,
             child: const Center(
               child: Text(
                 'CLIQUE',
                 style: TextStyle(fontSize: 24),
               ),
             ),
-            onTap: onTap,
           ),
         ),
       );
