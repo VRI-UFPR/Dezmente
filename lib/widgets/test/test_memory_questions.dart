@@ -35,7 +35,7 @@ class TestMemoryQuestionsState extends SuperTestState {
         ],
         correta: 0),
     Question(
-        pergunta: "01) O que João esqueceu em casa?",
+        pergunta: "02) O que João esqueceu em casa?",
         opcoes: ["a) Carteira", "b) Livro", "c) Cartão", "d) Relógio"],
         correta: 1)
   ];
@@ -89,7 +89,7 @@ class TestMemoryQuestionsState extends SuperTestState {
   Widget _buildText(text) => Text(
         text,
         textAlign: TextAlign.justify,
-        style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
+        style: const TextStyle(fontSize: 26, fontWeight: FontWeight.w600),
       );
 
   Widget _buildOptions(options) => ListView.builder(
@@ -100,13 +100,13 @@ class TestMemoryQuestionsState extends SuperTestState {
       itemBuilder: (context, index) {
         bool isSelected = _selected == index;
         return Padding(
-          padding: const EdgeInsets.symmetric(vertical: 3),
+          padding: const EdgeInsets.symmetric(vertical: 14),
           child: InkWell(
             onTap: () => setState(() => _selected = index),
             child: Text(
               options[index],
               style: TextStyle(
-                  fontSize: 20,
+                  fontSize: 24,
                   fontWeight: isSelected ? FontWeight.w500 : FontWeight.normal,
                   color: isSelected ? Colors.amberAccent : Colors.black),
             ),
