@@ -48,7 +48,7 @@ class TestVigilanceState extends SuperTestState<TestVigilance> {
       return;
     }
     setNextChar();
-    _timer = Timer(const Duration(seconds: 3), () {
+    _timer = Timer(const Duration(seconds: 1), () {
       if (_char != "A") _acertos++;
       setTimer();
     });

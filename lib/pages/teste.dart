@@ -151,9 +151,9 @@ class _TesteState extends State<Teste> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.leanBack);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+        overlays: [SystemUiOverlay.bottom]);
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       body: currentTest,
       backgroundColor: const Color(0xffffffff),
       bottomNavigationBar: BottomAppBar(

@@ -1,4 +1,5 @@
 import 'package:dezmente/super/super.dart';
+import 'package:dezmente/utils/levenshtein_dist.dart';
 import 'package:dezmente/widgets/Dialog/dialog.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
@@ -22,6 +23,7 @@ class TestAnimalsState extends SuperTestState {
   @override
   TestData getData() {
     if (imageNames.isEmpty) {
+      print(_similarity(_animal, controller.text));
       data.code = Code.next;
     } else {
       showAlertDialog(
@@ -50,6 +52,7 @@ class TestAnimalsState extends SuperTestState {
   String _animal = "", _file = "";
 
   void setRandomImage() {
+    print(_similarity(_animal, controller.text));
     int max = imageNames.length;
     int randomIndex = _random.nextInt(max - 0);
     setState(() {
@@ -78,8 +81,7 @@ class TestAnimalsState extends SuperTestState {
   @override
   Widget build(BuildContext context) => GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-      child:
-          Scaffold(body: Center(child: SingleChildScrollView(child: _body()))));
+      child: Center(child: SingleChildScrollView(child: _body())));
 
   _body() {
     return Padding(
@@ -87,9 +89,6 @@ class TestAnimalsState extends SuperTestState {
       child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
         _buildImageBox(),
         _buildInput(),
-        const SizedBox(
-          height: 30,
-        ),
       ]),
     );
   }
@@ -134,4 +133,12 @@ class TestAnimalsState extends SuperTestState {
             borderRadius: BorderRadius.all(Radius.circular(8))),
         child: _buildTextField(),
       );
+
+  double _similarity(String a, String b) {
+    double similarity;
+    a = a.toUpperCase();
+    b = b.toUpperCase();
+    similarity = 1 - levenshteinDist(a, b) / (max(a.length, b.length));
+    return (similarity);
+  }
 }
