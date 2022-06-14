@@ -27,7 +27,7 @@ class TestVigilanceState extends SuperTestState<TestVigilance> {
   @override
   init() {
     super.init();
-    Future.delayed(const Duration(milliseconds: 500), setTimer);
+    Future.delayed(const Duration(milliseconds: 500), setTimerChar);
   }
 
   String _char = "";
@@ -38,31 +38,34 @@ class TestVigilanceState extends SuperTestState<TestVigilance> {
 
   void clearTimer() => _timer.cancel();
 
-  void setTimer() {
+  void setTimerChar() {
     if (_index == chars.length - 1) {
       print(_acertos / chars.length);
       widget.completeOnFinalChar();
       return;
     }
     setNextChar();
-    _timer = Timer(const Duration(seconds: 1), () {
+    _timer = Timer(const Duration(milliseconds: 600), () {
       if (_char != "A") _acertos++;
-      setTimer();
+      setTimerVoid();
     });
+  }
+
+  void setTimerVoid() {
+    setState(() => _char = "");
+    _timer = Timer(const Duration(milliseconds: 400), () => setTimerChar());
   }
 
   void setNextChar() {
     _index++;
-    setState(() {
-      _char = chars[_index];
-    });
+    setState(() => _char = chars[_index]);
   }
 
-  Future<void> onTap() async {
+  void onTap() {
+    if (_char == "") return;
     clearTimer();
-
     if (_char == "A") _acertos++;
-    setTimer();
+    setTimerVoid();
   }
 
   @override
@@ -84,9 +87,9 @@ class TestVigilanceState extends SuperTestState<TestVigilance> {
   }
 
   Widget _buildChar() => Text(_char,
-      style: TextStyle(
-          fontSize: 116,
-          color: _index % 2 == 0 ? Colors.blue[900] : Colors.yellow[800]));
+      style: const TextStyle(
+        fontSize: 116,
+      ));
 
   Widget _buildButton() => Material(
         elevation: 5,
