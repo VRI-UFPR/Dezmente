@@ -11,7 +11,7 @@ showAlertDialog(
 
   ButtonStyle buttonStyle = TextButton.styleFrom(
     backgroundColor: Colors.white.withOpacity(0.6),
-    padding: const EdgeInsets.all(8),
+    padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 14),
     minimumSize: const Size(0, 0),
   );
 
@@ -27,11 +27,6 @@ showAlertDialog(
       style: buttonStyle,
       onPressed: () => Navigator.of(context).pop(),
       child: Text("Não", style: textStyle));
-
-  Widget cancelarButton = TextButton(
-      style: buttonStyle,
-      onPressed: () => Navigator.of(context).pop(),
-      child: Text("Cancelar", style: textStyle));
 
   Widget title = Container(
       padding: const EdgeInsets.all(10),
@@ -62,8 +57,10 @@ showAlertDialog(
     title: title,
     actions: [
       simButton,
+      const SizedBox(
+        width: 10,
+      ),
       naoButton,
-      cancelarButton,
     ],
   ); // show the dialog
   showDialog(
