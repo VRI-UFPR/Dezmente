@@ -4,7 +4,10 @@ import 'package:flutter_svg/svg.dart';
 
 class TestAbstraction2 extends SuperTest {
   @override
-  final description = "Selecione a imagem que completa a figura";
+  get description => "Selecione a imagem que completa a figura";
+
+  @override
+  get title => "Test 10: Abstração 2";
 
   const TestAbstraction2({Key? key}) : super(key: key);
 

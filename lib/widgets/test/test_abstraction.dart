@@ -5,6 +5,9 @@ class TestAbstraction extends SuperTest {
   @override
   get description => "Clique na imagem que não pertence ao grupo";
 
+  @override
+  get title => "Test 9: Abstração";
+
   const TestAbstraction({Key? key}) : super(key: key);
 
   @override

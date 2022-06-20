@@ -6,6 +6,10 @@ import 'package:flutter/material.dart';
 class TestVigilance extends SuperTest {
   @override
   get description => "Clique no botão na tela toda vez que aparecer a letra A";
+
+  @override
+  get title => "Test 7: Atenção";
+
   final VoidCallback completeOnFinalChar;
 
   const TestVigilance({Key? key, required this.completeOnFinalChar})

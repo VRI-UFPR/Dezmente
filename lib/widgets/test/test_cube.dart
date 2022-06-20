@@ -29,6 +29,9 @@ class TestCube extends SuperTest {
   get description =>
       "Clique na imagem que forma o cubo com uma face pintada de cinza e a oposta de quadriculado, conforme a figura:";
 
+  @override
+  get title => "Test 2: Cubo";
+
   const TestCube({Key? key}) : super(key: key);
 
   @override

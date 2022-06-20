@@ -7,8 +7,11 @@ import 'package:dezmente/super/super.dart';
 
 class TestClock extends SuperTest {
   @override
-  final description =
+  get description =>
       "Coloque os números no lugar apropriado no relógio e indique o horário 14:50 com os ponteiros:";
+
+  @override
+  get title => "Test 8: Relogio";
 
   const TestClock({Key? key}) : super(key: key);
 

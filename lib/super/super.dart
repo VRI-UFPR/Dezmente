@@ -4,6 +4,7 @@ abstract class SuperTest extends StatefulWidget {
   @override
   const SuperTest({Key? key}) : super(key: key);
 
+  final title = "";
   final description = "";
 }
 

@@ -1,17 +1,6 @@
 import 'package:dezmente/super/super.dart';
-import 'package:dezmente/widgets/test/test_abstraction_2.dart';
 import 'package:dezmente/widgets/debug_select_test.dart';
-import 'package:dezmente/widgets/test/test_abstraction.dart';
-import 'package:dezmente/widgets/test/test_animals.dart';
-import 'package:dezmente/widgets/test/test_atention.dart';
-import 'package:dezmente/widgets/test/test_clock.dart';
-import 'package:dezmente/widgets/test/test_conection.dart';
-import 'package:dezmente/widgets/test/test_cube.dart';
-import 'package:dezmente/widgets/test/test_memory.dart';
-import 'package:dezmente/widgets/test/test_space_orientation.dart';
-import 'package:dezmente/widgets/test/test_memory_questions.dart';
-import 'package:dezmente/widgets/test/test_memory_text.dart';
-import 'package:dezmente/widgets/test/test_vigilance.dart';
+import 'package:dezmente/widgets/test/testes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:dezmente/widgets/help.dart';
@@ -35,7 +24,7 @@ class _TesteState extends State<Teste> {
       if (i != -1 || index < _testes.length - 1) {
         setState(() {
           i == -1 ? index++ : index = i;
-          currentTest = _testes[index]();
+          currentTest = _testes[index];
         });
 
         await Navigator.of(context).push(
@@ -57,76 +46,60 @@ class _TesteState extends State<Teste> {
     }
   }
 
-  late final List<Function> _testes;
-
-  final List<String> _testeNames = [
-    "Test Conection",
-    "Test Cube",
-    "Test Animals",
-    "Test Memory Memorize",
-    "Test Memory Text",
-    "Test Memory Questions",
-    "Test Vigilance",
-    "Test Clock",
-    "Test Abstraction",
-    "Test Abstraction 2",
-    "Test Memory Check",
-    "Test Atention",
-    "Test Space Orientation"
-  ];
+  late final List<SuperTest> _testes;
 
   @override
   void initState() {
     super.initState();
 
     _testes = [
-      () => TestConection(
-            key: _globalKey,
-          ),
-      () => TestCube(
-            key: _globalKey,
-          ),
-      () => TestAnimals(
-            key: _globalKey,
-          ),
-      () => TestMemory(
-            key: _globalKey,
-            editMode: false,
-          ),
-      () => TestMemoryText(
-            key: _globalKey,
-          ),
-      () => TestMemoryQuestions(
-            key: _globalKey,
-          ),
-      () => TestVigilance(
-            key: _globalKey,
-            completeOnFinalChar: () {
-              nextTest();
-            },
-          ),
-      () => TestClock(
-            key: _globalKey,
-          ),
-      () => TestAbstraction(
-            key: _globalKey,
-          ),
-      () => TestAbstraction2(
-            key: _globalKey,
-          ),
-      () => TestMemory(
-            key: _globalKey,
-            editMode: true,
-          ),
-      () => TestAtention(
-            key: _globalKey,
-          ),
-      () => TestSpaceOrient(
-            key: _globalKey,
-          ),
+      TestConection(
+        key: _globalKey,
+      ),
+      TestCube(
+        key: _globalKey,
+      ),
+      TestAnimals(
+        key: _globalKey,
+      ),
+      TestMemory(
+        key: _globalKey,
+        editMode: false,
+      ),
+      TestMemoryText(
+        key: _globalKey,
+      ),
+      TestMemoryQuestions(
+        key: _globalKey,
+      ),
+      TestVigilance(
+        key: _globalKey,
+        completeOnFinalChar: () {
+          nextTest();
+        },
+      ),
+      TestClock(
+        key: _globalKey,
+      ),
+      TestAbstraction(
+        key: _globalKey,
+      ),
+      TestAbstraction2(
+        key: _globalKey,
+      ),
+      TestMemory(
+        key: _globalKey,
+        editMode: true,
+      ),
+      TestAtention(
+        key: _globalKey,
+      ),
+      TestSpaceOrient(
+        key: _globalKey,
+      ),
     ];
 
-    currentTest = _testes.first();
+    currentTest = _testes.first;
 
     WidgetsBinding.instance!.addPostFrameCallback(
       (timeStamp) async {
@@ -187,7 +160,7 @@ class _TesteState extends State<Teste> {
                       setState(
                         () {
                           currentTest = DebugSelectTest(
-                            testList: _testeNames,
+                            testList: _testes,
                             onTestSelected: (i) {
                               setState(() {
                                 nextTest(i: i);

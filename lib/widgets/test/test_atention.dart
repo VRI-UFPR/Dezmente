@@ -8,6 +8,9 @@ class TestAtention extends SuperTest {
   @override
   get description => "Responda as questões com base na história:";
 
+  @override
+  get title => "Test 12: Atenção";
+
   const TestAtention({Key? key}) : super(key: key);
 
   @override

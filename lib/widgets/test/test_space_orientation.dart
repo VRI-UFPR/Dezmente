@@ -8,6 +8,9 @@ class TestSpaceOrient extends SuperTest {
   @override
   get description => "Responda as perguntas:";
 
+  @override
+  get title => "Test 13: Orientação Espacial";
+
   const TestSpaceOrient({Key? key}) : super(key: key);
 
   @override

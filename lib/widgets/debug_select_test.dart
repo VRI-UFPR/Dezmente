@@ -2,7 +2,7 @@ import 'package:dezmente/super/super.dart';
 import 'package:flutter/material.dart';
 
 class DebugSelectTest extends SuperTest {
-  final List<String> testList;
+  final List<SuperTest> testList;
   final ValueSetter<int> onTestSelected;
 
   const DebugSelectTest(
@@ -25,7 +25,7 @@ class DebugSelectTestState extends SuperTestState<DebugSelectTest> {
         return ListTile(
             onTap: () => widget.onTestSelected(index),
             trailing: const SizedBox.shrink(),
-            title: Text(widget.testList[index]));
+            title: Text(widget.testList[index].title));
       },
     );
   }

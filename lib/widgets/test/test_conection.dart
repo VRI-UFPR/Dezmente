@@ -18,24 +18,13 @@ class _ConectButtons {
   String targetArrow, label;
 }
 
-// lista de botoes utilizados no teste
-List<_ConectButtons> _buttons = [
-  _ConectButtons("1", false, "A", false, 96, 230),
-  _ConectButtons("A", false, "2", false, 212, 102),
-  _ConectButtons("2", false, "B", false, 270, 180),
-  _ConectButtons("B", false, "3", false, 200, 240),
-  _ConectButtons("3", false, "C", false, 270, 350),
-  _ConectButtons("C", false, "4", false, 44, 432),
-  _ConectButtons("4", false, "D", false, 154, 356),
-  _ConectButtons("D", false, "A", false, 30, 340),
-  _ConectButtons("5", false, "E", false, 17, 190),
-  _ConectButtons("E", false, "E", false, 104, 92),
-];
-
 class TestConection extends SuperTest {
   @override
   get description =>
       "Clique no número e depois na letra em ordem ascendente Ex: 1-A-2";
+
+  @override
+  get title => "Test 1: Conexão";
 
   const TestConection({Key? key}) : super(key: key);
 
@@ -44,6 +33,20 @@ class TestConection extends SuperTest {
 }
 
 class TestConectionState extends SuperTestState {
+// lista de botoes utilizados no teste
+  List<_ConectButtons> _buttons = [
+    _ConectButtons("1", false, "A", false, 96, 230),
+    _ConectButtons("A", false, "2", false, 212, 102),
+    _ConectButtons("2", false, "B", false, 270, 180),
+    _ConectButtons("B", false, "3", false, 200, 240),
+    _ConectButtons("3", false, "C", false, 270, 350),
+    _ConectButtons("C", false, "4", false, 44, 432),
+    _ConectButtons("4", false, "D", false, 154, 356),
+    _ConectButtons("D", false, "A", false, 30, 340),
+    _ConectButtons("5", false, "E", false, 17, 190),
+    _ConectButtons("E", false, "E", false, 104, 92),
+  ];
+
   // ordem dos botoes pressionados pelo usuario
   final List<String> score = [];
 

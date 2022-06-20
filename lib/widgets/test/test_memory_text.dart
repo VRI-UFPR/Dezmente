@@ -5,6 +5,9 @@ class TestMemoryText extends SuperTest {
   @override
   final description = "Leia e responda as questões sobre a história:";
 
+  @override
+  get title => "Test 5: Memorização de Texto";
+
   const TestMemoryText({Key? key}) : super(key: key);
 
   @override

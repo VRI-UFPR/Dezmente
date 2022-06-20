@@ -8,6 +8,9 @@ class TestAnimals extends SuperTest {
   @override
   get description => "Digite o nome dos animais que aparecem na tela";
 
+  @override
+  get title => "Test 3: Animais";
+
   const TestAnimals({Key? key}) : super(key: key);
 
   @override

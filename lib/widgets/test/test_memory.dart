@@ -7,6 +7,9 @@ class TestMemory extends SuperTest {
       ? "Clique nas palavras que estavam em azul na lista anterior"
       : "Leia as palavras destacadas em voz alta e as memorize";
 
+  @override
+  get title => editMode ? "Test 11: Memorização" : "Test 4: Memorização";
+
   final bool editMode;
 
   const TestMemory({Key? key, required this.editMode}) : super(key: key);
