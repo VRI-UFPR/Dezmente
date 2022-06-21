@@ -34,12 +34,13 @@ class TestAbstraction2State extends SuperTestState<TestAbstraction2> {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
 
     return Container(
         margin: EdgeInsets.fromLTRB(10, height * 0.1, 10, 10),
         child: Center(
           child: Column(children: [
-            _buildUnselected(),
+            _buildUnselected(width * 0.2, height * 0.2),
             SizedBox(
               height: height * 0.1,
             ),
@@ -57,10 +58,12 @@ class TestAbstraction2State extends SuperTestState<TestAbstraction2> {
         ));
   }
 
-  Widget _buildUnselected() =>
+  Widget _buildUnselected(double width, double height) =>
       Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-        SvgPicture.asset('assets/images/slices/sliceComplete.svg'),
-        SvgPicture.asset('assets/images/slices/sliceTarget.svg'),
+        SvgPicture.asset('assets/images/slices/complete.svg',
+            width: width, height: height),
+        SvgPicture.asset('assets/images/slices/target.svg',
+            width: width, height: height),
       ]);
 
   Widget _buildSelectable(_, int index) => InkWell(
@@ -69,10 +72,12 @@ class TestAbstraction2State extends SuperTestState<TestAbstraction2> {
             selected = index;
           });
         },
+        splashFactory: NoSplash.splashFactory,
+        highlightColor: Colors.transparent,
         child: Container(
           margin: const EdgeInsets.all(5),
           padding: index == selected
-              ? const EdgeInsets.all(12)
+              ? const EdgeInsets.all(14)
               : const EdgeInsets.all(10),
           decoration: index == selected
               ? BoxDecoration(
