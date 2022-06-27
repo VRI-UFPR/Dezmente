@@ -68,13 +68,16 @@ class TestMemoryQuestionsState extends SuperTestState {
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-      body: Center(
-          child: SingleChildScrollView(
-              child:
-                  Padding(padding: const EdgeInsets.all(20), child: _body()))));
+  Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    return Scaffold(
+        body: Center(
+            child: SingleChildScrollView(
+                child: Padding(
+                    padding: const EdgeInsets.all(20), child: _body(width)))));
+  }
 
-  _body() {
+  _body(width) {
     return Container(
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
@@ -83,19 +86,19 @@ class TestMemoryQuestionsState extends SuperTestState {
             borderRadius: BorderRadius.circular(10)),
         child: Column(
           children: [
-            _buildText(questions[0].pergunta),
-            _buildOptions(questions[0].opcoes)
+            _buildText(questions[0].pergunta, width),
+            _buildOptions(questions[0].opcoes, width)
           ],
         ));
   }
 
-  Widget _buildText(text) => Text(
+  Widget _buildText(text, width) => Text(
         text,
         textAlign: TextAlign.justify,
-        style: const TextStyle(fontSize: 26, fontWeight: FontWeight.w600),
+        style: TextStyle(fontSize: width * 0.06, fontWeight: FontWeight.w600),
       );
 
-  Widget _buildOptions(options) => ListView.builder(
+  Widget _buildOptions(options, width) => ListView.builder(
       scrollDirection: Axis.vertical,
       shrinkWrap: true,
       padding: const EdgeInsets.all(8),
@@ -109,7 +112,7 @@ class TestMemoryQuestionsState extends SuperTestState {
             child: Text(
               options[index],
               style: TextStyle(
-                  fontSize: 24,
+                  fontSize: width * 0.05,
                   fontWeight: isSelected ? FontWeight.w500 : FontWeight.normal,
                   color: isSelected ? Colors.amberAccent : Colors.black),
             ),

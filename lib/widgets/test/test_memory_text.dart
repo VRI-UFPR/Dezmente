@@ -41,6 +41,6 @@ class TestMemoryTextState extends SuperTestState {
       child: Text(
         "João combinou de ir à biblioteca municipal com o filho de seu tio no sábado. Antes de entrar no ônibus, percebeu que tinha esquecido o livro que havia emprestado em casa. Eles tiveram que voltar, pegaram o livro e atrasaram meia hora o passeio.",
         textAlign: TextAlign.justify,
-        style: TextStyle(fontSize: width * 0.055),
+        style: TextStyle(fontSize: width * 0.06),
       ));
 }
