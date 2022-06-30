@@ -3,6 +3,7 @@ export 'test_abstraction.dart';
 export 'test_animals.dart';
 export 'test_atention.dart';
 export 'test_clock.dart';
+export 'test_clock2.dart';
 export 'test_conection.dart';
 export 'test_cube.dart';
 export 'test_memory.dart';

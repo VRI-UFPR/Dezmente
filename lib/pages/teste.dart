@@ -53,6 +53,9 @@ class _TesteState extends State<Teste> {
     super.initState();
 
     _testes = [
+      TestClock2(
+        key: _globalKey,
+      ),
       TestConection(
         key: _globalKey,
       ),
