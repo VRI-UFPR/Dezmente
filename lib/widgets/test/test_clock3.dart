@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:ui' as ui;
 import 'dart:math';
 
@@ -25,56 +26,46 @@ class _TestClock3State extends SuperTestState {
     setState(() {});
   }
 
+  final List<TextEditingController> _textControllerPointers =
+      List.generate(12, (i) => TextEditingController());
+
   @override
   Widget build(BuildContext context) {
     final double scrHfactor = MediaQuery.of(context).size.height / 640;
     final double scrWfactor = MediaQuery.of(context).size.width / 360;
-
-    final List<TextEditingController> _textControllerPointers = [];
-
-    for (var i = 0; i < 12; i++) {
-      _textControllerPointers[i] = TextEditingController();
-    }
 
     int _length = 12;
 
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.fromLTRB(10, 15, 10, 0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
-            SizedBox(
-              height: 400 * scrHfactor,
-              width: 400 * scrWfactor,
-              child: Stack(
-                children: [
-                  Center(
-                    child: Container(
-                      width: 390 * scrWfactor,
-                      height: 390 * scrHfactor,
-                      decoration: const BoxDecoration(
-                        color: Colors.black,
-                        shape: BoxShape.circle,
-                      ),
-                    ),
-                  ),
-                  LayoutBuilder(
-                    builder: (context, constraints) {
-                      return CircularWidgets(
-                        itemsLength: _length,
-                        itemBuilder: (context, index) {
-                          return _buildPointer(_textControllerPointers[index]);
-                        },
-                        innerSpacing: 75 * scrHfactor,
-                        radiusOfItem: 40 * scrHfactor,
-                      );
-                    },
-                  ),
-                  _buildClockHands(),
-                ],
+        height: 400 * scrHfactor,
+        width: 400 * scrWfactor,
+        child: Stack(
+          children: [
+            Center(
+              child: Container(
+                width: 380 * scrWfactor,
+                height: 380 * scrHfactor,
+                decoration: const BoxDecoration(
+                  color: Colors.black,
+                  shape: BoxShape.circle,
+                ),
               ),
             ),
+            LayoutBuilder(
+              builder: (context, constraints) {
+                return CircularWidgets(
+                  itemsLength: _length,
+                  itemBuilder: (context, index) {
+                    return _buildPointer(_textControllerPointers[index]);
+                  },
+                  innerSpacing: 75 * scrHfactor,
+                  radiusOfItem: 40 * scrHfactor,
+                );
+              },
+            ),
+            _buildClockHands(),
           ],
         ),
       ),
@@ -84,6 +75,7 @@ class _TestClock3State extends SuperTestState {
   Widget _buildPointer(_textControllerPointer) {
     final double scrHfactor = MediaQuery.of(context).size.height / 640;
     final double scrWfactor = MediaQuery.of(context).size.width / 360;
+    //bool _color = false;
 
     return Container(
       width: 20 * scrWfactor,
@@ -97,11 +89,12 @@ class _TestClock3State extends SuperTestState {
         cursorColor: Colors.transparent,
         style: const TextStyle(
           fontFamily: "montserrat",
-          fontSize: 14,
+          fontSize: 15,
           fontWeight: FontWeight.w600,
+          color: Colors.black,
         ),
         decoration: const InputDecoration(
-          contentPadding: EdgeInsets.fromLTRB(7, 13, 0, 0),
+          contentPadding: EdgeInsets.fromLTRB(6, 15, 0, 0),
           border: InputBorder.none,
           counterStyle: TextStyle(color: Colors.transparent),
         ),
