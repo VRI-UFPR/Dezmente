@@ -3,14 +3,20 @@ import 'package:flutter/material.dart';
 
 class TestMemory extends SuperTest {
   @override
-  get description => editMode
-      ? "Clique nas palavras que estavam em azul na lista anterior"
-      : "Leia as palavras destacadas em voz alta e as memorize";
+  get description => editMode == 0
+      ? "Leia as palavras destacadas em voz alta e as memorize"
+      : editMode == 1
+          ? "Selecione as palavras que estavam em azul na lista anterior. (Não valera nota)"
+          : "Clique nas palavras que estavam em azul na lista anterior";
 
   @override
-  get title => editMode ? "Test 11: Memorização" : "Test 4: Memorização";
+  get title => editMode == 0
+      ? "Test 4: Memorização"
+      : editMode == 1
+          ? "Test seila: Reforço Memorização"
+          : "Test 11: Memorização";
 
-  final bool editMode;
+  final int editMode;
 
   const TestMemory({Key? key, required this.editMode}) : super(key: key);
 
@@ -26,11 +32,13 @@ class _Word {
 }
 
 class TestMemoryState extends SuperTestState<TestMemory> {
+  late bool buffer;
+
   @override
   void initState() {
     super.initState();
-
-    if (!widget.editMode) {
+    buffer = false;
+    if (widget.editMode == 0) {
       for (int i = 0; i < words.length; i++) {
         words[i].corrected ? words[i].selected = true : null;
       }
@@ -52,7 +60,12 @@ class TestMemoryState extends SuperTestState<TestMemory> {
 
   @override
   TestData getData() {
-    return super.getData();
+    TestData data = super.getData();
+    if (widget.editMode == 1 && !buffer) {
+      data.code = Code.stay;
+      buffer = !buffer;
+    }
+    return data;
   }
 
   List<_Word> words = [
@@ -90,7 +103,7 @@ class TestMemoryState extends SuperTestState<TestMemory> {
         itemCount: 14,
         itemBuilder: (_, int index) {
           return InkWell(
-            onTap: !widget.editMode
+            onTap: widget.editMode == 0
                 ? null
                 : () {
                     setState(() {
@@ -103,17 +116,32 @@ class TestMemoryState extends SuperTestState<TestMemory> {
                 alignment: Alignment.center,
                 margin: EdgeInsets.symmetric(
                     horizontal: 30, vertical: itemHeight / 5),
-                decoration: words[index].selected
-                    ? BoxDecoration(
-                        color: Colors.amber,
-                        //borderRadius: BorderRadius.circular(100),
-                        border: Border.all(color: Colors.black, width: 0.5),
-                      )
-                    : BoxDecoration(
-                        color: Colors.transparent,
-                        //borderRadius: BorderRadius.circular(100),
-                        border: Border.all(color: Colors.blue, width: 2),
-                      ),
+                decoration: !buffer
+                    ? words[index].selected
+                        ? BoxDecoration(
+                            color: Colors.amber,
+                            border: Border.all(color: Colors.black, width: 0.5),
+                          )
+                        : BoxDecoration(
+                            color: Colors.transparent,
+                            border: Border.all(color: Colors.blue, width: 2),
+                          )
+                    : words[index].corrected
+                        ? words[index].selected
+                            ? BoxDecoration(
+                                color: Colors.green,
+                                border:
+                                    Border.all(color: Colors.black, width: 0.5),
+                              )
+                            : BoxDecoration(
+                                color: Colors.red,
+                                border:
+                                    Border.all(color: Colors.blue, width: 2),
+                              )
+                        : BoxDecoration(
+                            color: Colors.transparent,
+                            border: Border.all(color: Colors.blue, width: 2),
+                          ),
                 child: Text(
                   words[index].text,
                   style: words[index].selected
