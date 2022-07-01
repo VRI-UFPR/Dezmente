@@ -6,7 +6,7 @@ class TestMemory extends SuperTest {
   get description => editMode == 0
       ? "Leia as palavras destacadas em voz alta e as memorize"
       : editMode == 1
-          ? "Selecione as palavras que estavam em azul na lista anterior. (Não valera nota)"
+          ? "Agora, clique nas palavras que estavam destacadas, só para treino"
           : "Clique nas palavras que estavam em azul na lista anterior";
 
   @override
@@ -60,12 +60,15 @@ class TestMemoryState extends SuperTestState<TestMemory> {
 
   @override
   TestData getData() {
-    TestData data = super.getData();
     if (widget.editMode == 1 && !buffer) {
       data.code = Code.stay;
-      buffer = !buffer;
+      setState(() {
+        buffer = true;
+      });
+    } else {
+      data.code = Code.next;
     }
-    return data;
+    return super.getData();
   }
 
   List<_Word> words = [
