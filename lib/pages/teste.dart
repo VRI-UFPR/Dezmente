@@ -1,5 +1,6 @@
 import 'package:dezmente/super/super.dart';
 import 'package:dezmente/widgets/debug_select_test.dart';
+import 'package:dezmente/widgets/test/test_similarity.dart';
 import 'package:dezmente/widgets/test/testes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -86,6 +87,9 @@ class _TesteState extends State<Teste> {
         key: _globalKey,
       ),
       TestAbstraction(
+        key: _globalKey,
+      ),
+      TestSimilarity(
         key: _globalKey,
       ),
       TestAbstraction2(

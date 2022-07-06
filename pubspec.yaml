@@ -36,6 +36,7 @@ flutter:
     - assets/images/cube/
     - assets/images/animals/
     - assets/images/slices/
+    - assets/images/similarity/
     - assets/audio/
   fonts:
     - family: Montserrat
