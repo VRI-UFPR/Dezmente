@@ -1,5 +1,6 @@
 import 'package:dezmente/super/super.dart';
 import 'package:dezmente/widgets/debug_select_test.dart';
+import 'package:dezmente/widgets/test/test_similarity.dart';
 import 'package:dezmente/widgets/test/testes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -67,7 +68,7 @@ class _TesteState extends State<Teste> {
       ),
       TestMemory(
         key: _globalKey,
-        editMode: false,
+        editMode: 0,
       ),
       TestMemoryText(
         key: _globalKey,
@@ -81,10 +82,17 @@ class _TesteState extends State<Teste> {
           nextTest();
         },
       ),
+      TestMemory(
+        key: _globalKey,
+        editMode: 1,
+      ),
       TestClock(
         key: _globalKey,
       ),
       TestAbstraction(
+        key: _globalKey,
+      ),
+      TestSimilarity(
         key: _globalKey,
       ),
       TestAbstraction2(
@@ -92,7 +100,7 @@ class _TesteState extends State<Teste> {
       ),
       TestMemory(
         key: _globalKey,
-        editMode: true,
+        editMode: 2,
       ),
       TestAtention(
         key: _globalKey,
