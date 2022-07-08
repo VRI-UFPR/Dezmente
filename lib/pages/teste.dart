@@ -67,6 +67,10 @@ class _TesteState extends State<Teste> {
         key: _globalKey,
         editMode: 0,
       ),
+      TestMemory(
+        key: _globalKey,
+        editMode: 1,
+      ),
       TestMemoryText(
         key: _globalKey,
       ),
@@ -78,10 +82,6 @@ class _TesteState extends State<Teste> {
         completeOnFinalChar: () {
           nextTest();
         },
-      ),
-      TestMemory(
-        key: _globalKey,
-        editMode: 1,
       ),
       TestClock(
         key: _globalKey,
