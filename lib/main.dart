@@ -1,4 +1,5 @@
 import 'package:dezmente/pages/home.dart';
+import 'package:dezmente/pages/signup/user.dart';
 import 'package:dezmente/services/auth.dart';
 import 'package:dezmente/pages/login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -25,13 +26,14 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.blue,
           ),
           home: Scaffold(
+            resizeToAvoidBottomInset: false,
             body: StreamBuilder(
               stream: FirebaseAuth.instance.authStateChanges(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(child: CircularProgressIndicator());
                 } else if (snapshot.hasData) {
-                  return const HomeWidget();
+                  return const UserSignUp();
                 } else if (snapshot.hasError) {
                   return Text(snapshot.error.toString());
                 } else {
