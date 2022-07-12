@@ -1,4 +1,3 @@
-import 'dart:ui' as ui;
 import 'dart:math';
 
 import 'package:circular_widgets/circular_widgets.dart';
@@ -44,7 +43,7 @@ class _TestClockState extends SuperTestState {
           children: <Widget>[
             Center(
               child: SizedBox(
-                height: 135 * scrHfactor,
+                height: 125 * scrHfactor,
                 width: 400 * scrWfactor,
                 child: GridView.builder(
                     physics: const NeverScrollableScrollPhysics(),

@@ -78,16 +78,13 @@ class TestVigilanceState extends SuperTestState<TestVigilance> {
       child: Scaffold(body: Center(child: _body())));
 
   _body() {
-    return Padding(
-      padding: const EdgeInsets.all(20),
-      child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            _buildChar(),
-            const SizedBox(height: 30),
-            _buildButton()
-          ]),
-    );
+    return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          _buildChar(),
+          const SizedBox(height: 30),
+          _buildButton()
+        ]);
   }
 
   Widget _buildChar() => Text(_char,

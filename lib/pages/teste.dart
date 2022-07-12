@@ -135,34 +135,46 @@ class _TesteState extends State<Teste> {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
         overlays: [SystemUiOverlay.bottom]);
     return Scaffold(
-      body: currentTest,
+      body: Padding(
+        padding: const EdgeInsets.fromLTRB(17, 12, 17, 0),
+        child: currentTest,
+      ),
       backgroundColor: const Color(0xffffffff),
-      bottomNavigationBar: BottomAppBar(
-        color: const Color(0xffe984b8),
+      bottomNavigationBar: Container(
+        margin: const EdgeInsets.fromLTRB(17, 0, 17, 12),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(6),
+            color: const Color(0xff569DB3)),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            TextButton.icon(
-              icon: const Icon(Icons.undo, color: Color(0xff060607)),
-              label: const Text(
-                "Apagar",
-                style: TextStyle(color: Color(0xff060607)),
-              ),
-              onPressed: () {
-                setState(
-                  () {
-                    _globalKey.currentState?.erase();
-                  },
-                );
+            _buildBottomBarButton(Icons.question_mark_outlined, "Informações",
+                () {
+              Navigator.of(context).push(PageRouteBuilder(
+                  opaque: false,
+                  pageBuilder: (context, animation, secondaryAnimation) =>
+                      HelpTemplateButton(
+                        callback: () {
+                          Navigator.pop(this.context);
+                        },
+                        title: "",
+                        description: currentTest.description,
+                        buttonText: "Voltar",
+                      )));
+            }, null),
+            _buildBottomBarButton(Icons.backspace, "Apagar", () {
+              setState(
+                () {
+                  _globalKey.currentState?.erase();
+                },
+              );
+            }, null),
+            _buildBottomBarButton(
+              Icons.check_circle_outline,
+              "Concluir",
+              () {
+                nextTest();
               },
-            ),
-            TextButton.icon(
-              icon: const Icon(Icons.check, color: Color(0xff060607)),
-              label: const Text(
-                "Concluir",
-                style: TextStyle(color: Color(0xff060607)),
-              ),
-              onLongPress: !debugMode
+              !debugMode
                   ? null
                   : () {
                       setState(
@@ -178,33 +190,37 @@ class _TesteState extends State<Teste> {
                         },
                       );
                     },
-              onPressed: () {
-                nextTest();
-              },
-            ),
-            TextButton.icon(
-              onPressed: () {
-                Navigator.of(context).push(PageRouteBuilder(
-                    opaque: false,
-                    pageBuilder: (context, animation, secondaryAnimation) =>
-                        HelpTemplateButton(
-                          callback: () {
-                            Navigator.pop(this.context);
-                          },
-                          title: "",
-                          description: currentTest.description,
-                          buttonText: "Voltar",
-                        )));
-              },
-              icon: const Icon(Icons.info, color: Color(0xff060607)),
-              label: const Text(
-                "Ajuda",
-                style: TextStyle(color: Color(0xff060607)),
-              ),
-            ),
+            )
           ],
         ),
       ),
     );
   }
+
+  Widget _buildBottomBarButton(IconData icon, String label, dynamic onPressed,
+          dynamic onLongPress) =>
+      Expanded(
+        child: TextButton(
+          onPressed: onPressed,
+          onLongPress: onLongPress,
+          child: Container(
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 6),
+            decoration: BoxDecoration(
+                color: const Color(0xffB7D5DF),
+                borderRadius: BorderRadius.circular(6)),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Icon(icon, color: const Color(0xff060607)),
+                Text(
+                  label,
+                  style: const TextStyle(color: Color(0xff060607)),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
 }
