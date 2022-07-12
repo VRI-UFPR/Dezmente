@@ -136,7 +136,7 @@ class _TesteState extends State<Teste> {
         overlays: [SystemUiOverlay.bottom]);
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(17, 12, 17, 0),
+        padding: const EdgeInsets.symmetric(horizontal: 17),
         child: currentTest,
       ),
       backgroundColor: const Color(0xffffffff),
