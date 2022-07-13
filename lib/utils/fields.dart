@@ -4,14 +4,12 @@ class CustomTextInputField extends StatefulWidget {
   final String text;
   final TextInputType kbType;
   final int maxLength;
-  final TextEditingController controller;
 
   const CustomTextInputField({
     Key? key,
     this.text = "",
     this.kbType = TextInputType.text,
     this.maxLength = 10,
-    required this.controller,
   }) : super(key: key);
 
   @override
@@ -23,12 +21,14 @@ class _CustomTextInputFieldState extends State<CustomTextInputField> {
   Widget build(BuildContext context) {
     final double scrHfactor = MediaQuery.of(context).size.height / 640;
     final double scrWfactor = MediaQuery.of(context).size.width / 360;
+    TextEditingController controller = TextEditingController();
 
-    return SizedBox(
-      width: 320 * scrWfactor,
-      height: 50 * scrHfactor,
-      child: TextField(
-        controller: widget.controller,
+    return Container(
+      margin: const EdgeInsets.only(bottom: 10),
+      width: 318 * scrWfactor,
+      height: 38 * scrHfactor,
+      child: TextFormField(
+        controller: controller,
         cursorColor: Colors.transparent,
         style: const TextStyle(
           fontFamily: "montserrat",
@@ -37,16 +37,20 @@ class _CustomTextInputFieldState extends State<CustomTextInputField> {
         ),
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.fromLTRB(10, 2, 0, 0),
-          border: const OutlineInputBorder(),
+          border: const OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+            borderSide: BorderSide.none,
+          ),
           counterStyle: const TextStyle(color: Colors.transparent),
           counter: const IgnorePointer(),
-          fillColor: const Color(0xff4cc9f0),
+          fillColor: const Color(0xAD94C1CF),
           filled: true,
           hintText: widget.text,
           hintStyle: const TextStyle(
             fontFamily: "montserrat",
             fontSize: 15,
-            fontWeight: FontWeight.w600,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
           ),
         ),
         keyboardType: widget.kbType,
@@ -81,28 +85,37 @@ class _CustomDropdownFieldState extends State<CustomDropdownField> {
     final double scrWfactor = MediaQuery.of(context).size.width / 360;
     String? value;
 
-    return SizedBox(
-      width: 320 * scrWfactor,
-      height: 50 * scrHfactor,
+    return Container(
+      margin: const EdgeInsets.only(bottom: 10),
+      width: 318 * scrWfactor,
+      height: 38 * scrHfactor,
       child: DropdownButtonFormField<String>(
         dropdownColor: const Color(0xff4cc9f0),
         value: value,
         icon: Container(
-          margin: const EdgeInsets.only(top: 5),
-          child: const Icon(Icons.arrow_downward),
+          margin: const EdgeInsets.only(right: 10),
+          child: const Icon(
+            Icons.keyboard_arrow_down,
+            color: Colors.black,
+            size: 30,
+          ),
         ),
         decoration: InputDecoration(
-          isCollapsed: false,
-          border: const OutlineInputBorder(),
+          contentPadding: const EdgeInsets.only(left: 10),
+          border: const OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+            borderSide: BorderSide.none,
+          ),
           counterStyle: const TextStyle(color: Colors.transparent),
           counter: const IgnorePointer(),
-          fillColor: const Color(0xff4cc9f0),
+          fillColor: const Color(0xAD94C1CF),
           filled: true,
           hintText: widget.text,
           hintStyle: const TextStyle(
             fontFamily: "montserrat",
             fontSize: 15,
-            fontWeight: FontWeight.w600,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
           ),
         ),
         items: widget.itemList.map(buildMenuItem).toList(),
