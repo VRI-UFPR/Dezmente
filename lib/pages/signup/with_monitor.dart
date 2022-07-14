@@ -25,22 +25,14 @@ class _WithMonitorSignUpState extends State<WithMonitorSignUp> {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Align(
             alignment: Alignment.topCenter,
-            child: Stack(
-              children: [
-                SvgPicture.asset(
-                  "assets/images/topbar.svg",
-                  fit: BoxFit.fitWidth,
-                ),
-                Center(
-                  child: Container(
-                    margin: EdgeInsets.only(top: 100 * scrHfactor),
-                    child: _buildTitle(_currentPageTitle()),
-                  ),
-                ),
-              ],
+            child: SvgPicture.asset(
+              "assets/images/topbar.svg",
+              fit: BoxFit.none,
+              width: MediaQuery.of(context).size.width,
             ),
           ),
           SingleChildScrollView(
@@ -87,6 +79,12 @@ class _WithMonitorSignUpState extends State<WithMonitorSignUp> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            Container(
+              margin: const EdgeInsets.only(bottom: 10),
+              child: Center(
+                child: _buildTitle("Ajudante"),
+              ),
+            ),
             const CustomTextInputField(
               text: "Idade do Ajudante",
               kbType: TextInputType.number,
@@ -152,6 +150,12 @@ class _WithMonitorSignUpState extends State<WithMonitorSignUp> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            Container(
+              margin: const EdgeInsets.only(bottom: 10),
+              child: Center(
+                child: _buildTitle("Usuário"),
+              ),
+            ),
             const CustomTextInputField(
               text: "Cidade",
               kbType: TextInputType.name,
