@@ -23,46 +23,47 @@ class _NoMonitorSignUpState extends State<NoMonitorSignUp> {
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        shadowColor: Colors.transparent,
-        toolbarHeight: 130 * scrHfactor,
-        title: Stack(
-          children: [
-            SvgPicture.asset(
-              "assets/images/topbar.svg",
-              fit: BoxFit.fitHeight,
-            ),
-            Center(
-              child: Container(
-                margin: EdgeInsets.only(top: 100 * scrHfactor),
-                child: const Text(
-                  "Usuário",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontFamily: "PassionOne",
-                    fontWeight: FontWeight.w700,
-                    fontSize: 32,
-                    color: Colors.black,
-                    fontStyle: FontStyle.normal,
+      body: Column(
+        children: [
+          Align(
+            alignment: Alignment.topCenter,
+            child: Stack(
+              children: [
+                SvgPicture.asset(
+                  "assets/images/topbar.svg",
+                  fit: BoxFit.fitWidth,
+                ),
+                Center(
+                  child: Container(
+                    margin: EdgeInsets.only(top: 100 * scrHfactor),
+                    child: const Text(
+                      "Usuário",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontFamily: "PassionOne",
+                        fontWeight: FontWeight.w700,
+                        fontSize: 32,
+                        color: Colors.black,
+                        fontStyle: FontStyle.normal,
+                      ),
+                    ),
                   ),
                 ),
-              ),
+              ],
             ),
-          ],
-        ),
-        titleSpacing: 0,
-      ),
-      body: SingleChildScrollView(
-        child: Form(
-          key: _formKey,
-          child: _buildUsuario(),
-        ),
+          ),
+          SingleChildScrollView(
+            child: Form(
+              key: _formKey,
+              child: _firstPage(),
+            ),
+          ),
+        ],
       ),
     );
   }
 
-  Widget _buildUsuario() {
+  Widget _firstPage() {
     return Container(
       margin: const EdgeInsets.only(top: 15),
       child: Center(

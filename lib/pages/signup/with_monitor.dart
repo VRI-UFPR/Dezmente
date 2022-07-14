@@ -24,33 +24,45 @@ class _WithMonitorSignUpState extends State<WithMonitorSignUp> {
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        shadowColor: Colors.transparent,
-        toolbarHeight: 130 * scrHfactor,
-        title: Stack(
-          children: [
-            SvgPicture.asset(
-              "assets/images/topbar.svg",
-              fit: BoxFit.fitHeight,
+      body: Column(
+        children: [
+          Align(
+            alignment: Alignment.topCenter,
+            child: Stack(
+              children: [
+                SvgPicture.asset(
+                  "assets/images/topbar.svg",
+                  fit: BoxFit.fitWidth,
+                ),
+                Center(
+                  child: Container(
+                    margin: EdgeInsets.only(top: 100 * scrHfactor),
+                    child: _buildTitle(_currentPageTitle()),
+                  ),
+                ),
+              ],
             ),
-            Center(
-              child: Container(
-                margin: EdgeInsets.only(top: 100 * scrHfactor),
-                child: _buildTitle("Ajudante"),
-              ),
+          ),
+          SingleChildScrollView(
+            child: Form(
+              key: _formKey,
+              child: _buildPages(),
             ),
-          ],
-        ),
-        titleSpacing: 0,
-      ),
-      body: SingleChildScrollView(
-        child: Form(
-          key: _formKey,
-          child: _buildPages(),
-        ),
+          ),
+        ],
       ),
     );
+  }
+
+  String _currentPageTitle() {
+    switch (pageNumber) {
+      case 0:
+        return "Ajudante";
+      case 1:
+        return "Usuário";
+      default:
+        return "";
+    }
   }
 
   Widget _buildPages() {
