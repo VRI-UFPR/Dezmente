@@ -1,4 +1,5 @@
-import 'package:dezmente/super/super.dart';
+import 'package:dezmente/services/results.dart';
+import 'package:dezmente/services/super.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -20,7 +21,7 @@ class TestAbstraction2State extends SuperTestState<TestAbstraction2> {
   erase() {}
 
   @override
-  TestData getData() {
+  TestResults getData() {
     if (selected == 4) {
       print("Acertou");
     } else {

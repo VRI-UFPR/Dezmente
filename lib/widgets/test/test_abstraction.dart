@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:dezmente/super/super.dart';
+import 'package:dezmente/services/super.dart';
 
 class TestAbstraction extends SuperTest {
   @override

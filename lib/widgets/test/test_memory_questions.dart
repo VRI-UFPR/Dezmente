@@ -1,4 +1,5 @@
-import 'package:dezmente/super/super.dart';
+import 'package:dezmente/services/results.dart';
+import 'package:dezmente/services/super.dart';
 import 'package:flutter/material.dart';
 
 class TestMemoryQuestions extends SuperTest {
@@ -51,7 +52,7 @@ class TestMemoryQuestionsState extends SuperTestState {
   int _selected = -1;
 
   @override
-  TestData getData() {
+  TestResults getData() {
     print(_selected == questions[0].correta ? "Acertou" : "Errou");
     if (questions.length == 1) {
       data.code = Code.next;

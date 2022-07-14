@@ -10,3 +10,4 @@ export 'test_space_orientation.dart';
 export 'test_memory_questions.dart';
 export 'test_memory_text.dart';
 export 'test_vigilance.dart';
+export 'test_similarity.dart';

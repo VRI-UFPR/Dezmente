@@ -1,4 +1,5 @@
-import 'package:dezmente/super/super.dart';
+import 'package:dezmente/services/results.dart';
+import 'package:dezmente/services/super.dart';
 import 'package:flutter/material.dart';
 
 class TestSimilarity extends SuperTest {
@@ -33,7 +34,7 @@ class TestSimilarityState extends SuperTestState<TestSimilarity> {
   }
 
   @override
-  TestData getData() {
+  TestResults getData() {
     if (_imageIndex < 2) {
       setState(() => _imageIndex++);
       controller.text = '';

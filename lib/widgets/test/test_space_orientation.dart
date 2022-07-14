@@ -1,8 +1,5 @@
-import 'package:dezmente/super/super.dart';
-import 'package:dezmente/widgets/Dialog/dialog.dart';
+import 'package:dezmente/services/super.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_chat_bubble/chat_bubble.dart';
-import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_6.dart';
 
 class TestSpaceOrient extends SuperTest {
   @override

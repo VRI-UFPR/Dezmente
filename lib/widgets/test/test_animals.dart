@@ -1,6 +1,7 @@
-import 'package:dezmente/super/super.dart';
+import 'package:dezmente/services/results.dart';
+import 'package:dezmente/services/super.dart';
 import 'package:dezmente/utils/levenshtein_dist.dart';
-import 'package:dezmente/widgets/Dialog/dialog.dart';
+import 'package:dezmente/widgets/dialog.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 
@@ -24,7 +25,7 @@ class TestAnimalsState extends SuperTestState {
   }
 
   @override
-  TestData getData() {
+  TestResults getData() {
     if (imageNames.isEmpty) {
       print(_similarity(_animal, controller.text));
       data.code = Code.next;

@@ -1,4 +1,5 @@
-import 'package:dezmente/super/super.dart';
+import 'package:dezmente/services/results.dart';
+import 'package:dezmente/services/super.dart';
 import 'package:flutter/material.dart';
 
 class TestMemory extends SuperTest {
@@ -59,7 +60,7 @@ class TestMemoryState extends SuperTestState<TestMemory> {
   erase() {}
 
   @override
-  TestData getData() {
+  TestResults getData() {
     if (widget.editMode == 1 && !buffer) {
       data.code = Code.stay;
       setState(() {

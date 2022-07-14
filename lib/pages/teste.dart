@@ -1,7 +1,7 @@
-import 'package:dezmente/super/super.dart';
+import 'package:dezmente/services/results.dart';
+import 'package:dezmente/services/super.dart';
 import 'package:dezmente/widgets/debug_select_test.dart';
-import 'package:dezmente/widgets/test/test_similarity.dart';
-import 'package:dezmente/widgets/test/testes.dart';
+import 'package:dezmente/widgets/test/testes_imports.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:dezmente/widgets/help.dart';
@@ -17,12 +17,16 @@ const debugMode = true;
 GlobalObjectKey<SuperTestState> _globalKey = const GlobalObjectKey("key");
 
 class _TesteState extends State<Teste> {
+  final _results = <TestResults>[];
   late SuperTest currentTest;
   int index = 0;
 
   void nextTest({int i = -1}) async {
-    if (_globalKey.currentState?.getData().code == Code.next || i != -1) {
+    TestResults? testResults = _globalKey.currentState?.getData();
+    if (testResults?.code == Code.next || i != -1) {
       if (i != -1 || index < _testes.length - 1) {
+        testResults != null ? _results.add(testResults) : null;
+
         setState(() {
           i == -1 ? index++ : index = i;
           currentTest = _testes[index];
@@ -161,13 +165,14 @@ class _TesteState extends State<Teste> {
                         buttonText: "Voltar",
                       )));
             }, null),
-            _buildBottomBarButton(Icons.backspace, "Apagar", () {
-              setState(
-                () {
-                  _globalKey.currentState?.erase();
-                },
-              );
-            }, null),
+            if (currentTest.needErase)
+              _buildBottomBarButton(Icons.backspace, "Apagar", () {
+                setState(
+                  () {
+                    _globalKey.currentState?.erase();
+                  },
+                );
+              }, null),
             _buildBottomBarButton(
               Icons.check_circle_outline,
               "Concluir",

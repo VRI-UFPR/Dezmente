@@ -1,4 +1,5 @@
-import 'package:dezmente/super/super.dart';
+import 'package:dezmente/services/results.dart';
+import 'package:dezmente/services/super.dart';
 import 'package:flutter/material.dart';
 import 'package:collection/collection.dart';
 
@@ -32,6 +33,9 @@ class TestCube extends SuperTest {
   @override
   get title => "Test 2: Cubo";
 
+  @override
+  get needErase => false;
+
   const TestCube({Key? key}) : super(key: key);
 
   @override
@@ -44,11 +48,18 @@ class TestCubeState extends SuperTestState {
   @override
   erase() {
     setState(() {
-      _boxes = null;
+      _boxSelected = null;
     });
   }
 
-  Boxes? _boxes;
+  @override
+  TestResults getData() {
+    TestResults results = super.getData();
+    results.score = _boxSelected == Boxes.face2 ? 100 : 0;
+    return results;
+  }
+
+  Boxes? _boxSelected;
 
   @override
   Widget build(BuildContext context) => Column(
@@ -71,10 +82,10 @@ class TestCubeState extends SuperTestState {
                     return RadioListTile(
                         value: Boxes.values[index],
                         title: Image.asset(face.asset),
-                        groupValue: _boxes,
+                        groupValue: _boxSelected,
                         onChanged: (Boxes? value) {
                           setState(() {
-                            _boxes = value;
+                            _boxSelected = value;
                           });
                         });
                   }).toList(),
@@ -88,10 +99,10 @@ class TestCubeState extends SuperTestState {
                     return RadioListTile(
                         value: Boxes.values[index + cubeFaces1.length],
                         title: Image.asset(face.asset),
-                        groupValue: _boxes,
+                        groupValue: _boxSelected,
                         onChanged: (Boxes? value) {
                           setState(() {
-                            _boxes = value;
+                            _boxSelected = value;
                           });
                         });
                   }).toList(),

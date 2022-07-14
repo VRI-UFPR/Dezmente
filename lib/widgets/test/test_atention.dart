@@ -1,5 +1,6 @@
-import 'package:dezmente/super/super.dart';
-import 'package:dezmente/widgets/Dialog/dialog.dart';
+import 'package:dezmente/services/results.dart';
+import 'package:dezmente/services/super.dart';
+import 'package:dezmente/widgets/dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_bubble/chat_bubble.dart';
 import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_6.dart';
@@ -36,7 +37,7 @@ class TestAtentionState extends SuperTestState {
   var _textController = TextEditingController();
 
   @override
-  TestData getData() {
+  TestResults getData() {
     if (questionIndex == 4) {
       data.code = Code.next;
     } else {

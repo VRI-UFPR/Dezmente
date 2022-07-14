@@ -1,3 +1,4 @@
+import 'package:dezmente/services/results.dart';
 import 'package:flutter/material.dart';
 
 abstract class SuperTest extends StatefulWidget {
@@ -6,13 +7,14 @@ abstract class SuperTest extends StatefulWidget {
 
   final title = "";
   final description = "";
+  final needErase = true;
 }
 
 abstract class SuperTestState<T extends StatefulWidget> extends State<T> {
-  TestData data = TestData(timeStamp: 0);
+  TestResults data = TestResults(timeStamp: 0);
 
   @mustCallSuper
-  TestData getData() {
+  TestResults getData() {
     data.timeStamp = DateTime.now().millisecondsSinceEpoch - data.timeStamp;
     return data;
   }
@@ -35,12 +37,4 @@ abstract class SuperTestState<T extends StatefulWidget> extends State<T> {
   Widget build(BuildContext context) {
     return Container();
   }
-}
-
-enum Code { next, stay }
-
-class TestData {
-  TestData({required this.timeStamp, this.code = Code.next});
-  int timeStamp;
-  Code code;
 }
