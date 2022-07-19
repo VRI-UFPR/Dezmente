@@ -8,6 +8,7 @@ abstract class SuperTest extends StatefulWidget {
   final title = "";
   final description = "";
   final needErase = true;
+  final audioFile = "";
 }
 
 abstract class SuperTestState<T extends StatefulWidget> extends State<T> {

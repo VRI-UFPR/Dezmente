@@ -160,6 +160,7 @@ class _TesteState extends State<Teste> {
                         callback: () {
                           Navigator.pop(this.context);
                         },
+                        audioFile: currentTest.audioFile,
                         title: "",
                         description: currentTest.description,
                         buttonText: "Voltar",
