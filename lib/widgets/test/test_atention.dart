@@ -10,6 +10,9 @@ class TestAtention extends SuperTest {
   get description => "Responda as questões com base na história:";
 
   @override
+  get audioFile => "teste-12a.mp3";
+
+  @override
   get title => "Test 12: Atenção";
 
   const TestAtention({Key? key}) : super(key: key);
@@ -34,7 +37,7 @@ class TestAtentionState extends SuperTestState {
 
   int questionIndex = -1;
   List<String> answers = [];
-  var _textController = TextEditingController();
+  final _textController = TextEditingController();
 
   @override
   TestResults getData() {

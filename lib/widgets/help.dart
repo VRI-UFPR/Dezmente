@@ -1,9 +1,9 @@
-import 'package:audioplayers/audioplayers.dart';
+import 'package:dezmente/widgets/play_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_bubble/chat_bubble.dart';
 import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_6.dart';
 
-class HelpTemplateButton extends StatefulWidget {
+class HelpTemplateButton extends StatelessWidget {
   final String title;
   final String buttonText;
   final String description;
@@ -16,54 +16,20 @@ class HelpTemplateButton extends StatefulWidget {
     this.title = "Title",
     this.description = "Description",
     this.buttonText = "Subtitle",
-    this.audioFile = "",
+    required this.audioFile,
   }) : super(key: key);
-
-  @override
-  State<HelpTemplateButton> createState() => _HelpTemplateButtonState();
-}
-
-class _HelpTemplateButtonState extends State<HelpTemplateButton> {
-  bool _playing = false;
-
-  late final AudioPlayer _player;
-
-  late final AudioCache _audioCache;
-
-  Future play() async {
-    await _audioCache.play("audiodezmente-38.mp3");
-  }
-
-  Future stop() async {
-    await _player.stop();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _player = AudioPlayer();
-    _audioCache = AudioCache(fixedPlayer: _player, prefix: "assets/audio/");
-    _player.onPlayerStateChanged.listen(
-        (event) => setState(() => _playing = event == PlayerState.PLAYING));
-  }
 
   @override
   Widget build(BuildContext context) {
     final double screenHeightFactor = MediaQuery.of(context).size.height / 640;
     //final double screenWidthFactor = MediaQuery.of(context).size.width / 360;
     return Scaffold(
-      backgroundColor: const Color.fromARGB(200, 255, 255, 255),
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       body: Stack(children: [
         Positioned(
           top: 10,
           right: 10,
-          child: IconButton(
-              icon: Icon(
-                _playing == true ? Icons.stop_circle : Icons.play_circle,
-              ),
-              iconSize: 45,
-              padding: const EdgeInsets.all(10),
-              onPressed: _playing ? stop : play),
+          child: PlayAudio(audioFile: audioFile),
         ),
         Container(
           margin: const EdgeInsets.all(30),
@@ -80,7 +46,7 @@ class _HelpTemplateButtonState extends State<HelpTemplateButton> {
                 backGroundColor: const Color(0xff8FDEE3),
                 margin: const EdgeInsets.all(10.0),
                 child: Text(
-                  widget.description,
+                  description,
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                     fontFamily: 'montserrat',
@@ -101,13 +67,13 @@ class _HelpTemplateButtonState extends State<HelpTemplateButton> {
                   ),
                   const Spacer(),
                   ElevatedButton(
-                    onPressed: widget.callback,
+                    onPressed: callback,
                     style: ElevatedButton.styleFrom(
                       primary: const Color(0xffe984b8),
                       elevation: 5.0,
                     ),
                     child: Text(
-                      widget.buttonText,
+                      buttonText,
                       style: const TextStyle(
                         fontFamily: 'montserrat',
                         fontWeight: FontWeight.bold,

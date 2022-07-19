@@ -10,7 +10,10 @@ class TestAnimals extends SuperTest {
   get description => "Digite o nome dos animais que aparecem na tela";
 
   @override
-  get title => "Test 3: Animais";
+  get audioFile => "teste-04.mp3";
+
+  @override
+  get title => "Test 4: Animais";
 
   const TestAnimals({Key? key}) : super(key: key);
 
