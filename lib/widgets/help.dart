@@ -24,7 +24,7 @@ class HelpTemplateButton extends StatelessWidget {
     final double screenHeightFactor = MediaQuery.of(context).size.height / 640;
     final double screenWidthFactor = MediaQuery.of(context).size.width / 360;
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+      backgroundColor: const Color.fromARGB(245, 255, 255, 255),
       body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
         PlayAudio(audioFile: audioFile, iconSize: 65),
         SizedBox(height: screenHeightFactor * 50),
