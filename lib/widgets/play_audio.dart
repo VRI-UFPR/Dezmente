@@ -19,7 +19,7 @@ class _PlayAudioState extends State<PlayAudio> {
   late final AudioCache _audioCache;
 
   Future play() async {
-    await _audioCache.play(widget.audioFile);
+    await _audioCache.play(widget.audioFile, volume: 2.0);
   }
 
   Future stop() async {
@@ -43,6 +43,7 @@ class _PlayAudioState extends State<PlayAudio> {
         child: IconButton(
             icon: Icon(
               _playing == true ? Icons.stop_circle : Icons.play_circle,
+              color: const Color(0xFF569DB3),
             ),
             iconSize: widget.iconSize,
             padding: EdgeInsets.zero,

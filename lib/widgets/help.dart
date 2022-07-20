@@ -22,72 +22,58 @@ class HelpTemplateButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double screenHeightFactor = MediaQuery.of(context).size.height / 640;
-    //final double screenWidthFactor = MediaQuery.of(context).size.width / 360;
+    final double screenWidthFactor = MediaQuery.of(context).size.width / 360;
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-      body: Stack(children: [
-        Positioned(
-          top: 10,
-          right: 10,
-          child: PlayAudio(audioFile: audioFile),
-        ),
-        Container(
-          margin: const EdgeInsets.all(30),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ChatBubble(
-                clipper: ChatBubbleClipper6(
-                  radius: 40,
-                  nipSize: 10,
-                ),
-                elevation: 0,
-                alignment: Alignment.center,
-                backGroundColor: const Color(0xff8FDEE3),
-                margin: const EdgeInsets.all(10.0),
-                child: Text(
-                  description,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontFamily: 'montserrat',
-                    fontWeight: FontWeight.w600,
-                    fontSize: 20,
-                    fontStyle: FontStyle.normal,
-                    color: Colors.black,
-                  ),
-                ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    'assets/images/zunokansei.png',
-                    height: 100 * screenHeightFactor,
-                  ),
-                  const Spacer(),
-                  ElevatedButton(
-                    onPressed: callback,
-                    style: ElevatedButton.styleFrom(
-                      primary: const Color(0xffe984b8),
-                      elevation: 5.0,
-                    ),
-                    child: Text(
-                      buttonText,
-                      style: const TextStyle(
-                        fontFamily: 'montserrat',
-                        fontWeight: FontWeight.bold,
-                        fontSize: 25,
-                        fontStyle: FontStyle.normal,
-                        color: Colors.black,
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ],
+      body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+        PlayAudio(audioFile: audioFile, iconSize: 65),
+        SizedBox(height: screenHeightFactor * 50),
+        ChatBubble(
+          clipper: ChatBubbleClipper6(
+            radius: 40,
+            nipSize: 10,
+          ),
+          elevation: 0,
+          alignment: Alignment.center,
+          backGroundColor: const Color(0xff8FDEE3),
+          margin: EdgeInsets.fromLTRB(screenWidthFactor * 125, 10, 25, 10),
+          child: Text(
+            description,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              fontFamily: 'montserrat',
+              fontWeight: FontWeight.w600,
+              fontSize: 20,
+              fontStyle: FontStyle.normal,
+              color: Colors.black,
+            ),
           ),
         ),
+        Padding(
+          padding: EdgeInsets.fromLTRB(0, 0, screenWidthFactor * 120, 0),
+          child: Image.asset(
+            'assets/images/zunokansei.png',
+            height: 100 * screenHeightFactor,
+          ),
+        ),
+        SizedBox(height: screenHeightFactor * 50),
+        ElevatedButton(
+          onPressed: callback,
+          style: ElevatedButton.styleFrom(
+            primary: const Color(0xffe984b8),
+            elevation: 3.0,
+          ),
+          child: Text(
+            buttonText,
+            style: const TextStyle(
+              fontFamily: 'montserrat',
+              fontWeight: FontWeight.bold,
+              fontSize: 25,
+              fontStyle: FontStyle.normal,
+              color: Colors.black,
+            ),
+          ),
+        )
       ]),
     );
   }
