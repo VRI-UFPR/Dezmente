@@ -1,6 +1,4 @@
-import 'package:dezmente/pages/common/super.dart';
 import 'package:dezmente/pages/common/teste_ctrl.dart';
-import 'package:dezmente/widgets/debug_select_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:dezmente/widgets/help.dart';
@@ -13,7 +11,6 @@ class Teste extends StatefulWidget {
 }
 
 const debugMode = true;
-GlobalObjectKey<SuperTestState> _globalKey = const GlobalObjectKey("key");
 
 class _TesteState extends State<Teste> {
   @override
@@ -31,12 +28,12 @@ class _TesteState extends State<Teste> {
                 Navigator.pop(this.context);
               },
               title: "",
-              description: TestCtrl.getInstace().description,
+              description: TestCtrl.instance.description,
               buttonText: "Começar",
             ),
           ),
         );
-        _globalKey.currentState?.init();
+        TestCtrl.instance.init();
       },
     );
   }
@@ -48,7 +45,7 @@ class _TesteState extends State<Teste> {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 17),
-        child: TestCtrl.getInstace().build(context),
+        child: TestCtrl.instance.build(context),
       ),
       backgroundColor: const Color(0xffffffff),
       bottomNavigationBar: Container(
@@ -58,61 +55,68 @@ class _TesteState extends State<Teste> {
             color: const Color(0xff569DB3)),
         child: Row(
           children: [
-            _buildBottomBarButton(Icons.question_mark_outlined, "Informações",
-                () {
-              Navigator.of(context).push(PageRouteBuilder(
-                  opaque: false,
-                  pageBuilder: (context, animation, secondaryAnimation) =>
-                      HelpTemplateButton(
-                        callback: () {
-                          Navigator.pop(this.context);
-                        },
-                        title: "",
-                        description: TestCtrl.getInstace().description,
-                        buttonText: "Voltar",
-                      )));
-            }, null),
-            if (TestCtrl.getInstace().needErase)
-              _buildBottomBarButton(Icons.backspace, "Apagar", () {
-                setState(
-                  () {
-                    _globalKey.currentState?.erase();
-                  },
+            _buildBottomBarButton(
+              Icons.question_mark_outlined,
+              "Informações",
+              () {
+                Navigator.of(context).push(
+                  PageRouteBuilder(
+                    opaque: false,
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        HelpTemplateButton(
+                      callback: () {
+                        Navigator.pop(this.context);
+                      },
+                      title: "",
+                      description: TestCtrl.instance.description,
+                      buttonText: "Voltar",
+                    ),
+                  ),
                 );
-              }, null),
+              },
+              null,
+            ),
+            if (TestCtrl.instance.needErase)
+              _buildBottomBarButton(
+                Icons.backspace,
+                "Apagar",
+                () {
+                  setState(
+                    () {
+                      TestCtrl.instance.erase();
+                    },
+                  );
+                },
+                null,
+              ),
             _buildBottomBarButton(
               Icons.check_circle_outline,
               "Concluir",
               () {
-                setState(() {
-                  TestCtrl.getInstace().nextTest(this.context);
-                });
+                setState(
+                  () {
+                    TestCtrl.instance.nextTest();
+                  },
+                );
               },
               !debugMode
                   ? null
                   : () {
                       setState(
                         () {
-                          TestCtrl.getInstace().currentTest = DebugSelectTest(
-                            testList: TestCtrl.getInstace().testList,
-                            onTestSelected: (i) {
-                              setState(() {
-                                TestCtrl.getInstace().nextTest(context, i: i);
-                              });
-                            },
-                          );
+                          TestCtrl.instance.debugMode();
                         },
                       );
                     },
-            )
+            ),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildBottomBarButton(IconData icon, String label, dynamic onPressed,
-          dynamic onLongPress) =>
+  Widget _buildBottomBarButton(IconData icon, String label,
+          void Function()? onPressed, void Function()? onLongPress) =>
       Expanded(
         child: TextButton(
           onPressed: onPressed,

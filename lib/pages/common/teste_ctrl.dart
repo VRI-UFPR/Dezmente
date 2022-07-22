@@ -1,5 +1,6 @@
 import 'package:dezmente/pages/common/super.dart';
 import 'package:dezmente/services/results.dart';
+import 'package:dezmente/widgets/debug_select_test.dart';
 import 'package:dezmente/widgets/help.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:dezmente/widgets/test/testes_imports.dart';
@@ -8,22 +9,32 @@ class TestCtrl {
   static TestCtrl? _testCtrl;
   late SuperTest? _currentTest;
   late List<SuperTest> _testList;
-  late BuildContext _context;
+
   int index = 0;
-  GlobalObjectKey<SuperTestState> _globalKey = const GlobalObjectKey("key");
+  final GlobalObjectKey<SuperTestState> _globalKey =
+      const GlobalObjectKey("key");
   final _results = <TestResults>[];
 
-  get description => _currentTest!.description;
-  get needErase => _currentTest!.needErase;
-  get testList => _testList;
+  String get description => _currentTest!.description;
+  bool get needErase => _currentTest!.needErase;
+  List<SuperTest> get testList => _testList;
 
   set currentTest(SuperTest c) {
     _currentTest = c;
   }
 
-  set globalkey(GlobalObjectKey<SuperTestState> _globalKey) {
-    this._globalKey = _globalKey;
+  void debugMode() {
+    _currentTest = DebugSelectTest(
+      testList: _testList,
+      onTestSelected: (i) {
+        TestCtrl.instance.nextTest(i: i);
+      },
+    );
   }
+
+  init() => _globalKey.currentState?.init();
+
+  erase() => _globalKey.currentState?.erase();
 
   TestCtrl() {
     _testList = [
@@ -56,7 +67,7 @@ class TestCtrl {
       TestVigilance(
         key: _globalKey,
         completeOnFinalChar: () {
-          nextTest(_context);
+          nextTest();
         },
       ),
       TestClock(
@@ -85,7 +96,7 @@ class TestCtrl {
     _currentTest = _testList.first;
   }
 
-  void nextTest(BuildContext context, {int i = -1}) async {
+  void nextTest({int i = -1}) async {
     TestResults? testResults = _globalKey.currentState?.getData();
     if (testResults?.code == Code.next || i != -1) {
       if (i != -1 || index < _testList.length - 1) {
@@ -94,7 +105,7 @@ class TestCtrl {
         i == -1 ? index++ : index = i;
         currentTest = _testList[index];
 
-        await Navigator.of(context).push(
+        await Navigator.of(_globalKey.currentContext!).push(
           PageRouteBuilder(
             opaque: false,
             pageBuilder: (context, animation, secondaryAnimation) =>
@@ -121,7 +132,7 @@ class TestCtrl {
         );
   }
 
-  static TestCtrl getInstace() {
+  static TestCtrl get instance {
     _testCtrl ??= TestCtrl();
     return _testCtrl!;
   }
