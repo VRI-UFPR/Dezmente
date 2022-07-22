@@ -44,3 +44,8 @@ flutter:
         - asset: assets/fonts/montserrat/Montserrat-Regular.ttf
         - asset: assets/fonts/montserrat/Montserrat-Bold.ttf
         - asset: assets/fonts/montserrat/Montserrat-SemiBold.ttf
+    - family: PassionOne
+      fonts:
+        - asset: assets/fonts/passion_one/PassionOne-Regular.ttf
+        - asset: assets/fonts/passion_one/PassionOne-Bold.ttf
+        - asset: assets/fonts/passion_one/PassionOne-Black.ttf
