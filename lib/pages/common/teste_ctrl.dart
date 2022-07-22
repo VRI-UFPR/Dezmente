@@ -124,8 +124,7 @@ class TestCtrl {
     }
   }
 
-  Widget build(BuildContext context) {
-    _context = context;
+  Widget build() {
     return _currentTest ??
         const Center(
           child: Text("Something Wrong Happened"),

@@ -45,7 +45,7 @@ class _TesteState extends State<Teste> {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 17),
-        child: TestCtrl.instance.build(context),
+        child: TestCtrl.instance.build(),
       ),
       backgroundColor: const Color(0xffffffff),
       bottomNavigationBar: Container(
