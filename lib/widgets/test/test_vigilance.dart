@@ -44,7 +44,9 @@ class TestVigilanceState extends SuperTestState<TestVigilance> {
   void setTimerChar() {
     if (_index == chars.length - 1) {
       print(_acertos / chars.length);
-      widget.completeOnFinalChar();
+      setState(() {
+        widget.completeOnFinalChar();
+      });
       return;
     }
     setNextChar();

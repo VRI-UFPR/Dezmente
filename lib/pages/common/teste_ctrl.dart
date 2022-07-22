@@ -7,21 +7,18 @@ import 'package:dezmente/widgets/test/testes_imports.dart';
 class TestCtrl {
   static TestCtrl? _testCtrl;
   late SuperTest? _currentTest;
-  late List<SuperTest> _testes;
+  late List<SuperTest> _testList;
+  late BuildContext _context;
   int index = 0;
   GlobalObjectKey<SuperTestState> _globalKey = const GlobalObjectKey("key");
   final _results = <TestResults>[];
 
+  get description => _currentTest!.description;
+  get needErase => _currentTest!.needErase;
+  get testList => _testList;
+
   set currentTest(SuperTest c) {
     _currentTest = c;
-  }
-
-  get description {
-    return _currentTest!.description;
-  }
-
-  get needErase {
-    return _currentTest!.needErase;
   }
 
   set globalkey(GlobalObjectKey<SuperTestState> _globalKey) {
@@ -29,7 +26,7 @@ class TestCtrl {
   }
 
   TestCtrl() {
-    _testes = [
+    _testList = [
       TestClock2(
         key: _globalKey,
       ),
@@ -58,7 +55,9 @@ class TestCtrl {
       ),
       TestVigilance(
         key: _globalKey,
-        completeOnFinalChar: () {},
+        completeOnFinalChar: () {
+          nextTest(_context);
+        },
       ),
       TestClock(
         key: _globalKey,
@@ -83,17 +82,17 @@ class TestCtrl {
         key: _globalKey,
       ),
     ];
-    _currentTest = _testes.first;
+    _currentTest = _testList.first;
   }
 
   void nextTest(BuildContext context, {int i = -1}) async {
     TestResults? testResults = _globalKey.currentState?.getData();
     if (testResults?.code == Code.next || i != -1) {
-      if (i != -1 || index < _testes.length - 1) {
+      if (i != -1 || index < _testList.length - 1) {
         testResults != null ? _results.add(testResults) : null;
 
         i == -1 ? index++ : index = i;
-        currentTest = _testes[index];
+        currentTest = _testList[index];
 
         await Navigator.of(context).push(
           PageRouteBuilder(
@@ -115,6 +114,7 @@ class TestCtrl {
   }
 
   Widget build(BuildContext context) {
+    _context = context;
     return _currentTest ??
         const Center(
           child: Text("Something Wrong Happened"),

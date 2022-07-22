@@ -1,5 +1,6 @@
 import 'package:dezmente/pages/common/super.dart';
 import 'package:dezmente/pages/common/teste_ctrl.dart';
+import 'package:dezmente/widgets/debug_select_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:dezmente/widgets/help.dart';
@@ -92,14 +93,14 @@ class _TesteState extends State<Teste> {
                   : () {
                       setState(
                         () {
-                          // currentTest = DebugSelectTest(
-                          //   testList: _testes,
-                          //   onTestSelected: (i) {
-                          //     setState(() {
-                          //       nextTest(i: i);
-                          //     });
-                          //   },
-                          // );
+                          TestCtrl.getInstace().currentTest = DebugSelectTest(
+                            testList: TestCtrl.getInstace().testList,
+                            onTestSelected: (i) {
+                              setState(() {
+                                TestCtrl.getInstace().nextTest(context, i: i);
+                              });
+                            },
+                          );
                         },
                       );
                     },
