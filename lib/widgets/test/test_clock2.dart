@@ -1,9 +1,8 @@
-import 'dart:ui' as ui;
 import 'dart:math';
 
 import 'package:circular_widgets/circular_widgets.dart';
+import 'package:dezmente/services/super.dart';
 import 'package:flutter/material.dart';
-import 'package:dezmente/super/super.dart';
 
 class TestClock2 extends SuperTest {
   @override
