@@ -1,5 +1,5 @@
 import 'package:dezmente/services/results.dart';
-import 'package:dezmente/services/super.dart';
+import 'package:dezmente/pages/common/super.dart';
 import 'package:dezmente/utils/levenshtein_dist.dart';
 import 'package:dezmente/widgets/dialog.dart';
 import 'package:flutter/material.dart';

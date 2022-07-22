@@ -1,5 +1,6 @@
+import 'package:dezmente/pages/common/teste_ctrl.dart';
 import 'package:dezmente/services/results.dart';
-import 'package:dezmente/services/super.dart';
+import 'package:dezmente/pages/common/super.dart';
 import 'package:dezmente/widgets/debug_select_test.dart';
 import 'package:dezmente/widgets/test/testes_imports.dart';
 import 'package:flutter/material.dart';
@@ -144,7 +145,7 @@ class _TesteState extends State<Teste> {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 17),
-        child: currentTest,
+        child: TestCtrl.getInstace().build(context),
       ),
       backgroundColor: const Color(0xffffffff),
       bottomNavigationBar: Container(

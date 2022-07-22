@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:dezmente/services/super.dart';
+import 'package:dezmente/pages/common/super.dart';
 import 'package:flutter/material.dart';
 import 'package:widget_arrows/widget_arrows.dart';
 

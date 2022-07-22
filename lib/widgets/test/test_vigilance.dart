@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:dezmente/services/super.dart';
+import 'package:dezmente/pages/common/super.dart';
 import 'package:flutter/material.dart';
 
 class TestVigilance extends SuperTest {
