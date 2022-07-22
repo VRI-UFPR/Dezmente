@@ -1,8 +1,5 @@
-import 'package:dezmente/pages/common/teste_ctrl.dart';
-import 'package:dezmente/services/results.dart';
 import 'package:dezmente/pages/common/super.dart';
-import 'package:dezmente/widgets/debug_select_test.dart';
-import 'package:dezmente/widgets/test/testes_imports.dart';
+import 'package:dezmente/pages/common/teste_ctrl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:dezmente/widgets/help.dart';
@@ -18,104 +15,9 @@ const debugMode = true;
 GlobalObjectKey<SuperTestState> _globalKey = const GlobalObjectKey("key");
 
 class _TesteState extends State<Teste> {
-  final _results = <TestResults>[];
-  late SuperTest currentTest;
-  int index = 0;
-
-  void nextTest({int i = -1}) async {
-    TestResults? testResults = _globalKey.currentState?.getData();
-    if (testResults?.code == Code.next || i != -1) {
-      if (i != -1 || index < _testes.length - 1) {
-        testResults != null ? _results.add(testResults) : null;
-
-        setState(() {
-          i == -1 ? index++ : index = i;
-          currentTest = _testes[index];
-        });
-
-        await Navigator.of(context).push(
-          PageRouteBuilder(
-            opaque: false,
-            pageBuilder: (context, animation, secondaryAnimation) =>
-                HelpTemplateButton(
-              callback: () {
-                Navigator.pop(this.context);
-              },
-              title: "",
-              description: currentTest.description,
-              buttonText: "Começar",
-            ),
-          ),
-        );
-        _globalKey.currentState?.init();
-      }
-    }
-  }
-
-  late final List<SuperTest> _testes;
-
   @override
   void initState() {
     super.initState();
-
-    _testes = [
-      TestClock2(
-        key: _globalKey,
-      ),
-      TestConection(
-        key: _globalKey,
-      ),
-      TestCube(
-        key: _globalKey,
-      ),
-      TestAnimals(
-        key: _globalKey,
-      ),
-      TestMemory(
-        key: _globalKey,
-        editMode: 0,
-      ),
-      TestMemory(
-        key: _globalKey,
-        editMode: 1,
-      ),
-      TestMemoryText(
-        key: _globalKey,
-      ),
-      TestMemoryQuestions(
-        key: _globalKey,
-      ),
-      TestVigilance(
-        key: _globalKey,
-        completeOnFinalChar: () {
-          nextTest();
-        },
-      ),
-      TestClock(
-        key: _globalKey,
-      ),
-      TestAbstraction(
-        key: _globalKey,
-      ),
-      TestSimilarity(
-        key: _globalKey,
-      ),
-      TestAbstraction2(
-        key: _globalKey,
-      ),
-      TestMemory(
-        key: _globalKey,
-        editMode: 2,
-      ),
-      TestAtention(
-        key: _globalKey,
-      ),
-      TestSpaceOrient(
-        key: _globalKey,
-      ),
-    ];
-
-    currentTest = _testes.first;
 
     WidgetsBinding.instance!.addPostFrameCallback(
       (timeStamp) async {
@@ -128,7 +30,7 @@ class _TesteState extends State<Teste> {
                 Navigator.pop(this.context);
               },
               title: "",
-              description: currentTest.description,
+              description: TestCtrl.getInstace().description,
               buttonText: "Começar",
             ),
           ),
@@ -165,11 +67,11 @@ class _TesteState extends State<Teste> {
                           Navigator.pop(this.context);
                         },
                         title: "",
-                        description: currentTest.description,
+                        description: TestCtrl.getInstace().description,
                         buttonText: "Voltar",
                       )));
             }, null),
-            if (currentTest.needErase)
+            if (TestCtrl.getInstace().needErase)
               _buildBottomBarButton(Icons.backspace, "Apagar", () {
                 setState(
                   () {
@@ -182,7 +84,7 @@ class _TesteState extends State<Teste> {
               "Concluir",
               () {
                 setState(() {
-                  TestCtrl.getInstace().currentTest = currentTest;
+                  TestCtrl.getInstace().nextTest(this.context);
                 });
               },
               !debugMode
@@ -190,14 +92,14 @@ class _TesteState extends State<Teste> {
                   : () {
                       setState(
                         () {
-                          currentTest = DebugSelectTest(
-                            testList: _testes,
-                            onTestSelected: (i) {
-                              setState(() {
-                                nextTest(i: i);
-                              });
-                            },
-                          );
+                          // currentTest = DebugSelectTest(
+                          //   testList: _testes,
+                          //   onTestSelected: (i) {
+                          //     setState(() {
+                          //       nextTest(i: i);
+                          //     });
+                          //   },
+                          // );
                         },
                       );
                     },
