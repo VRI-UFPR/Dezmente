@@ -3,13 +3,17 @@ import 'package:flutter/cupertino.dart';
 
 class TestCtrl extends State {
   static TestCtrl? _testCtrl;
-  SuperTest? currentTest;
+  SuperTest? _currentTest;
+
+  set currentTest(SuperTest c) {
+    _currentTest = c;
+  }
 
   TestCtrl();
 
   @override
   Widget build(BuildContext context) {
-    return currentTest ??
+    return _currentTest ??
         const Center(
           child: Text("Something Wrong Happened"),
         );

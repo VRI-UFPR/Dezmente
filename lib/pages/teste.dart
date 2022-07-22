@@ -181,7 +181,9 @@ class _TesteState extends State<Teste> {
               Icons.check_circle_outline,
               "Concluir",
               () {
-                nextTest();
+                setState(() {
+                  TestCtrl.getInstace().currentTest = currentTest;
+                });
               },
               !debugMode
                   ? null
