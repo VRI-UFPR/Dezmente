@@ -17,6 +17,8 @@ class _TesteState extends State<Teste> {
   void initState() {
     super.initState();
 
+    TestCtrl.instance.setCallback = () => setState(() {});
+
     WidgetsBinding.instance!.addPostFrameCallback(
       (timeStamp) async {
         await Navigator.of(context).push(
@@ -56,58 +58,22 @@ class _TesteState extends State<Teste> {
         child: Row(
           children: [
             _buildBottomBarButton(
-              Icons.question_mark_outlined,
-              "Informações",
-              () {
-                Navigator.of(context).push(
-                  PageRouteBuilder(
-                    opaque: false,
-                    pageBuilder: (context, animation, secondaryAnimation) =>
-                        HelpTemplateButton(
-                      callback: () {
-                        Navigator.pop(this.context);
-                      },
-                      title: "",
-                      description: TestCtrl.instance.description,
-                      buttonText: "Voltar",
-                    ),
-                  ),
-                );
-              },
-              null,
+              icon: Icons.question_mark_outlined,
+              label: "Informações",
+              onPressed: () => callHelpHud(),
             ),
             if (TestCtrl.instance.needErase)
               _buildBottomBarButton(
-                Icons.backspace,
-                "Apagar",
-                () {
-                  setState(
-                    () {
-                      TestCtrl.instance.erase();
-                    },
-                  );
-                },
-                null,
+                icon: Icons.backspace,
+                label: "Apagar",
+                onPressed: () => TestCtrl.instance.erase(),
               ),
             _buildBottomBarButton(
-              Icons.check_circle_outline,
-              "Concluir",
-              () {
-                setState(
-                  () {
-                    TestCtrl.instance.nextTest();
-                  },
-                );
-              },
-              !debugMode
-                  ? null
-                  : () {
-                      setState(
-                        () {
-                          TestCtrl.instance.debugMode();
-                        },
-                      );
-                    },
+              icon: Icons.check_circle_outline,
+              label: "Concluir",
+              onPressed: () => TestCtrl.instance.nextTest(),
+              onLongPress:
+                  !debugMode ? null : () => TestCtrl.instance.debugMode(),
             ),
           ],
         ),
@@ -115,8 +81,27 @@ class _TesteState extends State<Teste> {
     );
   }
 
-  Widget _buildBottomBarButton(IconData icon, String label,
-          void Function()? onPressed, void Function()? onLongPress) =>
+  void callHelpHud() => Navigator.of(context).push(
+        PageRouteBuilder(
+          opaque: false,
+          pageBuilder: (context, animation, secondaryAnimation) =>
+              HelpTemplateButton(
+            callback: () {
+              Navigator.pop(this.context);
+            },
+            title: "",
+            description: TestCtrl.instance.description,
+            buttonText: "Voltar",
+          ),
+        ),
+      );
+
+  Widget _buildBottomBarButton({
+    required IconData icon,
+    required String label,
+    void Function()? onPressed,
+    void Function()? onLongPress,
+  }) =>
       Expanded(
         child: TextButton(
           onPressed: onPressed,

@@ -34,7 +34,7 @@ class TestConection extends SuperTest {
 
 class TestConectionState extends SuperTestState {
 // lista de botoes utilizados no teste
-  List<_ConectButtons> _buttons = [
+  final List<_ConectButtons> _buttons = [
     _ConectButtons("1", false, "A", false, 96, 230),
     _ConectButtons("A", false, "2", false, 212, 102),
     _ConectButtons("2", false, "B", false, 270, 180),

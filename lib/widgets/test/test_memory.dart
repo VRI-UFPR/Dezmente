@@ -14,7 +14,7 @@ class TestMemory extends SuperTest {
   get title => editMode == 0
       ? "Test 4: Memorização"
       : editMode == 1
-          ? "Test seila: Reforço Memorização"
+          ? "Test 4.1: Reforço Memorização"
           : "Test 11: Memorização";
 
   final int editMode;
@@ -39,6 +39,7 @@ class TestMemoryState extends SuperTestState<TestMemory> {
   void initState() {
     super.initState();
     buffer = false;
+    buffer = false;
     if (widget.editMode == 0) {
       for (int i = 0; i < words.length; i++) {
         words[i].corrected ? words[i].selected = true : null;
@@ -46,14 +47,18 @@ class TestMemoryState extends SuperTestState<TestMemory> {
     } else {
       words.shuffle();
     }
+  }
 
-    // if (!widget.editMode) {
-    //   final randomPicker = List<int>.generate(12, (i) => i)..shuffle();
-
-    //   for (int i = 0; i < 4; i++) {
-    //     words[randomPicker[i]].selected = true;
-    //   }
-    // }
+  @override
+  init() {
+    super.init();
+    if (widget.editMode == 1) {
+      for (int i = 0; i < words.length; i++) {
+        words[i].selected = false;
+      }
+      words.shuffle();
+      setState(() {});
+    }
   }
 
   @override

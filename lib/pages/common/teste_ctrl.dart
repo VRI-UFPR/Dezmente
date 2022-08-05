@@ -9,6 +9,7 @@ class TestCtrl {
   static TestCtrl? _testCtrl;
   late SuperTest? _currentTest;
   late List<SuperTest> _testList;
+  late VoidCallback _setState;
 
   int index = 0;
   final GlobalObjectKey<SuperTestState> _globalKey =
@@ -19,17 +20,13 @@ class TestCtrl {
   bool get needErase => _currentTest!.needErase;
   List<SuperTest> get testList => _testList;
 
-  set currentTest(SuperTest c) {
-    _currentTest = c;
+  set setCallback(VoidCallback c) {
+    _setState = c;
   }
 
-  void debugMode() {
-    _currentTest = DebugSelectTest(
-      testList: _testList,
-      onTestSelected: (i) {
-        TestCtrl.instance.nextTest(i: i);
-      },
-    );
+  set currentTest(SuperTest c) {
+    _currentTest = c;
+    _setState();
   }
 
   init() => _globalKey.currentState?.init();
@@ -93,7 +90,19 @@ class TestCtrl {
         key: _globalKey,
       ),
     ];
+    //Por causa que isso é no construtor existe um erro usando set currentTest que usa a função _setState que pode n estar estanciada mesmo lendo late oq cria um erro
+    //Por motivos a falta do setState aqui não causa o app ficar com a tela errada porem seria bom o uso do setState, porem vc teria que garantir o late do _setState
     _currentTest = _testList.first;
+  }
+
+  void debugMode() {
+    currentTest = DebugSelectTest(
+      key: _globalKey,
+      testList: _testList,
+      onTestSelected: (i) {
+        TestCtrl.instance.nextTest(i: i);
+      },
+    );
   }
 
   void nextTest({int i = -1}) async {
@@ -102,6 +111,7 @@ class TestCtrl {
       if (i != -1 || index < _testList.length - 1) {
         testResults != null ? _results.add(testResults) : null;
 
+        //Caso seja entrada com i != -1 quer dizer que veio pelo debugmode e o currentTest sera o i, se n index ++
         i == -1 ? index++ : index = i;
         currentTest = _testList[index];
 
