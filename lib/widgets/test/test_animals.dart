@@ -1,9 +1,23 @@
 import 'package:dezmente/services/results.dart';
 import 'package:dezmente/services/super.dart';
-import 'package:dezmente/utils/levenshtein_dist.dart';
+import 'package:dezmente/utils/get_similarity.dart';
 import 'package:dezmente/widgets/dialog.dart';
 import 'package:flutter/material.dart';
-import 'dart:math';
+
+class AnimalData {
+  String name = "";
+  String file = "";
+  double targetSimilarity = 0.0;
+
+  AnimalData(
+      {required this.name, required this.file, required this.targetSimilarity});
+}
+
+List<AnimalData> animalsData = [
+  AnimalData(name: "elefante", file: "elefante.png", targetSimilarity: 0.7),
+  AnimalData(name: "girafa", file: "girafa.png", targetSimilarity: 0.7),
+  AnimalData(name: "leão", file: "leao.png", targetSimilarity: 0.5),
+];
 
 class TestAnimals extends SuperTest {
   @override
@@ -24,17 +38,27 @@ class TestAnimalsState extends SuperTestState {
     controller.text = "";
   }
 
+  int score = 0;
+
+  void _scoreFunction() {
+    String name = animalsData[_animalIndex].name.toLowerCase();
+    double targetSimilarity = animalsData[_animalIndex].targetSimilarity;
+    double similarity = getSimilarity(name, controller.text);
+    if (similarity > targetSimilarity) score++;
+  }
+
   @override
   TestResults getData() {
-    if (imageNames.isEmpty) {
-      print(_similarity(_animal, controller.text));
+    if (_animalIndex == 2) {
+      _scoreFunction();
       data.code = Code.next;
+      print(score);
     } else {
       showAlertDialog(
           context: context,
           titleText: "Deseja ir para próxima imagem?",
           contentText: "Não será possível retornar após esta ação.",
-          callback: setRandomImage);
+          callback: setNextAnimal);
     }
     return super.getData();
   }
@@ -45,36 +69,12 @@ class TestAnimalsState extends SuperTestState {
     data.code = Code.stay;
   }
 
-  final _random = Random();
+  int _animalIndex = 0;
 
-  Map<String, String> imageNames = {
-    "leão": "leao.png",
-    "elefante": "elefante.png",
-    "girafa": "girafa.png",
-  };
-
-  String _animal = "", _file = "";
-
-  void setRandomImage() {
-    print(_similarity(_animal, controller.text));
-    int max = imageNames.length;
-    int randomIndex = _random.nextInt(max - 0);
-    setState(() {
-      _file = imageNames.values.elementAt(randomIndex);
-      _animal = imageNames.keys.elementAt(randomIndex);
-    });
-    imageNames.remove(_animal);
+  void setNextAnimal() {
+    _scoreFunction();
+    setState(() => _animalIndex += 1);
     controller.clear();
-  }
-
-  @override
-  initState() {
-    super.initState();
-    int max = imageNames.length;
-    int randomIndex = _random.nextInt(max - 0);
-    _file = imageNames.values.elementAt(randomIndex);
-    _animal = imageNames.keys.elementAt(randomIndex);
-    imageNames.remove(_animal);
   }
 
   TextEditingController controller = TextEditingController();
@@ -104,7 +104,8 @@ class TestAnimalsState extends SuperTestState {
           border: Border.all(color: const Color(0xffe984b8), width: 2.5),
           borderRadius: BorderRadius.circular(5),
           image: DecorationImage(
-            image: AssetImage('assets/images/animals/$_file'),
+            image: AssetImage(
+                'assets/images/animals/${animalsData[_animalIndex].file}'),
             fit: BoxFit.contain,
           )));
 
@@ -137,12 +138,4 @@ class TestAnimalsState extends SuperTestState {
             borderRadius: BorderRadius.all(Radius.circular(8))),
         child: _buildTextField(),
       );
-
-  double _similarity(String a, String b) {
-    double similarity;
-    a = a.toUpperCase();
-    b = b.toUpperCase();
-    similarity = 1 - levenshteinDist(a, b) / (max(a.length, b.length));
-    return (similarity);
-  }
 }
