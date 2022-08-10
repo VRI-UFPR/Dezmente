@@ -46,7 +46,12 @@ class TestVigilanceState extends SuperTestState<TestVigilance> {
 
   void setTimerChar() {
     if (_index == chars.length - 1) {
-      print(_acertos / chars.length);
+      int score = _acertos == chars.length
+          ? 2
+          : _acertos == chars.length - 1
+              ? 1
+              : 0;
+      print(score);
       widget.completeOnFinalChar();
       return;
     }
