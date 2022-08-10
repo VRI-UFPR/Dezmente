@@ -65,7 +65,7 @@ class TestMemoryState extends SuperTestState<TestMemory> {
   erase() {}
 
   @override
-  TestResults getData() {
+  Result getData() {
     if (widget.editMode == 1 && !buffer) {
       data.code = Code.stay;
       setState(() {

@@ -21,7 +21,7 @@ class TestAbstraction2State extends SuperTestState<TestAbstraction2> {
   erase() {}
 
   @override
-  TestResults getData() {
+  Result getData() {
     if (selected == 4) {
       print("Acertou");
     } else {

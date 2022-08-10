@@ -37,7 +37,7 @@ class TestAtentionState extends SuperTestState {
   var _textController = TextEditingController();
 
   @override
-  TestResults getData() {
+  Result getData() {
     if (questionIndex == 4) {
       data.code = Code.next;
     } else {

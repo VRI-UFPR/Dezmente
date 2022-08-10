@@ -53,8 +53,8 @@ class TestCubeState extends SuperTestState {
   }
 
   @override
-  TestResults getData() {
-    TestResults results = super.getData();
+  Result getData() {
+    Result results = super.getData();
     results.score = _boxSelected == Boxes.face2 ? 100 : 0;
     return results;
   }

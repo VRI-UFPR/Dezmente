@@ -10,18 +10,21 @@ abstract class SuperTest extends StatefulWidget {
   final needErase = true;
 }
 
-abstract class SuperTestState<T extends StatefulWidget> extends State<T> {
-  TestResults data = TestResults(timeStamp: 0);
+abstract class SuperTestState<T extends SuperTest> extends State<T> {
+  Result data = Result(timeSpent: 0);
 
   @mustCallSuper
-  TestResults getData() {
-    data.timeStamp = DateTime.now().millisecondsSinceEpoch - data.timeStamp;
+  Result getData() {
+    if (data.code == Code.next) {
+      data.timeSpent = DateTime.now().millisecondsSinceEpoch - data.timeSpent;
+    }
     return data;
   }
 
   @mustCallSuper
   init() {
-    data.timeStamp = DateTime.now().millisecondsSinceEpoch;
+    data.testName = widget.title;
+    data.timeSpent = DateTime.now().millisecondsSinceEpoch;
   }
 
   @factory

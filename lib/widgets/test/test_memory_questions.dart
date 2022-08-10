@@ -52,7 +52,7 @@ class TestMemoryQuestionsState extends SuperTestState {
   int _selected = -1;
 
   @override
-  TestResults getData() {
+  Result getData() {
     print(_selected == questions[0].correta ? "Acertou" : "Errou");
     if (questions.length == 1) {
       data.code = Code.next;

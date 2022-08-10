@@ -6,18 +6,20 @@ import 'package:flutter/cupertino.dart';
 import 'package:dezmente/widgets/test/testes_imports.dart';
 
 class TestCtrl {
+  int currentTestIndex = 0;
   static TestCtrl? _testCtrl;
   late SuperTest? _currentTest;
   late List<SuperTest> _testList;
   late VoidCallback _setState;
 
-  int index = 0;
+  final TestResults _testResults = TestResults();
+
   final GlobalObjectKey<SuperTestState> _globalKey =
       const GlobalObjectKey("key");
-  final _results = <TestResults>[];
 
   String get description => _currentTest!.description;
   bool get needErase => _currentTest!.needErase;
+  SuperTestState<SuperTest>? get state => _globalKey.currentState;
   List<SuperTest> get testList => _testList;
 
   set setCallback(VoidCallback c) {
@@ -100,36 +102,55 @@ class TestCtrl {
       key: _globalKey,
       testList: _testList,
       onTestSelected: (i) {
-        TestCtrl.instance.nextTest(i: i);
+        TestCtrl.instance.nextTestDebug(i);
       },
     );
   }
 
-  void nextTest({int i = -1}) async {
-    TestResults? testResults = _globalKey.currentState?.getData();
-    if (testResults?.code == Code.next || i != -1) {
-      if (i != -1 || index < _testList.length - 1) {
-        testResults != null ? _results.add(testResults) : null;
+  pushTestHelpPage() async {
+    await Navigator.of(_globalKey.currentContext!).push(
+      PageRouteBuilder(
+        opaque: false,
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            HelpTemplateButton(
+          callback: () {
+            Navigator.pop(context);
+          },
+          title: "",
+          description: _currentTest!.description,
+          buttonText: "Começar",
+        ),
+      ),
+    );
+  }
 
-        //Caso seja entrada com i != -1 quer dizer que veio pelo debugmode e o currentTest sera o i, se n index ++
-        i == -1 ? index++ : index = i;
-        currentTest = _testList[index];
+  void nextTestDebug(int i) async {
+    currentTestIndex = i;
+    currentTest = _testList[i];
+    await pushTestHelpPage();
+    init();
+  }
 
-        await Navigator.of(_globalKey.currentContext!).push(
-          PageRouteBuilder(
-            opaque: false,
-            pageBuilder: (context, animation, secondaryAnimation) =>
-                HelpTemplateButton(
-              callback: () {
-                Navigator.pop(context);
-              },
-              title: "",
-              description: _currentTest!.description,
-              buttonText: "Começar",
-            ),
-          ),
-        );
-        _globalKey.currentState?.init();
+  void nextTest() async {
+    //Recebe os resultados do teste
+    Result? testResults = state?.getData();
+
+    //Se o codigo do teste for next(no caso onde o teste ja "acabou") ou se chamada for feita pelo debugMode
+    if (testResults?.code == Code.next) {
+      if (testResults != null) {
+        _testResults.addResult(testResults);
+      }
+      //Se possui ainda outro teste para ser feito
+      if (currentTestIndex < _testList.length - 1) {
+        currentTestIndex++;
+        currentTest = _testList[currentTestIndex];
+
+        //Da push da tela de help do inicio do teste e apos o user der começar/a tela fechar ele inicia o teste
+        await pushTestHelpPage();
+        init();
+      } else {
+        // Caso os testes tenham acabado
+        _testResults.submit();
       }
     }
   }
@@ -137,7 +158,7 @@ class TestCtrl {
   Widget build() {
     return _currentTest ??
         const Center(
-          child: Text("Something Wrong Happened"),
+          child: Text("Error 589"),
         );
   }
 

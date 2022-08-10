@@ -25,7 +25,7 @@ class TestAnimalsState extends SuperTestState {
   }
 
   @override
-  TestResults getData() {
+  Result getData() {
     if (imageNames.isEmpty) {
       print(_similarity(_animal, controller.text));
       data.code = Code.next;

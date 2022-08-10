@@ -34,7 +34,7 @@ class TestSimilarityState extends SuperTestState<TestSimilarity> {
   }
 
   @override
-  TestResults getData() {
+  Result getData() {
     if (_imageIndex < 2) {
       setState(() => _imageIndex++);
       controller.text = '';
