@@ -11,10 +11,17 @@ class TestMemory extends SuperTest {
           : "Clique nas palavras que estavam em azul na lista anterior";
 
   @override
-  get title => editMode == 0
-      ? "Test 4: Memorização"
+  get audioFile => editMode == 0
+      ? "teste-05a.mp3"
       : editMode == 1
-          ? "Test seila: Reforço Memorização"
+          ? "teste-05b.mp3"
+          : "teste-11.mp3";
+
+  @override
+  get title => editMode == 0
+      ? "Test 5: Memorização"
+      : editMode == 1
+          ? "Test 5: Reforço Memorização"
           : "Test 11: Memorização";
 
   final int editMode;

@@ -7,6 +7,9 @@ class TestVigilance extends SuperTest {
   get description => "Clique no botão na tela toda vez que aparecer a letra A";
 
   @override
+  get audioFile => "teste-07.mp3";
+
+  @override
   get title => "Test 7: Atenção";
 
   final VoidCallback completeOnFinalChar;

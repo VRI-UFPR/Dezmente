@@ -7,6 +7,9 @@ class TestSimilarity extends SuperTest {
   get description => "Digite qual é a semelhança entre as imagens";
 
   @override
+  get audioFile => "teste-08.mp3";
+
+  @override
   get title => "Test 8: Abstração";
 
   const TestSimilarity({Key? key}) : super(key: key);

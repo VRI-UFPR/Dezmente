@@ -6,7 +6,10 @@ class TestSpaceOrient extends SuperTest {
   get description => "Responda as perguntas:";
 
   @override
-  get title => "Test 13: Orientação Espacial";
+  get audioFile => "teste-10a.mp3";
+
+  @override
+  get title => "Test 10: Orientação Espacial";
 
   const TestSpaceOrient({Key? key}) : super(key: key);
 

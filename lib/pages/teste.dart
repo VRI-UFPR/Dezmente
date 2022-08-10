@@ -40,6 +40,7 @@ class _TesteState extends State<Teste> {
               callback: () {
                 Navigator.pop(this.context);
               },
+              audioFile: currentTest.audioFile,
               title: "",
               description: currentTest.description,
               buttonText: "Começar",
@@ -67,6 +68,9 @@ class _TesteState extends State<Teste> {
       TestCube(
         key: _globalKey,
       ),
+      TestClock(
+        key: _globalKey,
+      ),
       TestAnimals(
         key: _globalKey,
       ),
@@ -81,20 +85,11 @@ class _TesteState extends State<Teste> {
       TestMemoryText(
         key: _globalKey,
       ),
-      TestMemoryQuestions(
-        key: _globalKey,
-      ),
       TestVigilance(
         key: _globalKey,
         completeOnFinalChar: () {
           nextTest();
         },
-      ),
-      TestClock(
-        key: _globalKey,
-      ),
-      TestAbstraction(
-        key: _globalKey,
       ),
       TestSimilarity(
         key: _globalKey,
@@ -102,14 +97,14 @@ class _TesteState extends State<Teste> {
       TestAbstraction2(
         key: _globalKey,
       ),
+      TestSpaceOrient(
+        key: _globalKey,
+      ),
       TestMemory(
         key: _globalKey,
         editMode: 2,
       ),
       TestAtention(
-        key: _globalKey,
-      ),
-      TestSpaceOrient(
         key: _globalKey,
       ),
     ];
@@ -127,6 +122,7 @@ class _TesteState extends State<Teste> {
                 Navigator.pop(this.context);
               },
               title: "",
+              audioFile: currentTest.audioFile,
               description: currentTest.description,
               buttonText: "Começar",
             ),
@@ -163,6 +159,7 @@ class _TesteState extends State<Teste> {
                         callback: () {
                           Navigator.pop(this.context);
                         },
+                        audioFile: currentTest.audioFile,
                         title: "",
                         description: currentTest.description,
                         buttonText: "Voltar",
