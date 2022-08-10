@@ -34,27 +34,29 @@ class Question {
       required this.audioFile});
 }
 
+List<Question> questions = [
+  Question(
+      pergunta: "01) Qual foi a biblioteca em que foram?",
+      opcoes: [
+        "a) Biblioteca municipal",
+        "b) Biblioteca estadual",
+        "c) Biblioteca da universidade",
+        "d) Biblioteca central"
+      ],
+      correta: 0,
+      audioFile: "teste-06c.mp3"),
+  Question(
+      pergunta: "02) O que João esqueceu em casa?",
+      opcoes: ["a) Carteira", "b) Livro", "c) Cartão", "d) Relógio"],
+      correta: 1,
+      audioFile: "teste-06d.mp3")
+];
+
 class TestMemoryTextState extends SuperTestState {
   @override
   erase() {}
 
-  final questions = [
-    Question(
-        pergunta: "01) Qual foi a biblioteca em que foram?",
-        opcoes: [
-          "a) Biblioteca municipal",
-          "b) Biblioteca estadual",
-          "c) Biblioteca da universidade",
-          "d) Biblioteca central"
-        ],
-        correta: 0,
-        audioFile: "teste-06c.mp3"),
-    Question(
-        pergunta: "02) O que João esqueceu em casa?",
-        opcoes: ["a) Carteira", "b) Livro", "c) Cartão", "d) Relógio"],
-        correta: 1,
-        audioFile: "teste-06d.mp3")
-  ];
+  int score = 0;
 
   void setNextQuestion() {
     questions.removeAt(0);
@@ -67,9 +69,10 @@ class TestMemoryTextState extends SuperTestState {
 
   @override
   TestResults getData() {
-    print(_selected == questions[0].correta ? "Acertou" : "Errou");
+    if (_selected == questions[0].correta) score++;
     if (questions.length == 1) {
       data.code = Code.next;
+      print(score);
     } else {
       setNextQuestion();
     }
