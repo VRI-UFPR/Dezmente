@@ -11,4 +11,3 @@ export 'test_space_orientation.dart';
 export 'test_memory_text.dart';
 export 'test_vigilance.dart';
 export 'test_similarity.dart';
-export 'test_memory_questions.dart';
