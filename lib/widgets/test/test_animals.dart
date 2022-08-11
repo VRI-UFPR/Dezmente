@@ -1,5 +1,7 @@
+import 'dart:math';
+
+import 'package:dezmente/pages/common/super.dart';
 import 'package:dezmente/services/results.dart';
-import 'package:dezmente/services/super.dart';
 import 'package:dezmente/utils/get_similarity.dart';
 import 'package:dezmente/widgets/dialog.dart';
 import 'package:flutter/material.dart';
@@ -35,13 +37,14 @@ class TestAnimals extends SuperTest {
   TestAnimalsState createState() => TestAnimalsState();
 }
 
-class TestAnimalsState extends SuperTestState {
+class TestAnimalsState<TestAnimals> extends SuperTestState {
   @override
   erase() {
     controller.text = "";
   }
 
   int score = 0;
+  int _animalIndex = 0;
 
   void _scoreFunction() {
     String name = animalsData[_animalIndex].name.toLowerCase();
@@ -51,7 +54,7 @@ class TestAnimalsState extends SuperTestState {
   }
 
   @override
-  TestResults getData() {
+  Result getData() {
     if (_animalIndex == 2) {
       _scoreFunction();
       data.code = Code.next;

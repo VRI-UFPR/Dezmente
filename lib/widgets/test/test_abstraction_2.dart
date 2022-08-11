@@ -24,7 +24,7 @@ class TestAbstraction2State extends SuperTestState<TestAbstraction2> {
   erase() {}
 
   @override
-  TestResults getData() {
+  Result getData() {
     int score = selected == 4 ? 1 : 0;
     print(score);
     return super.getData();

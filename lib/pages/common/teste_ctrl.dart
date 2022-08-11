@@ -18,6 +18,7 @@ class TestCtrl {
       const GlobalObjectKey("key");
 
   String get description => _currentTest!.description;
+  String get audioFile => _currentTest!.audioFile;
   bool get needErase => _currentTest!.needErase;
   SuperTestState<SuperTest>? get state => _globalKey.currentState;
   List<SuperTest> get testList => _testList;
@@ -58,9 +59,6 @@ class TestCtrl {
         editMode: 1,
       ),
       TestMemoryText(
-        key: _globalKey,
-      ),
-      TestMemoryQuestions(
         key: _globalKey,
       ),
       TestVigilance(
@@ -113,6 +111,7 @@ class TestCtrl {
         opaque: false,
         pageBuilder: (context, animation, secondaryAnimation) =>
             HelpTemplateButton(
+          audioFile: audioFile,
           callback: () {
             Navigator.pop(context);
           },
