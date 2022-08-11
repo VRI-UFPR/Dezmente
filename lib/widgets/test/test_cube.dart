@@ -31,6 +31,9 @@ class TestCube extends SuperTest {
       "Clique na imagem que forma o cubo com uma face pintada de cinza e a oposta de quadriculado, conforme a figura:";
 
   @override
+  get audioFile => "teste-02.mp3";
+
+  @override
   get title => "Test 2: Cubo";
 
   @override

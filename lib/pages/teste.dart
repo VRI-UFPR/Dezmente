@@ -26,6 +26,7 @@ class _TesteState extends State<Teste> {
             opaque: false,
             pageBuilder: (context, animation, secondaryAnimation) =>
                 HelpTemplateButton(
+              audioFile: TestCtrl.instance.audioFile,
               callback: () {
                 Navigator.pop(this.context);
               },
@@ -86,6 +87,7 @@ class _TesteState extends State<Teste> {
           opaque: false,
           pageBuilder: (context, animation, secondaryAnimation) =>
               HelpTemplateButton(
+            audioFile: TestCtrl.instance.audioFile,
             callback: () {
               Navigator.pop(this.context);
             },

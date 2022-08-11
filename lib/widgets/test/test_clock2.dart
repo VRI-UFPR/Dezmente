@@ -10,6 +10,9 @@ class TestClock2 extends SuperTest {
       "Coloque os números no lugar apropriado no relógio e indique o horário 14:50 com os ponteiros:";
 
   @override
+  get audioFile => "teste-03.mp3";
+
+  @override
   get title => "Test 8.1: Relogio";
 
   const TestClock2({Key? key}) : super(key: key);

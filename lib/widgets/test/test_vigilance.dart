@@ -7,6 +7,9 @@ class TestVigilance extends SuperTest {
   get description => "Clique no botão na tela toda vez que aparecer a letra A";
 
   @override
+  get audioFile => "teste-07.mp3";
+
+  @override
   get title => "Test 7: Atenção";
 
   final VoidCallback completeOnFinalChar;
@@ -43,10 +46,13 @@ class TestVigilanceState extends SuperTestState<TestVigilance> {
 
   void setTimerChar() {
     if (_index == chars.length - 1) {
-      print(_acertos / chars.length);
-      setState(() {
-        widget.completeOnFinalChar();
-      });
+      int score = _acertos == chars.length
+          ? 2
+          : _acertos == chars.length - 1
+              ? 1
+              : 0;
+      print(score);
+      widget.completeOnFinalChar();
       return;
     }
     setNextChar();

@@ -8,7 +8,10 @@ class TestAbstraction2 extends SuperTest {
   get description => "Selecione a imagem que completa a figura";
 
   @override
-  get title => "Test 10: Abstração 2";
+  get audioFile => "teste-09.mp3";
+
+  @override
+  get title => "Test 9: Abstração 2";
 
   const TestAbstraction2({Key? key}) : super(key: key);
 
@@ -21,12 +24,9 @@ class TestAbstraction2State extends SuperTestState<TestAbstraction2> {
   erase() {}
 
   @override
-  Result getData() {
-    if (selected == 4) {
-      print("Acertou");
-    } else {
-      print("Errou");
-    }
+  TestResults getData() {
+    int score = selected == 4 ? 1 : 0;
+    print(score);
     return super.getData();
   }
 

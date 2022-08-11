@@ -26,6 +26,9 @@ class TestConection extends SuperTest {
   @override
   get title => "Test 1: Conexão";
 
+  @override
+  get audioFile => "teste-01.mp3";
+
   const TestConection({Key? key}) : super(key: key);
 
   @override

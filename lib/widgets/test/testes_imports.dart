@@ -8,7 +8,6 @@ export 'test_conection.dart';
 export 'test_cube.dart';
 export 'test_memory.dart';
 export 'test_space_orientation.dart';
-export 'test_memory_questions.dart';
 export 'test_memory_text.dart';
 export 'test_vigilance.dart';
 export 'test_similarity.dart';
