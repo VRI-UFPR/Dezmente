@@ -23,26 +23,7 @@ class TestClock2 extends SuperTest {
 
 class _TestClock2State extends SuperTestState {
   Map<int, int> score = {};
-  List<int> pointers = [
-    1,
-    2,
-    50,
-    3,
-    4,
-    45,
-    30,
-    5,
-    6,
-    55,
-    7,
-    8,
-    15,
-    9,
-    10,
-    11,
-    12,
-    14
-  ];
+  List<int> pointers = [1, 9, 50, 12, 4, 45, 30, 3, 6];
 
   @override
   erase() {
@@ -56,7 +37,7 @@ class _TestClock2State extends SuperTestState {
     final double scrHfactor = MediaQuery.of(context).size.height / 640;
     final double scrWfactor = MediaQuery.of(context).size.width / 360;
 
-    int _length = 18;
+    int _length = pointers.length;
 
     return Scaffold(
       body: Container(
@@ -74,10 +55,11 @@ class _TestClock2State extends SuperTestState {
                     primary: true,
                     shrinkWrap: true,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        childAspectRatio: 1.3,
-                        crossAxisSpacing: 9,
-                        crossAxisCount: _length ~/ 3,
-                        mainAxisSpacing: 3),
+                      childAspectRatio: 2,
+                      crossAxisSpacing: 3,
+                      crossAxisCount: _length ~/ 3,
+                      mainAxisSpacing: 5,
+                    ),
                     itemBuilder: (_, i) {
                       return IgnorePointer(
                         ignoring: score.containsValue(pointers[i]),
@@ -114,11 +96,11 @@ class _TestClock2State extends SuperTestState {
                   LayoutBuilder(
                     builder: (context, constraints) {
                       return CircularWidgets(
-                        itemsLength: 12,
+                        itemsLength: 4,
                         itemBuilder: (context, index) {
                           return _buildDragTarget(index);
                         },
-                        innerSpacing: 75 * scrHfactor,
+                        innerSpacing: 30 * scrHfactor,
                         radiusOfItem: 40 * scrHfactor,
                       );
                     },
@@ -184,14 +166,14 @@ class _TestClock2State extends SuperTestState {
     final double scrHfactor = MediaQuery.of(context).size.height / 640;
     final double scrWfactor = MediaQuery.of(context).size.width / 360;
     return Container(
-      height: 40 * scrHfactor,
-      width: 40 * scrWfactor,
+      height: 55 * scrHfactor,
+      width: 55 * scrWfactor,
       child: Center(
         child: Text(
           pointer.toString(),
           style: const TextStyle(
             decoration: TextDecoration.none,
-            fontSize: 18,
+            fontSize: 22,
             color: Colors.white,
             fontWeight: FontWeight.w500,
           ),
@@ -219,7 +201,7 @@ class _TestClock2State extends SuperTestState {
               angleMinute = _panHandler(details);
             });
           },
-          child: _clockHand(angleMinute, 115 * scrWfactor),
+          child: _clockHand(angleMinute, 90 * scrWfactor),
         ),
         GestureDetector(
           onPanUpdate: (details) {
