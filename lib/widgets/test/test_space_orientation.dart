@@ -1,4 +1,5 @@
 import 'package:dezmente/pages/common/super.dart';
+import 'package:dezmente/utils/fields.dart';
 import 'package:flutter/material.dart';
 
 class TestSpaceOrient extends SuperTest {
@@ -21,11 +22,7 @@ class TestSpaceOrientState extends SuperTestState {
   @override
   erase() {}
 
-  final _cityController = TextEditingController();
-  final _yearController = TextEditingController();
-  final _monthController = TextEditingController();
   final _dayPeriods = ["Manhã", "Tarde", "Noite"];
-  String? _dayPeriod;
   final _weekDays = [
     "Domingo",
     "Segunda",
@@ -35,7 +32,6 @@ class TestSpaceOrientState extends SuperTestState {
     "Sexta",
     "Sábado"
   ];
-  String? _weekDay;
   final _monthList = [
     "Janeiro",
     "Feveiro",
@@ -50,7 +46,8 @@ class TestSpaceOrientState extends SuperTestState {
     "Novembro",
     "Dezembro"
   ];
-  String? _month;
+
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -59,190 +56,51 @@ class TestSpaceOrientState extends SuperTestState {
 
     return Center(
       child: SingleChildScrollView(
-        child: Container(
-          margin: const EdgeInsets.only(top: 15),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                margin: const EdgeInsets.only(top: 16),
-                width: 320 * scrWfactor,
-                height: 80 * scrHfactor,
-                child: TextField(
-                  controller: _monthController,
-                  cursorColor: Colors.transparent,
-                  style: const TextStyle(
-                    fontFamily: "montserrat",
-                    fontSize: 22,
-                    fontWeight: FontWeight.w600,
-                  ),
-                  decoration: const InputDecoration(
-                    border: InputBorder.none,
-                    counterStyle: TextStyle(color: Colors.transparent),
-                    fillColor: Color(0xff4cc9f0),
-                    filled: true,
-                    hintText: "Em que dia dos mês nós estamos?",
-                    hintStyle: TextStyle(
-                      fontFamily: "montserrat",
-                      fontSize: 13,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  keyboardType: TextInputType.number,
-                  autocorrect: false,
-                  maxLength: 3,
-                  onSubmitted: (input) {},
+        child: Form(
+          key: _formKey,
+          child: Container(
+            margin: const EdgeInsets.only(top: 15),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const CustomTextInputField(
+                  kbType: TextInputType.number,
+                  text: "Em que dia dos mês nós estamos?",
+                  maxLength: 2,
                 ),
-              ),
-              SizedBox(
-                width: 320 * scrWfactor,
-                height: 80 * scrHfactor,
-                child: TextField(
-                  controller: _yearController,
-                  cursorColor: Colors.transparent,
-                  style: const TextStyle(
-                    fontFamily: "montserrat",
-                    fontSize: 22,
-                    fontWeight: FontWeight.w600,
-                  ),
-                  decoration: const InputDecoration(
-                    border: InputBorder.none,
-                    counterStyle: TextStyle(color: Colors.transparent),
-                    fillColor: Color(0xff4cc9f0),
-                    filled: true,
-                    hintText: "Em que ano estamos?",
-                    hintStyle: TextStyle(
-                      fontFamily: "montserrat",
-                      fontSize: 13,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  keyboardType: TextInputType.number,
-                  autocorrect: false,
-                  maxLength: 5,
-                  onSubmitted: (input) {},
+                const CustomTextInputField(
+                  kbType: TextInputType.number,
+                  text: "Em que ano nós estamos?",
+                  maxLength: 4,
                 ),
-              ),
-              SizedBox(
-                width: 320 * scrWfactor,
-                height: 80 * scrHfactor,
-                child: TextField(
-                  controller: _cityController,
-                  cursorColor: Colors.transparent,
-                  style: const TextStyle(
-                    fontFamily: "montserrat",
-                    fontSize: 22,
-                    fontWeight: FontWeight.w600,
-                  ),
-                  decoration: const InputDecoration(
-                    border: InputBorder.none,
-                    counterStyle: TextStyle(color: Colors.transparent),
-                    fillColor: Color(0xff4cc9f0),
-                    filled: true,
-                    hintText: "Em que cidade você está?",
-                    hintStyle: TextStyle(
-                      fontFamily: "montserrat",
-                      fontSize: 13,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  keyboardType: TextInputType.name,
-                  autocorrect: false,
-                  maxLength: 17,
-                  onSubmitted: (input) {},
+                const CustomTextInputField(
+                  kbType: TextInputType.text,
+                  text: "Em que cidade você está?",
+                  maxLength: 20,
                 ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(bottom: 16),
-                color: const Color(0xff4cc9f0),
-                width: 320 * scrWfactor,
-                height: 60 * scrHfactor,
-                padding: const EdgeInsets.only(left: 10),
-                child: DropdownButton<String>(
-                  dropdownColor: const Color(0xff4cc9f0),
-                  value: _month,
-                  icon: const Icon(Icons.arrow_downward),
-                  hint: const Text(
-                    "Em que mês estamos?",
-                    style: TextStyle(
-                      fontFamily: "montserrat",
-                      fontSize: 13,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  underline: const SizedBox(),
-                  items: _monthList.map(buildMenuItem).toList(),
-                  onChanged: (value) => setState(() {
-                    _month = value;
-                  }),
+                const CustomTextInputField(
+                  kbType: TextInputType.number,
+                  text: "Em que mês estamos?",
+                  maxLength: 4,
                 ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(bottom: 16),
-                color: const Color(0xff4cc9f0),
-                width: 320 * scrWfactor,
-                height: 60 * scrHfactor,
-                padding: const EdgeInsets.only(left: 10),
-                child: DropdownButton<String>(
-                  dropdownColor: const Color(0xff4cc9f0),
-                  value: _weekDay,
-                  icon: const Icon(Icons.arrow_downward),
-                  hint: const Text(
-                    "Em dia da semana nós estamos?",
-                    style: TextStyle(
-                      fontFamily: "montserrat",
-                      fontSize: 13,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  underline: const SizedBox(),
-                  items: _weekDays.map(buildMenuItem).toList(),
-                  onChanged: (value) => setState(() {
-                    _weekDay = value;
-                  }),
+                CustomDropdownField(
+                  itemList: _monthList,
+                  text: "Em que mês estamos?",
                 ),
-              ),
-              Container(
-                color: const Color(0xff4cc9f0),
-                width: 320 * scrWfactor,
-                height: 60 * scrHfactor,
-                padding: const EdgeInsets.only(left: 10),
-                child: DropdownButton<String>(
-                  dropdownColor: const Color(0xff4cc9f0),
-                  value: _dayPeriod,
-                  icon: const Icon(Icons.arrow_downward),
-                  hint: const Text(
-                    "Em que período do dia nós estamos?",
-                    style: TextStyle(
-                      fontFamily: "montserrat",
-                      fontSize: 13,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  underline: const SizedBox(),
-                  items: _dayPeriods.map(buildMenuItem).toList(),
-                  onChanged: (value) => setState(() {
-                    _dayPeriod = value;
-                  }),
+                CustomDropdownField(
+                  itemList: _weekDays,
+                  text: "Em que dia da semana estamos?",
                 ),
-              ),
-            ],
+                CustomDropdownField(
+                  itemList: _dayPeriods,
+                  text: "Em que período do dia estamos?",
+                ),
+              ],
+            ),
           ),
         ),
       ),
     );
   }
-
-  DropdownMenuItem<String> buildMenuItem(String item) => DropdownMenuItem(
-        value: item,
-        child: Text(
-          item,
-          style: const TextStyle(
-            fontFamily: "montserrat",
-            fontSize: 22,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-      );
 }
