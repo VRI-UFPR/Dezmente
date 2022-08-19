@@ -1,6 +1,6 @@
 import 'package:dezmente/services/results.dart';
 import 'package:dezmente/pages/common/super.dart';
-import 'package:dezmente/widgets/play_audio.dart';
+//import 'package:dezmente/widgets/play_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_bubble/chat_bubble.dart';
 import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_6.dart';
@@ -93,10 +93,10 @@ class TestMemoryTextState extends SuperTestState {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            PlayAudio(
-              audioFile: _isQuestion ? questions[0].audioFile : _audioFile,
-              iconSize: 48,
-            ),
+            // PlayAudio(
+            //   audioFile: _isQuestion ? questions[0].audioFile : _audioFile,
+            //   iconSize: 48,
+            // ),
             _isQuestion ? _bodyQuestions(width) : _body(width, scrHfactor),
           ],
         ),

@@ -23,24 +23,24 @@ class _NoMonitorSignUpState extends State<NoMonitorSignUp> {
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Align(
-            alignment: Alignment.topCenter,
-            child: SvgPicture.asset(
-              "assets/images/topbar.svg",
-              fit: BoxFit.none,
-              width: MediaQuery.of(context).size.width,
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Align(
+              alignment: Alignment.topCenter,
+              child: SvgPicture.asset(
+                "assets/images/topbar.svg",
+                fit: BoxFit.none,
+                width: MediaQuery.of(context).size.width,
+              ),
             ),
-          ),
-          SingleChildScrollView(
-            child: Form(
+            Form(
               key: _formKey,
               child: _firstPage(),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -145,7 +145,10 @@ class _NoMonitorSignUpState extends State<NoMonitorSignUp> {
                     backgroundColor: MaterialStateProperty.all<Color>(
                         const Color(0xff569DB3)),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    _formKey.currentState?.save();
+                    print(_formKey.currentState.toString());
+                  },
                 ),
               ),
             ),
