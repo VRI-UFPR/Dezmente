@@ -90,7 +90,7 @@ class _CustomDropdownFieldState extends State<CustomDropdownField> {
       width: 318 * scrWfactor,
       height: 38 * scrHfactor,
       child: DropdownButtonFormField<String>(
-        dropdownColor: const Color(0xAD94C1CF),
+        dropdownColor: const Color(0xFF94C1CF),
         value: value,
         icon: Container(
           margin: const EdgeInsets.only(right: 10),
