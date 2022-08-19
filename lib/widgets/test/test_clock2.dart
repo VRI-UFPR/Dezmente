@@ -47,7 +47,7 @@ class _TestClock2State extends SuperTestState {
           children: <Widget>[
             Center(
               child: SizedBox(
-                height: 140 * scrHfactor,
+                //height: 200 * scrHfactor,
                 width: 400 * scrWfactor,
                 child: GridView.builder(
                     physics: const NeverScrollableScrollPhysics(),
