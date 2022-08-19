@@ -89,10 +89,9 @@ class _NoMonitorSignUpState extends State<NoMonitorSignUp> {
               kbType: TextInputType.name,
               maxLength: 20,
             ),
-            const CustomTextInputField(
+            const CustomDropdownField(
+              itemList: ["Trabalhando", "Aposentado"],
               text: "Status de atividade",
-              kbType: TextInputType.name,
-              maxLength: 20,
             ),
             const CustomDropdownField(
               itemList: ["Sim", "Não"],

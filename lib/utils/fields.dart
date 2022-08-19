@@ -132,8 +132,8 @@ class _CustomDropdownFieldState extends State<CustomDropdownField> {
           item,
           style: const TextStyle(
             fontFamily: "montserrat",
-            fontSize: 22,
-            fontWeight: FontWeight.w600,
+            fontSize: 15,
+            fontWeight: FontWeight.bold,
           ),
         ),
       );
