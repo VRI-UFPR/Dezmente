@@ -86,11 +86,11 @@ class _CustomDropdownFieldState extends State<CustomDropdownField> {
     String? value;
 
     return Container(
-      margin: const EdgeInsets.only(bottom: 10),
+      margin: const EdgeInsets.only(bottom: 5),
       width: 318 * scrWfactor,
       height: 38 * scrHfactor,
       child: DropdownButtonFormField<String>(
-        dropdownColor: const Color(0xff4cc9f0),
+        dropdownColor: const Color(0xAD94C1CF),
         value: value,
         icon: Container(
           margin: const EdgeInsets.only(right: 10),
@@ -137,4 +137,80 @@ class _CustomDropdownFieldState extends State<CustomDropdownField> {
           ),
         ),
       );
+}
+
+class CustomCheckBoxField extends StatefulWidget {
+  final String text;
+
+  const CustomCheckBoxField({
+    Key? key,
+    this.text = "",
+  }) : super(key: key);
+
+  @override
+  State<CustomCheckBoxField> createState() => _CustomCheckBoxFieldState();
+}
+
+class _CustomCheckBoxFieldState extends State<CustomCheckBoxField> {
+  bool? _checked = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final double scrHfactor = MediaQuery.of(context).size.height / 640;
+    final double scrWfactor = MediaQuery.of(context).size.width / 360;
+
+    return Container(
+      margin: const EdgeInsets.only(bottom: 17),
+      width: 318 * scrWfactor,
+      height: 38 * scrHfactor,
+      padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+      decoration: BoxDecoration(
+        color: const Color(0xAD94C1CF),
+        border: Border.all(
+          color: const Color(0xAD94C1CF),
+        ),
+        borderRadius: const BorderRadius.all(Radius.circular(10)),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            widget.text,
+            style: const TextStyle(
+              fontFamily: "montserrat",
+              fontSize: 15,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
+          ),
+          Container(
+            width: 25,
+            height: 25,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(6),
+            ),
+            child: Transform.scale(
+              scale: 1.5,
+              child: Theme(
+                data: Theme.of(context).copyWith(
+                  unselectedWidgetColor: Colors.transparent,
+                ),
+                child: Checkbox(
+                  value: _checked,
+                  shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(6))),
+                  checkColor: const Color(0xAD94C1CF),
+                  activeColor: const Color(0xADFDC6E3),
+                  onChanged: (value) => setState(() {
+                    _checked = value;
+                  }),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }

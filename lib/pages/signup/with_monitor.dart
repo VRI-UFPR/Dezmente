@@ -63,6 +63,8 @@ class _WithMonitorSignUpState extends State<WithMonitorSignUp> {
         return _firstPage();
       case 1:
         return _secondPage();
+      case 2:
+        return _thirdPage();
       default:
         return _firstPage();
     }
@@ -184,7 +186,50 @@ class _WithMonitorSignUpState extends State<WithMonitorSignUp> {
               kbType: TextInputType.number,
               maxLength: 3,
             ),
-            _nextPageButton(() {})
+            _nextPageButton(() {
+              setState(() {
+                pageNumber++;
+              });
+            })
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _thirdPage() {
+    final double scrHfactor = MediaQuery.of(context).size.height / 640;
+    final double scrWfactor = MediaQuery.of(context).size.width / 360;
+
+    return Container(
+      margin: const EdgeInsets.only(top: 15),
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const CustomCheckBoxField(
+              text: "Tratamento de ansiedade",
+            ),
+            const CustomCheckBoxField(
+              text: "Tratamento de eplepsia",
+            ),
+            const CustomCheckBoxField(
+              text: "Tratamento de insônia",
+            ),
+            const CustomCheckBoxField(
+              text: "Tratamento de Alzheimer",
+            ),
+            const CustomCheckBoxField(
+              text: "Doença da tireoide",
+            ),
+            const CustomCheckBoxField(
+              text: "Tratamento de depressão",
+            ),
+            const CustomCheckBoxField(
+              text: "Tratamento para incontinência\nurinária",
+            ),
+            _finishButton(() {})
           ],
         ),
       ),
@@ -232,6 +277,41 @@ class _WithMonitorSignUpState extends State<WithMonitorSignUp> {
                 size: 30,
               ),
             ],
+          ),
+          style: ButtonStyle(
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(7))),
+            ),
+            alignment: Alignment.center,
+            padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+              const EdgeInsets.all(13),
+            ),
+            backgroundColor:
+                MaterialStateProperty.all<Color>(const Color(0xff569DB3)),
+          ),
+          onPressed: callback,
+        ),
+      ),
+    );
+  }
+
+  Widget _finishButton(callback) {
+    return Container(
+      margin: const EdgeInsets.only(top: 40),
+      child: Center(
+        child: TextButton(
+          child: Container(
+            margin: const EdgeInsets.fromLTRB(70, 0, 70, 0),
+            child: const Text(
+              "Terminar",
+              style: TextStyle(
+                color: Colors.black,
+                fontFamily: "montserrat",
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
           style: ButtonStyle(
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
