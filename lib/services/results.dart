@@ -1,13 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-enum Code { next, stay }
+enum Code { next, stay, notInclude }
 
 class TestResults {
   final _results = <Result>[];
 
   addResult(Result r) {
-    _results.add(r);
+    if (r.code != Code.notInclude) {
+      _results.add(r);
+    }
   }
 
   Future<void> submit() {
@@ -37,13 +39,17 @@ class Result {
       {required this.timeSpent,
       this.code = Code.next,
       this.score = 0,
+      this.weight = 1,
       this.testId = -1,
+      this.responses,
       this.testName});
 
   String? testName;
   int testId;
   int score;
+  int weight;
   int timeSpent;
+  Map<String, dynamic>? responses;
 
   Code code;
 
@@ -53,6 +59,8 @@ class Result {
       "testId": testId,
       "timeSpent": timeSpent,
       "score": score,
+      "scoreWeight": weight,
+      if (responses != null) "responses": responses,
     };
   }
 }

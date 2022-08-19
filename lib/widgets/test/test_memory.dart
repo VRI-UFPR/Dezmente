@@ -23,6 +23,7 @@ class TestMemory extends SuperTest {
       : editMode == 1
           ? "Test 5: Reforço Memorização"
           : "Test 11: Memorização";
+  //editMode 0 é apenas as palavras, 1 teste sem nota e 2 e o teste com nota
 
   final int editMode;
 
@@ -33,10 +34,11 @@ class TestMemory extends SuperTest {
 }
 
 class _Word {
-  _Word(this.text, this.corrected, this.selected);
   String text = "";
-  bool corrected = false;
+  bool answer = false;
   bool selected = false;
+
+  _Word(this.text, this.answer, this.selected);
 }
 
 class TestMemoryState extends SuperTestState<TestMemory> {
@@ -46,10 +48,9 @@ class TestMemoryState extends SuperTestState<TestMemory> {
   void initState() {
     super.initState();
     buffer = false;
-    buffer = false;
     if (widget.editMode == 0) {
       for (int i = 0; i < words.length; i++) {
-        words[i].corrected ? words[i].selected = true : null;
+        words[i].answer ? words[i].selected = true : null;
       }
     } else {
       words.shuffle();
@@ -59,6 +60,8 @@ class TestMemoryState extends SuperTestState<TestMemory> {
   @override
   init() {
     super.init();
+    buffer = false;
+
     if (widget.editMode == 1) {
       for (int i = 0; i < words.length; i++) {
         words[i].selected = false;
@@ -73,14 +76,36 @@ class TestMemoryState extends SuperTestState<TestMemory> {
 
   @override
   Result getData() {
+    data.code = Code.notInclude;
     if (widget.editMode == 1 && !buffer) {
       data.code = Code.stay;
       setState(() {
         buffer = true;
       });
-    } else {
-      data.code = Code.next;
     }
+
+    if (widget.editMode == 2) {
+      int acerto = 0, erro = 0;
+
+      data.code = Code.next;
+      for (var r in words) {
+        if (r.answer) {
+          if (r.selected) {
+            acerto++;
+          } else {
+            erro++;
+          }
+        }
+      }
+      data.score = acerto;
+      data.testId = 11;
+      data.testName = widget.title;
+      data.responses = {
+        for (var r in words)
+          r.text: {'respostaCorreta': r.answer, 'resposta': r.selected}
+      };
+    }
+
     return super.getData();
   }
 
@@ -142,7 +167,7 @@ class TestMemoryState extends SuperTestState<TestMemory> {
                             color: Colors.transparent,
                             border: Border.all(color: Colors.blue, width: 2),
                           )
-                    : words[index].corrected
+                    : words[index].answer
                         ? words[index].selected
                             ? BoxDecoration(
                                 color: Colors.green,
