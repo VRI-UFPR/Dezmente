@@ -38,18 +38,18 @@ class TestCtrl {
 
   TestCtrl() {
     _testList = [
-      // TestClock2(
-      //   key: _globalKey,
-      // ),
-      // TestConection(
-      //   key: _globalKey,
-      // ),
-      // TestCube(
-      //   key: _globalKey,
-      // ),
-      // TestAnimals(
-      //   key: _globalKey,
-      // ),
+      TestClock2(
+        key: _globalKey,
+      ),
+      TestConection(
+        key: _globalKey,
+      ),
+      TestCube(
+        key: _globalKey,
+      ),
+      TestAnimals(
+        key: _globalKey,
+      ),
       TestMemory(
         key: _globalKey,
         editMode: 0,
@@ -58,37 +58,37 @@ class TestCtrl {
         key: _globalKey,
         editMode: 1,
       ),
-      // TestMemoryText(
-      //   key: _globalKey,
-      // ),
-      // TestVigilance(
-      //   key: _globalKey,
-      //   completeOnFinalChar: () {
-      //     nextTest();
-      //   },
-      // ),
-      // TestClock(
-      //   key: _globalKey,
-      // ),
-      // TestAbstraction(
-      //   key: _globalKey,
-      // ),
-      // TestSimilarity(
-      //   key: _globalKey,
-      // ),
-      // TestAbstraction2(
-      //   key: _globalKey,
-      // ),
+      TestMemoryText(
+        key: _globalKey,
+      ),
+      TestVigilance(
+        key: _globalKey,
+        completeOnFinalChar: () {
+          nextTest();
+        },
+      ),
+      TestClock(
+        key: _globalKey,
+      ),
+      TestAbstraction(
+        key: _globalKey,
+      ),
+      TestSimilarity(
+        key: _globalKey,
+      ),
+      TestAbstraction2(
+        key: _globalKey,
+      ),
       TestMemory(
         key: _globalKey,
         editMode: 2,
       ),
-      // TestAtention(
-      //   key: _globalKey,
-      // ),
-      // TestSpaceOrient(
-      //   key: _globalKey,
-      // ),
+      TestAtention(
+        key: _globalKey,
+      ),
+      TestSpaceOrient(
+        key: _globalKey,
+      ),
     ];
     //Por causa que isso é no construtor existe um erro usando set currentTest que usa a função _setState que pode n estar estanciada mesmo lendo late oq cria um erro
     //Por motivos a falta do setState aqui não causa o app ficar com a tela errada porem seria bom o uso do setState, porem vc teria que garantir o late do _setState
