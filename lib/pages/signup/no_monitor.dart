@@ -147,7 +147,7 @@ class _NoMonitorSignUpState extends State<NoMonitorSignUp> {
                   ),
                   onPressed: () {
                     _formKey.currentState?.save();
-                    print(_formKey.currentState.toString());
+                    print(_formKey.currentWidget);
                   },
                 ),
               ),
