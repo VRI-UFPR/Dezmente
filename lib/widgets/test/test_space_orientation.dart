@@ -65,36 +65,31 @@ class TestSpaceOrientState extends SuperTestState {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const CustomTextInputField(
-                  kbType: TextInputType.number,
-                  text: "Em que dia dos mês nós estamos?",
-                  maxLength: 2,
-                ),
-                const CustomTextInputField(
-                  kbType: TextInputType.number,
-                  text: "Em que ano nós estamos?",
-                  maxLength: 4,
-                ),
-                const CustomTextInputField(
                   kbType: TextInputType.text,
                   text: "Em que cidade você está?",
                   maxLength: 20,
                 ),
+                CustomDropdownField(
+                  itemList: _dayPeriods,
+                  text: "Em que período do dia estamos?",
+                ),
                 const CustomTextInputField(
                   kbType: TextInputType.number,
-                  text: "Em que mês estamos?",
+                  text: "Que dia do mês é hoje?",
                   maxLength: 4,
                 ),
                 CustomDropdownField(
                   itemList: _monthList,
                   text: "Em que mês estamos?",
                 ),
+                const CustomTextInputField(
+                  kbType: TextInputType.number,
+                  text: "Em que ano nós estamos?",
+                  maxLength: 4,
+                ),
                 CustomDropdownField(
                   itemList: _weekDays,
                   text: "Em que dia da semana estamos?",
-                ),
-                CustomDropdownField(
-                  itemList: _dayPeriods,
-                  text: "Em que período do dia estamos?",
                 ),
               ],
             ),
