@@ -13,7 +13,7 @@ class TestClock2 extends SuperTest {
   get audioFile => "teste-03.mp3";
 
   @override
-  get title => "Test 8.1: Relogio";
+  get title => "Test 3.1: Relogio";
 
   const TestClock2({Key? key}) : super(key: key);
 

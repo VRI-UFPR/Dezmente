@@ -1,42 +1,13 @@
-class SignUpData {
-  int age;
-  String gender;
-  String city;
-  String school;
-  bool active;
-  bool healthIssue;
-  bool medic;
-  int physHours;
-  bool hasMonitor;
-  int monAge;
-  Map<String, bool>? treatments;
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dezmente/services/models/signupdataModel.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-  SignUpData(
-      {this.age = 0,
-      this.gender = "",
-      this.city = "",
-      this.school = "",
-      this.active = false,
-      this.healthIssue = false,
-      this.medic = false,
-      this.physHours = 0,
-      this.hasMonitor = false,
-      this.monAge = 0,
-      this.treatments});
-
-  Map<String, dynamic> toFirestore() {
-    return {
-      "age": age,
-      "gender": gender,
-      "city": city,
-      "school": school,
-      "active": active ? "Trabalhando" : "Aposentado",
-      "healthIssue": healthIssue,
-      "useMedicine": medic,
-      "physExerHours": physHours,
-      "hasMonitor": hasMonitor,
-      "monAge": monAge,
-      if (treatments != null) "treatments": treatments
-    };
-  }
+Future<void> setSignupData(SignUpData data) {
+  DocumentReference testRef = FirebaseFirestore.instance
+      .collection('users')
+      .doc(FirebaseAuth.instance.currentUser!.uid);
+  return testRef
+      .set(data.toFirestore())
+      .then((value) => print("Submit completed"))
+      .catchError((error) => print("Failed to submit: $error"));
 }

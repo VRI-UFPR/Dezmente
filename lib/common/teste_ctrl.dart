@@ -1,4 +1,5 @@
 import 'package:dezmente/common/super.dart';
+import 'package:dezmente/services/models/resultModel.dart';
 import 'package:dezmente/services/results.dart';
 import 'package:dezmente/widgets/debug_select_test.dart';
 import 'package:dezmente/widgets/help.dart';
@@ -42,13 +43,16 @@ class TestCtrl {
 
   TestCtrl() {
     _testList = [
-      TestClock2(
-        key: _globalKey,
-      ),
       TestConection(
         key: _globalKey,
       ),
       TestCube(
+        key: _globalKey,
+      ),
+      TestClock(
+        key: _globalKey,
+      ),
+      TestClock2(
         key: _globalKey,
       ),
       TestAnimals(
@@ -71,28 +75,25 @@ class TestCtrl {
           nextTest();
         },
       ),
-      TestClock(
-        key: _globalKey,
-      ),
-      TestAbstraction(
-        key: _globalKey,
-      ),
+      // TestAbstraction(
+      //   key: _globalKey,
+      // ),
       TestSimilarity(
         key: _globalKey,
       ),
       TestAbstraction2(
         key: _globalKey,
       ),
+      TestSpaceOrient(
+        key: _globalKey,
+      ),
       TestMemory(
         key: _globalKey,
         editMode: 2,
       ),
-      TestAtention(
-        key: _globalKey,
-      ),
-      TestSpaceOrient(
-        key: _globalKey,
-      ),
+      // TestAtention(
+      //   key: _globalKey,
+      // ),
     ];
     //Por causa que isso é no construtor existe um erro usando set currentTest que usa a função _setState que pode n estar estanciada mesmo lendo late oq cria um erro
     //Por motivos a falta do setState aqui não causa o app ficar com a tela errada porem seria bom o uso do setState, porem vc teria que garantir o late do _setState
@@ -151,9 +152,14 @@ class TestCtrl {
         init();
       } else {
         // Caso os testes tenham acabado
-        _testResults.submit();
+        endTest();
       }
     }
+  }
+
+  void endTest() async {
+    await _testResults.submit();
+    Navigator.pop(_globalKey.currentContext!);
   }
 
   Widget build() {

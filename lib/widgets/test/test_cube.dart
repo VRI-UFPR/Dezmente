@@ -1,3 +1,4 @@
+import 'package:dezmente/services/models/resultModel.dart';
 import 'package:dezmente/services/results.dart';
 import 'package:dezmente/common/super.dart';
 import 'package:flutter/material.dart';
@@ -59,7 +60,6 @@ class TestCubeState extends SuperTestState {
   Result getData() {
     data.score = _boxSelected == Boxes.face2 ? 1 : 0;
     data.testId = 2;
-    data.testName = widget.title;
     data.responses = {"face": _boxSelected.toString()};
     return super.getData();
   }

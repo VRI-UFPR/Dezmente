@@ -1,4 +1,4 @@
-import 'package:dezmente/services/results.dart';
+import 'package:dezmente/services/models/resultModel.dart';
 import 'package:dezmente/common/super.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -13,6 +13,9 @@ class TestAbstraction2 extends SuperTest {
   @override
   get title => "Test 9: Abstração 2";
 
+  @override
+  get needErase => false;
+
   const TestAbstraction2({Key? key}) : super(key: key);
 
   @override
@@ -25,8 +28,9 @@ class TestAbstraction2State extends SuperTestState<TestAbstraction2> {
 
   @override
   Result getData() {
-    int score = selected == 4 ? 1 : 0;
-    print(score);
+    data.testId = 4;
+    data.score = selected == 4 ? 1 : 0;
+    data.responses = {"slice": selected};
     return super.getData();
   }
 

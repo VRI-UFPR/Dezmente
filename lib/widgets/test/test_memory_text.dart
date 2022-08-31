@@ -1,3 +1,4 @@
+import 'package:dezmente/services/models/resultModel.dart';
 import 'package:dezmente/services/results.dart';
 import 'package:dezmente/common/super.dart';
 //import 'package:dezmente/widgets/play_audio.dart';

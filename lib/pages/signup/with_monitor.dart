@@ -1,3 +1,5 @@
+import 'package:dezmente/services/models/signupdataModel.dart';
+import 'package:dezmente/services/signupdata.dart';
 import 'package:dezmente/utils/fields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -218,7 +220,9 @@ class _WithMonitorSignUpState extends State<WithMonitorSignUp> {
             const CustomCheckBoxField(
               text: "Tratamento para incontinência\nurinária",
             ),
-            _finishButton(() {})
+            _finishButton(() {
+              setSignupData(SignUpData());
+            })
           ],
         ),
       ),

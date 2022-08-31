@@ -1,3 +1,4 @@
+import 'package:dezmente/services/models/resultModel.dart';
 import 'package:dezmente/services/results.dart';
 import 'package:flutter/material.dart';
 
@@ -17,6 +18,7 @@ abstract class SuperTestState<T extends SuperTest> extends State<T> {
   @mustCallSuper
   Result getData() {
     if (data.code == Code.next) {
+      data.testName = widget.title;
       data.timeSpent = DateTime.now().millisecondsSinceEpoch - data.timeSpent;
     }
     return data;

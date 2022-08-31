@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:dezmente/common/super.dart';
+import 'package:dezmente/services/models/resultModel.dart';
 import 'package:dezmente/services/results.dart';
 import 'package:dezmente/utils/get_similarity.dart';
 import 'package:dezmente/widgets/dialog.dart';
@@ -51,6 +52,10 @@ class TestAnimalsState<TestAnimals> extends SuperTestState {
     double targetSimilarity = animalsData[_animalIndex].targetSimilarity;
     double similarity = getSimilarity(name, controller.text);
     if (similarity > targetSimilarity) score++;
+    data.responses ??= <String, dynamic>{};
+    data.responses!.addAll({
+      _animalIndex.toString(): {"Correct": name, "Response": controller.text}
+    });
   }
 
   @override
@@ -58,7 +63,7 @@ class TestAnimalsState<TestAnimals> extends SuperTestState {
     if (_animalIndex == 2) {
       _scoreFunction();
       data.code = Code.next;
-      print(score);
+      data.score = score;
     } else {
       showAlertDialog(
           context: context,
