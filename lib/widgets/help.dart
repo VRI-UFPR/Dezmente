@@ -4,7 +4,7 @@ import 'package:flutter_chat_bubble/chat_bubble.dart';
 import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_6.dart';
 
 class HelpTemplateButton extends StatelessWidget {
-  final String title;
+  final String titleText;
   final String buttonText;
   final String description;
   final String audioFile;
@@ -13,7 +13,7 @@ class HelpTemplateButton extends StatelessWidget {
   const HelpTemplateButton({
     required this.callback,
     Key? key,
-    this.title = "Title",
+    this.titleText = "Title",
     this.description = "Description",
     this.buttonText = "Subtitle",
     required this.audioFile,
@@ -24,6 +24,11 @@ class HelpTemplateButton extends StatelessWidget {
     final double screenHeightFactor = MediaQuery.of(context).size.height / 640;
     final double screenWidthFactor = MediaQuery.of(context).size.width / 360;
     return Scaffold(
+      appBar: AppBar(
+        title: Text(titleText),
+        backgroundColor: const Color(0xffe984b8),
+        automaticallyImplyLeading: false,
+      ),
       backgroundColor: const Color.fromARGB(235, 255, 255, 255),
       body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
         //PlayAudio(audioFile: audioFile, iconSize: 65),

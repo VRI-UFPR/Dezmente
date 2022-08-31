@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:dezmente/pages/common/super.dart';
+import 'package:dezmente/common/super.dart';
 import 'package:dezmente/services/results.dart';
 import 'package:dezmente/utils/get_similarity.dart';
 import 'package:dezmente/widgets/dialog.dart';

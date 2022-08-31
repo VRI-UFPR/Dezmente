@@ -1,4 +1,4 @@
-import 'package:dezmente/pages/common/super.dart';
+import 'package:dezmente/common/super.dart';
 import 'package:dezmente/services/results.dart';
 import 'package:dezmente/widgets/debug_select_test.dart';
 import 'package:dezmente/widgets/help.dart';
@@ -17,6 +17,7 @@ class TestCtrl {
   final GlobalObjectKey<SuperTestState> _globalKey =
       const GlobalObjectKey("key");
 
+  String get title => _currentTest!.title;
   String get description => _currentTest!.description;
   String get audioFile => _currentTest!.audioFile;
   bool get needErase => _currentTest!.needErase;
@@ -32,7 +33,10 @@ class TestCtrl {
     _setState();
   }
 
-  init() => _globalKey.currentState?.init();
+  init() async {
+    await pushTestHelpPage("Começar");
+    _globalKey.currentState?.init();
+  }
 
   erase() => _globalKey.currentState?.erase();
 
@@ -105,7 +109,7 @@ class TestCtrl {
     );
   }
 
-  pushTestHelpPage() async {
+  pushTestHelpPage(String buttonText) async {
     await Navigator.of(_globalKey.currentContext!).push(
       PageRouteBuilder(
         opaque: false,
@@ -115,9 +119,9 @@ class TestCtrl {
           callback: () {
             Navigator.pop(context);
           },
-          title: "",
+          titleText: _currentTest!.title,
           description: _currentTest!.description,
-          buttonText: "Começar",
+          buttonText: buttonText,
         ),
       ),
     );
@@ -126,8 +130,7 @@ class TestCtrl {
   void nextTestDebug(int i) async {
     currentTestIndex = i;
     currentTest = _testList[i];
-    await pushTestHelpPage();
-    init();
+    await init();
   }
 
   void nextTest() async {
@@ -145,7 +148,6 @@ class TestCtrl {
         currentTest = _testList[currentTestIndex];
 
         //Da push da tela de help do inicio do teste e apos o user der começar/a tela fechar ele inicia o teste
-        await pushTestHelpPage();
         init();
       } else {
         // Caso os testes tenham acabado

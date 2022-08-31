@@ -1,4 +1,4 @@
-import 'package:dezmente/pages/common/super.dart';
+import 'package:dezmente/common/super.dart';
 import 'package:dezmente/utils/fields.dart';
 import 'package:flutter/material.dart';
 

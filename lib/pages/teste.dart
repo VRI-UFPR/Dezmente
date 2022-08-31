@@ -1,4 +1,4 @@
-import 'package:dezmente/pages/common/teste_ctrl.dart';
+import 'package:dezmente/common/teste_ctrl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:dezmente/widgets/help.dart';
@@ -21,21 +21,6 @@ class _TesteState extends State<Teste> {
 
     WidgetsBinding.instance!.addPostFrameCallback(
       (timeStamp) async {
-        await Navigator.of(context).push(
-          PageRouteBuilder(
-            opaque: false,
-            pageBuilder: (context, animation, secondaryAnimation) =>
-                HelpTemplateButton(
-              audioFile: TestCtrl.instance.audioFile,
-              callback: () {
-                Navigator.pop(this.context);
-              },
-              title: "",
-              description: TestCtrl.instance.description,
-              buttonText: "Começar",
-            ),
-          ),
-        );
         TestCtrl.instance.init();
       },
     );
@@ -61,7 +46,7 @@ class _TesteState extends State<Teste> {
             _buildBottomBarButton(
               icon: Icons.question_mark_outlined,
               label: "Informações",
-              onPressed: () => callHelpHud(),
+              onPressed: () => TestCtrl.instance.pushTestHelpPage("Voltar"),
             ),
             if (TestCtrl.instance.needErase)
               _buildBottomBarButton(
@@ -91,7 +76,7 @@ class _TesteState extends State<Teste> {
             callback: () {
               Navigator.pop(this.context);
             },
-            title: "",
+            titleText: TestCtrl.instance.title,
             description: TestCtrl.instance.description,
             buttonText: "Voltar",
           ),

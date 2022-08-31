@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:circular_widgets/circular_widgets.dart';
-import 'package:dezmente/pages/common/super.dart';
+import 'package:dezmente/common/super.dart';
 import 'package:flutter/material.dart';
 
 class TestClock2 extends SuperTest {

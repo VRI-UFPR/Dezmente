@@ -33,11 +33,11 @@ class MyApp extends StatelessWidget {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(child: CircularProgressIndicator());
                 } else if (snapshot.hasData) {
-                  return const WithMonitorSignUp();
+                  return const HomePage();
                 } else if (snapshot.hasError) {
                   return Text(snapshot.error.toString());
                 } else {
-                  return const LoginScreen();
+                  return const LoginPage();
                 }
               },
             ),
