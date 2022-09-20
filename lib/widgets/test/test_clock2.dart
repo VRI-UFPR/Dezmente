@@ -79,7 +79,7 @@ class _TestClock2State extends SuperTestState {
               ),
             ),
             SizedBox(
-              height: 400 * scrHfactor,
+              height: 300 * scrHfactor,
               width: 400 * scrWfactor,
               child: Stack(
                 children: [
