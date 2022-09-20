@@ -1,4 +1,4 @@
-import 'package:dezmente/services/models/resultModel.dart';
+import 'package:dezmente/services/models/result_model.dart';
 import 'package:dezmente/services/results.dart';
 import 'package:dezmente/common/super.dart';
 import 'package:dezmente/widgets/dialog.dart';
@@ -15,6 +15,9 @@ class TestAtention extends SuperTest {
 
   @override
   get title => "Test 12: Atenção";
+
+  @override
+  get needErase => false;
 
   const TestAtention({Key? key}) : super(key: key);
 

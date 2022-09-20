@@ -1,4 +1,4 @@
-import 'package:dezmente/services/models/signupdataModel.dart';
+import 'package:dezmente/services/models/signup_data_model.dart';
 import 'package:dezmente/services/signupdata.dart';
 import 'package:dezmente/utils/fields.dart';
 import 'package:flutter/material.dart';
@@ -18,9 +18,6 @@ class _WithMonitorSignUpState extends State<WithMonitorSignUp> {
 
   @override
   Widget build(BuildContext context) {
-    final double scrHfactor = MediaQuery.of(context).size.height / 640;
-    final double scrWfactor = MediaQuery.of(context).size.width / 360;
-
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
         overlays: [SystemUiOverlay.bottom]);
 
@@ -133,9 +130,6 @@ class _WithMonitorSignUpState extends State<WithMonitorSignUp> {
   }
 
   Widget _secondPage() {
-    final double scrHfactor = MediaQuery.of(context).size.height / 640;
-    final double scrWfactor = MediaQuery.of(context).size.width / 360;
-
     return Container(
       margin: const EdgeInsets.only(top: 15),
       child: Center(
@@ -189,9 +183,6 @@ class _WithMonitorSignUpState extends State<WithMonitorSignUp> {
   }
 
   Widget _thirdPage() {
-    final double scrHfactor = MediaQuery.of(context).size.height / 640;
-    final double scrWfactor = MediaQuery.of(context).size.width / 360;
-
     return Container(
       margin: const EdgeInsets.only(top: 15),
       child: Center(

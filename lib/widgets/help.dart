@@ -1,4 +1,3 @@
-//import 'package:dezmente/widgets/play_audio.dart';
 import 'package:dezmente/widgets/play_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_bubble/chat_bubble.dart';
@@ -32,7 +31,7 @@ class HelpTemplateButton extends StatelessWidget {
       ),
       backgroundColor: const Color.fromARGB(235, 255, 255, 255),
       body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-        //PlayAudio(audioFile: audioFile, iconSize: 65),
+        PlayAudio(audioFile: audioFile, iconSize: 65),
         SizedBox(height: screenHeightFactor * 50),
         ChatBubble(
           clipper: ChatBubbleClipper6(

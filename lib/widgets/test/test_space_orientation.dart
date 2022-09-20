@@ -51,9 +51,6 @@ class TestSpaceOrientState extends SuperTestState {
 
   @override
   Widget build(BuildContext context) {
-    final double scrHfactor = MediaQuery.of(context).size.height / 640;
-    final double scrWfactor = MediaQuery.of(context).size.width / 360;
-
     return Center(
       child: SingleChildScrollView(
         child: Form(

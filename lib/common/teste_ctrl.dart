@@ -1,6 +1,5 @@
 import 'package:dezmente/common/super.dart';
-import 'package:dezmente/main.dart';
-import 'package:dezmente/services/models/resultModel.dart';
+import 'package:dezmente/services/models/result_model.dart';
 import 'package:dezmente/services/results.dart';
 import 'package:dezmente/widgets/debug_select_test.dart';
 import 'package:dezmente/widgets/help.dart';
@@ -92,9 +91,9 @@ class TestCtrl {
         key: _globalKey,
         editMode: 2,
       ),
-      // TestAtention(
-      //   key: _globalKey,
-      // ),
+      TestAtention(
+        key: _globalKey,
+      ),
     ];
     //Por causa que isso é no construtor existe um erro usando set currentTest que usa a função _setState que pode n estar estanciada mesmo lendo late oq cria um erro
     //Por motivos a falta do setState aqui não causa o app ficar com a tela errada porem seria bom o uso do setState, porem vc teria que garantir o late do _setState

@@ -1,4 +1,4 @@
-import 'package:dezmente/services/models/resultModel.dart';
+import 'package:dezmente/services/models/result_model.dart';
 import 'package:dezmente/services/results.dart';
 import 'package:dezmente/common/super.dart';
 import 'package:flutter/material.dart';
@@ -53,7 +53,6 @@ class TestSimilarityState extends SuperTestState<TestSimilarity> {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
 
     return Container(
         padding: EdgeInsets.fromLTRB(10, height * 0.05, 10, 10),

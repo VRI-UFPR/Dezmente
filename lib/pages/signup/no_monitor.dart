@@ -15,9 +15,6 @@ class _NoMonitorSignUpState extends State<NoMonitorSignUp> {
 
   @override
   Widget build(BuildContext context) {
-    final double scrHfactor = MediaQuery.of(context).size.height / 640;
-    final double scrWfactor = MediaQuery.of(context).size.width / 360;
-
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
         overlays: [SystemUiOverlay.bottom]);
 

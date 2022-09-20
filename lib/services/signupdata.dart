@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dezmente/services/models/signupdataModel.dart';
+import 'package:dezmente/services/models/signup_data_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 Future<void> setSignupData(SignUpData data) {
