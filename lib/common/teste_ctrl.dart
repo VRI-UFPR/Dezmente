@@ -50,9 +50,9 @@ class TestCtrl {
       TestCube(
         key: _globalKey,
       ),
-      TestClock(
-        key: _globalKey,
-      ),
+      // TestClock(
+      //   key: _globalKey,
+      // ),
       TestClock2(
         key: _globalKey,
       ),
