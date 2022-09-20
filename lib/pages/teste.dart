@@ -10,7 +10,7 @@ class Teste extends StatefulWidget {
   State<Teste> createState() => _TesteState();
 }
 
-const debugMode = true;
+const debugMode = false;
 
 class _TesteState extends State<Teste> {
   @override
@@ -58,8 +58,8 @@ class _TesteState extends State<Teste> {
               icon: Icons.check_circle_outline,
               label: "Concluir",
               onPressed: () => TestCtrl.instance.nextTest(),
-              onLongPress:
-                  !debugMode ? null : () => TestCtrl.instance.debugMode(),
+              //onLongPress:
+              //    !debugMode ? null : () => TestCtrl.instance.debugMode(),
             ),
           ],
         ),
