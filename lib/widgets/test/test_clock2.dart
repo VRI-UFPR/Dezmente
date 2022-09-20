@@ -47,8 +47,6 @@ class _TestClock2State extends SuperTestState {
           children: <Widget>[
             Center(
               child: SizedBox(
-                //height: 200 * scrHfactor,
-                width: 400 * scrWfactor,
                 child: GridView.builder(
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: _length,
@@ -100,8 +98,8 @@ class _TestClock2State extends SuperTestState {
                         itemBuilder: (context, index) {
                           return _buildDragTarget(index);
                         },
-                        innerSpacing: 30 * scrHfactor,
-                        radiusOfItem: 40 * scrHfactor,
+                        innerSpacing: 55 * scrHfactor,
+                        radiusOfItem: 50 * scrHfactor,
                       );
                     },
                   ),
