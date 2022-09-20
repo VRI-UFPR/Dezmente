@@ -38,7 +38,7 @@ class HomePage extends StatelessWidget {
           style: ElevatedButton.styleFrom(primary: const Color(0xfff72585)),
           child: const Text("Começar Teste"),
           onPressed: () {
-            Navigator.of(context).pushReplacement(PageRouteBuilder(
+            Navigator.of(context).push(PageRouteBuilder(
               pageBuilder: (context, animation, secondaryAnimation) =>
                   const Teste(),
             ));

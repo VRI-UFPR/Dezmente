@@ -111,20 +111,20 @@ class TestMemoryState extends SuperTestState<TestMemory> {
   }
 
   List<_Word> words = [
-    _Word("Amarelo", false, false),
-    _Word("Braço", true, false),
-    _Word("Seda", true, false),
-    _Word("Porcelana", false, false),
-    _Word("Barriga", false, false),
-    _Word("Algodão", false, false),
-    _Word("Orquidea", true, false),
-    _Word("Rosa", false, false),
+    _Word("Lírio", false, false),
+    _Word("Cravo", false, false),
+    _Word("Branco", false, false),
+    _Word("Padaria", false, false),
+    _Word("Verde", false, false),
     _Word("Perna", false, false),
-    _Word("Igreja", true, false),
+    _Word("Orquidea", true, false),
+    _Word("Braço", true, false),
     _Word("Casa", false, false),
-    _Word("Violeta", false, false),
+    _Word("Linho", false, false),
+    _Word("Algodão", false, false),
+    _Word("Igreja", true, false),
     _Word("Azul", true, false),
-    _Word("Pescoço", false, false),
+    _Word("Seda", true, false),
   ];
 
   @override

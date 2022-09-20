@@ -1,4 +1,5 @@
 import 'package:dezmente/common/super.dart';
+import 'package:dezmente/main.dart';
 import 'package:dezmente/services/models/resultModel.dart';
 import 'package:dezmente/services/results.dart';
 import 'package:dezmente/widgets/debug_select_test.dart';
@@ -158,8 +159,9 @@ class TestCtrl {
   }
 
   void endTest() async {
-    await _testResults.submit();
+    _testResults.submit();
     Navigator.pop(_globalKey.currentContext!);
+    _testCtrl = TestCtrl();
   }
 
   Widget build() {
