@@ -32,7 +32,7 @@ class _TesteState extends State<Teste> {
         overlays: [SystemUiOverlay.bottom]);
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 17),
+        padding: const EdgeInsets.symmetric(horizontal: 0),
         child: TestCtrl.instance.build(),
       ),
       backgroundColor: const Color(0xffffffff),

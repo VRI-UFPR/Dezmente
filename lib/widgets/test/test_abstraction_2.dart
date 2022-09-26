@@ -29,7 +29,7 @@ class TestAbstraction2State extends SuperTestState<TestAbstraction2> {
   @override
   Result getData() {
     data.testId = 4;
-    data.score = selected == 4 ? 1 : 0;
+    data.score = selected == 2 ? 1 : 0;
     data.responses = {"slice": selected};
     return super.getData();
   }

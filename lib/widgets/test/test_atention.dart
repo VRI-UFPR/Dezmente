@@ -153,48 +153,58 @@ class TestAtentionState extends SuperTestState {
     final double scrWfactor = MediaQuery.of(context).size.width / 360;
 
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Container(
-          padding: const EdgeInsets.fromLTRB(10, 30, 10, 10),
+          padding: const EdgeInsets.fromLTRB(25, 33, 25, 33),
           child: Text(
             questions[questionIndex],
             style: const TextStyle(
               fontFamily: "Montserrat",
-              fontSize: 24,
-              fontWeight: FontWeight.w600,
+              fontSize: 28,
+              fontWeight: FontWeight.w700,
             ),
           ),
-          color: const Color(0xFEAA8899),
+          color: const Color(0xFFB4EADF),
         ),
         Container(
-          margin: const EdgeInsets.only(top: 20),
+          width: 160 * scrWfactor,
+          margin: const EdgeInsets.fromLTRB(0, 66, 0, 20),
           child: const Center(
             child: Text(
-              "Digite sua resposta:",
+              "DIGITE SUA RESPOSTA:",
               style: TextStyle(
                 fontFamily: "montserrat",
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
+                fontWeight: FontWeight.w700,
+                fontSize: 25,
               ),
+              textAlign: TextAlign.center,
             ),
           ),
         ),
         Center(
           child: Container(
             margin: const EdgeInsets.only(top: 15),
-            color: const Color(0xC4C4C4CC),
-            width: 70 * scrWfactor,
-            height: 92 * scrHfactor,
+            width: 150 * scrWfactor,
+            height: 61 * scrHfactor,
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: const Color(0xFFEAEAEA),
+              ),
+              borderRadius: const BorderRadius.all(Radius.circular(10)),
+              color: const Color(0xFFEAEAEA),
+            ),
             child: TextField(
               controller: _textController,
               cursorColor: Colors.transparent,
               style: const TextStyle(
                 fontFamily: "montserrat",
-                fontSize: 24,
+                fontSize: 42,
                 fontWeight: FontWeight.w600,
               ),
+              textAlign: TextAlign.center,
               decoration: const InputDecoration(
-                contentPadding: EdgeInsets.fromLTRB(9, 25, 0, 0),
+                contentPadding: EdgeInsets.fromLTRB(9, 20, 0, 0),
                 border: InputBorder.none,
                 counterStyle: TextStyle(color: Colors.transparent),
               ),
