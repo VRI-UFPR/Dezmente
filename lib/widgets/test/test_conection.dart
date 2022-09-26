@@ -111,7 +111,7 @@ class TestConectionState extends SuperTestState {
                 ),
                 style: ElevatedButton.styleFrom(
                   // nao pressionado cor vermelha, pressionado cor azul
-                  primary: button.isChecked ? Colors.blue : Colors.red,
+                  backgroundColor: button.isChecked ? Colors.blue : Colors.red,
                   shape: const CircleBorder(),
                   minimumSize: const Size(50, 50),
                 ),
