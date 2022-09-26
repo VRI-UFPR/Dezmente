@@ -25,6 +25,11 @@ class _TestClock2State extends SuperTestState {
   Map<int, int> score = {};
   List<int> pointers = [1, 9, 50, 12, 4, 45, 30, 3, 6];
 
+  final _minuteHand = 85;
+  final _hourHand = 60;
+  final _dragTargetRadius = 50;
+  final _innerClockSpacing = 45;
+
   @override
   erase() {
     setState(() {
@@ -98,8 +103,8 @@ class _TestClock2State extends SuperTestState {
                         itemBuilder: (context, index) {
                           return _buildDragTarget(index);
                         },
-                        innerSpacing: 55 * scrHfactor,
-                        radiusOfItem: 50 * scrHfactor,
+                        innerSpacing: _innerClockSpacing * scrHfactor,
+                        radiusOfItem: _dragTargetRadius * scrHfactor,
                       );
                     },
                   ),
@@ -199,7 +204,7 @@ class _TestClock2State extends SuperTestState {
               angleMinute = _panHandler(details);
             });
           },
-          child: _clockHand(angleMinute, 90 * scrWfactor),
+          child: _clockHand(angleMinute, _minuteHand * scrWfactor),
         ),
         GestureDetector(
           onPanUpdate: (details) {
@@ -207,7 +212,7 @@ class _TestClock2State extends SuperTestState {
               angleHour = _panHandler(details);
             });
           },
-          child: _clockHand(angleHour, 60 * scrWfactor),
+          child: _clockHand(angleHour, _hourHand * scrWfactor),
         ),
       ],
     );

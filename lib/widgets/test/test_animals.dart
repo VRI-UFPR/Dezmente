@@ -32,6 +32,9 @@ class TestAnimals extends SuperTest {
   @override
   get title => "Test 4: Animais";
 
+  @override
+  get needErase => false;
+
   const TestAnimals({Key? key}) : super(key: key);
 
   @override

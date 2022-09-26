@@ -26,6 +26,9 @@ class TestMemory extends SuperTest {
           : "Test 11: Memorização";
   //editMode 0 é apenas as palavras, 1 teste sem nota e 2 e o teste com nota
 
+  @override
+  get needErase => false;
+
   final int editMode;
 
   const TestMemory({Key? key, required this.editMode}) : super(key: key);

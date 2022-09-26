@@ -2,6 +2,7 @@ import 'package:dezmente/services/models/result_model.dart';
 import 'package:dezmente/common/super.dart';
 import 'package:flutter/material.dart';
 import 'package:collection/collection.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class _Cubes {
   _Cubes(this.asset, this.correct);
@@ -11,15 +12,15 @@ class _Cubes {
 }
 
 List<_Cubes> cubeFaces1 = [
-  _Cubes("assets/images/cube/face1.png", false),
-  _Cubes("assets/images/cube/face2.png", true),
-  _Cubes("assets/images/cube/face3.png", false)
+  _Cubes("assets/images/cube_new/face1.svg", false),
+  _Cubes("assets/images/cube_new/face2.svg", true),
+  _Cubes("assets/images/cube_new/face3.svg", false)
 ];
 
 List<_Cubes> cubeFaces2 = [
-  _Cubes("assets/images/cube/face4.png", false),
-  _Cubes("assets/images/cube/face5.png", false),
-  _Cubes("assets/images/cube/face6.png", false)
+  _Cubes("assets/images/cube_new/face4.svg", false),
+  _Cubes("assets/images/cube_new/face5.svg", false),
+  _Cubes("assets/images/cube_new/face6.svg", false)
 ];
 
 int pressedErase = 0; // quantidade de vezes que o botao apagar foi utilizado
@@ -70,22 +71,33 @@ class TestCubeState extends SuperTestState {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Center(
-            child: Image.asset(
-              'assets/images/cube/cube.png',
-              scale: 2,
+            child: Container(
+              margin: EdgeInsets.only(top: 20),
+              child: SizedBox(
+                width: 190,
+                child: Image.asset(
+                  "assets/images/cube_new/cube.png",
+                ),
+              ),
             ),
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                width: 160 * MediaQuery.of(context).size.width / 360,
+                width: 165 * MediaQuery.of(context).size.width / 360,
+                height: 380 * MediaQuery.of(context).size.height / 640,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: cubeFaces1.mapIndexed<Widget>((index, face) {
                     return RadioListTile(
                         value: Boxes.values[index],
-                        title: Image.asset(face.asset),
+                        title: SvgPicture.asset(
+                          face.asset,
+                          fit: BoxFit.contain,
+                          height: 135,
+                        ),
                         groupValue: _boxSelected,
                         onChanged: (Boxes? value) {
                           setState(() {
@@ -96,13 +108,18 @@ class TestCubeState extends SuperTestState {
                 ),
               ),
               SizedBox(
-                width: 160 * MediaQuery.of(context).size.width / 360,
+                width: 165 * MediaQuery.of(context).size.width / 360,
+                height: 380 * MediaQuery.of(context).size.height / 640,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: cubeFaces2.mapIndexed<Widget>((index, face) {
                     return RadioListTile(
                         value: Boxes.values[index + cubeFaces1.length],
-                        title: Image.asset(face.asset),
+                        title: SvgPicture.asset(
+                          face.asset,
+                          fit: BoxFit.fitWidth,
+                          height: 135,
+                        ),
                         groupValue: _boxSelected,
                         onChanged: (Boxes? value) {
                           setState(() {

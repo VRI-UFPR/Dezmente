@@ -34,6 +34,7 @@ flutter:
   assets:
     - assets/images/
     - assets/images/cube/
+    - assets/images/cube_new/
     - assets/images/animals/
     - assets/images/slices/
     - assets/images/similarity/
