@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dezmente/services/models/resultModel.dart';
+import 'package:dezmente/services/models/result_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 enum Code { next, stay, notInclude }

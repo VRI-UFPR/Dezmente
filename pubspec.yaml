@@ -37,6 +37,7 @@ flutter:
     - assets/images/cube_new/
     - assets/images/animals/
     - assets/images/slices/
+    - assets/images/slices_new/
     - assets/images/similarity/
     - assets/audio/
   fonts:

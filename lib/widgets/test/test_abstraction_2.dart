@@ -65,9 +65,9 @@ class TestAbstraction2State extends SuperTestState<TestAbstraction2> {
 
   Widget _buildUnselected(double width, double height) =>
       Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-        SvgPicture.asset('assets/images/slices/complete.svg',
+        SvgPicture.asset('assets/images/slices_new/complete.svg',
             width: width, height: height),
-        SvgPicture.asset('assets/images/slices/target.svg',
+        SvgPicture.asset('assets/images/slices_new/target.svg',
             width: width, height: height),
       ]);
 
@@ -92,7 +92,7 @@ class TestAbstraction2State extends SuperTestState<TestAbstraction2> {
               : BoxDecoration(
                   borderRadius: BorderRadius.circular(100),
                 ),
-          child: SvgPicture.asset('assets/images/slices/slice$index.svg'),
+          child: SvgPicture.asset('assets/images/slices_new/slice$index.svg'),
         ),
       );
 }
