@@ -30,7 +30,7 @@ class TestAnimals extends SuperTest {
   get audioFile => "teste-04.mp3";
 
   @override
-  get title => "Test 4: Animais";
+  get title => "Teste 4: Animais";
 
   @override
   get needErase => false;
@@ -64,6 +64,7 @@ class TestAnimalsState<TestAnimals> extends SuperTestState {
   @override
   Result getData() {
     if (_animalIndex == 2) {
+      data.testId = 4;
       _scoreFunction();
       data.code = Code.next;
       data.score = score;

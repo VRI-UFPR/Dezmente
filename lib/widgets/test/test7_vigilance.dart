@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:dezmente/common/super.dart';
+import 'package:dezmente/services/models/result_model.dart';
 import 'package:flutter/material.dart';
 
 class TestVigilance extends SuperTest {
@@ -10,7 +11,7 @@ class TestVigilance extends SuperTest {
   get audioFile => "teste-07.mp3";
 
   @override
-  get title => "Test 7: Atenção";
+  get title => "Teste 7: Vigilância";
 
   final VoidCallback completeOnFinalChar;
 
@@ -46,12 +47,6 @@ class TestVigilanceState extends SuperTestState<TestVigilance> {
 
   void setTimerChar() {
     if (_index == chars.length - 1) {
-      int score = _acertos == chars.length
-          ? 2
-          : _acertos == chars.length - 1
-              ? 1
-              : 0;
-      print(score);
       widget.completeOnFinalChar();
       return;
     }
@@ -77,6 +72,15 @@ class TestVigilanceState extends SuperTestState<TestVigilance> {
     clearTimer();
     if (_char == "A") _acertos++;
     setTimerVoid();
+  }
+
+  @override
+  Result getData() {
+    data.testId = 7;
+    data.score = _acertos == chars.length ? 1 : 0;
+    data.responses = {"acertos": _acertos};
+
+    return super.getData();
   }
 
   @override

@@ -1,6 +1,8 @@
 import 'dart:math';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dezmente/common/super.dart';
+import 'package:dezmente/services/models/result_model.dart';
 import 'package:flutter/material.dart';
 import 'package:widget_arrows/widget_arrows.dart';
 
@@ -24,7 +26,7 @@ class TestConection extends SuperTest {
       "Clique no número e depois na letra em ordem ascendente Ex: 1-A-2";
 
   @override
-  get title => "Test 1: Conexão";
+  get title => "Teste 1: Conexão";
 
   @override
   get audioFile => "teste-01.mp3";
@@ -51,33 +53,51 @@ class TestConectionState extends SuperTestState {
   ];
 
   // ordem dos botoes pressionados pelo usuario
-  final List<String> score = [];
+  final List<String> _score = [];
 
-  int mapIndex = 0; // index na lista do ultimo botao pressionado
-  bool canErase = false; // se pode utilizar o apagar
-  int pressedErase = 0; // quantidade de vezes que o botao apagar foi utilizado
-  int timeSpended = DateTime.now().millisecondsSinceEpoch; // tempo total gasto
+  int _mapIndex = 0; // index na lista do ultimo botao pressionado
+  bool _canErase = false; // se pode utilizar o apagar
+  //int pressedErase = 0; // quantidade de vezes que o botao apagar foi utilizado
+  //int timeSpended = DateTime.now().millisecondsSinceEpoch; // tempo total gasto
+
+  @override
+  Result getData() {
+    data.testId = 1;
+    data.score = const ListEquality()
+            .equals(_score, ["1", "A", "2", "B", "3", "C", "4", "D", "5", "E"])
+        ? 1
+        : 0;
+    data.responses = {"sequence": _score.toString()};
+
+    return super.getData();
+  }
 
   @override
   void erase() {
     setState(() {
+      // caso ja tenha apagado uma vez
+      if (!_canErase) {
+        return;
+      }
+
       // apaga o ultimo botao pressionado
-      int last = score.length - 1;
+      int last = _score.length - 1;
 
       // index do ultimo botao pressionado na lista
       if (last > -1) {
-        int ib = _buttons.indexWhere((element) => element.label == score[last]);
+        int ib =
+            _buttons.indexWhere((element) => element.label == _score[last]);
         _buttons[ib].isChecked = false;
-        score.removeAt(last);
+        _score.removeAt(last);
 
         if (last > 0) {
           // remove a flecha do botao anterior caso esse exista
           ib = _buttons
-              .indexWhere((element) => element.label == score[last - 1]);
+              .indexWhere((element) => element.label == _score[last - 1]);
           _buttons[ib].showArrow = false;
-          mapIndex = ib;
-          canErase = false;
-          pressedErase++;
+          _mapIndex = ib;
+          _canErase = false;
+          //pressedErase++;
         }
       }
     });
@@ -117,20 +137,20 @@ class TestConectionState extends SuperTestState {
                 ),
                 onPressed: (() {
                   setState(() {
-                    if (score.length < 10) {
+                    if (_score.length < 10) {
                       if (button.isChecked == false) {
                         // caso o botao ainda n tenha sido pressionado
                         button.isChecked = true;
-                        score.add(button.label);
-                        canErase = true;
+                        _score.add(button.label);
+                        _canErase = true;
                       }
-                      if (score.length > 1) {
+                      if (_score.length > 1) {
                         // desenha as flechas apenas se tiver mais de um botao pressionado
-                        _buttons[mapIndex].targetArrow = button.label;
-                        _buttons[mapIndex].showArrow = true;
+                        _buttons[_mapIndex].targetArrow = button.label;
+                        _buttons[_mapIndex].showArrow = true;
                       }
                       // ultimo botao pressionado
-                      mapIndex = _buttons.indexOf(button);
+                      _mapIndex = _buttons.indexOf(button);
                     }
                   });
                 }),

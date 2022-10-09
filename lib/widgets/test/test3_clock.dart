@@ -1,10 +1,11 @@
 import 'dart:math';
-
 import 'package:circular_widgets/circular_widgets.dart';
-import 'package:flutter/material.dart';
 import 'package:dezmente/common/super.dart';
+import 'package:dezmente/services/models/result_model.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
-class TestClock extends SuperTest {
+class TestClock2 extends SuperTest {
   @override
   get description =>
       "Coloque os números no lugar apropriado no relógio e indique o horário 14:50 com os ponteiros:";
@@ -13,21 +14,73 @@ class TestClock extends SuperTest {
   get audioFile => "teste-03.mp3";
 
   @override
-  get title => "Test 3: Relogio";
+  get title => "Teste 3: Relógio";
 
-  const TestClock({Key? key}) : super(key: key);
+  const TestClock2({Key? key}) : super(key: key);
 
   @override
-  _TestClockState createState() => _TestClockState();
+  _TestClock2State createState() => _TestClock2State();
 }
 
-class _TestClockState extends SuperTestState {
-  Map<int, int> score = {};
+class _TestClock2State extends SuperTestState {
+  final Map<int, int> _score = {};
+  final List<int> _pointers = [1, 9, 50, 12, 4, 45, 30, 3, 6];
+
+  final _minuteHand = 90;
+  final _hourHand = 65;
+  final _dragTargetRadius = 50;
+  final _innerClockSpacing = 45;
+
+  double _angleHour = 0.0;
+  double _angleMinute = 1.0;
+
+  @override
+  Result getData() {
+    data.testId = 3;
+    data.score = mapEquals(_score, {0: 12, 1: 3, 2: 6, 3: 9}) ? 1 : 0;
+
+    int h = _radToHour(_angleHour);
+    int m = _radToMinute(_angleMinute);
+
+    if ((h == 2) && (m <= 55) && (m >= 45)) {
+      data.score += 1;
+    }
+
+    data.responses = {
+      "sequence": _score.toString(),
+      "hour": h,
+      "minute": m,
+    };
+
+    print("${h} ${m}");
+
+    return super.getData();
+  }
+
+  int _radToHour(double _rad) {
+    if ((_rad >= 0) && (_rad <= pi)) {
+      return (_rad * 6 / pi).floor();
+    } else if ((_rad < 0) && (_rad >= -pi)) {
+      return (_rad * 6 / pi).floor() + 12;
+    }
+
+    return 0;
+  }
+
+  int _radToMinute(double _rad) {
+    if ((_rad >= 0) && (_rad <= pi)) {
+      return (_rad * 30 / pi).floor();
+    } else if ((_rad < 0) && (_rad >= -pi)) {
+      return (_rad * 30 / pi).floor() + 60;
+    }
+
+    return 0;
+  }
 
   @override
   erase() {
     setState(() {
-      score.clear();
+      _score.clear();
     });
   }
 
@@ -36,7 +89,7 @@ class _TestClockState extends SuperTestState {
     final double scrHfactor = MediaQuery.of(context).size.height / 640;
     final double scrWfactor = MediaQuery.of(context).size.width / 360;
 
-    int _length = 12;
+    int _length = _pointers.length;
 
     return Scaffold(
       body: Container(
@@ -46,27 +99,26 @@ class _TestClockState extends SuperTestState {
           children: <Widget>[
             Center(
               child: SizedBox(
-                height: 125 * scrHfactor,
-                width: 400 * scrWfactor,
                 child: GridView.builder(
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: _length,
                     primary: true,
                     shrinkWrap: true,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        childAspectRatio: 1.3,
-                        crossAxisSpacing: 7,
-                        crossAxisCount: _length ~/ 2,
-                        mainAxisSpacing: 9),
+                      childAspectRatio: 2,
+                      crossAxisSpacing: 3,
+                      crossAxisCount: _length ~/ 3,
+                      mainAxisSpacing: 5,
+                    ),
                     itemBuilder: (_, i) {
                       return IgnorePointer(
-                        ignoring: score.containsValue(i + 1),
+                        ignoring: _score.containsValue(_pointers[i]),
                         child: Opacity(
-                          opacity: score.containsValue(i + 1) ? 0 : 1,
+                          opacity: _score.containsValue(_pointers[i]) ? 0 : 1,
                           child: Draggable<int>(
-                            data: i + 1,
-                            feedback: _buildPointer(i + 1),
-                            child: _buildPointer(i + 1),
+                            data: _pointers[i],
+                            feedback: _buildPointer(_pointers[i]),
+                            child: _buildPointer(_pointers[i]),
                             childWhenDragging: const Opacity(
                               opacity: 0,
                             ),
@@ -77,7 +129,7 @@ class _TestClockState extends SuperTestState {
               ),
             ),
             SizedBox(
-              height: 400 * scrHfactor,
+              height: 300 * scrHfactor,
               width: 400 * scrWfactor,
               child: Stack(
                 children: [
@@ -94,12 +146,12 @@ class _TestClockState extends SuperTestState {
                   LayoutBuilder(
                     builder: (context, constraints) {
                       return CircularWidgets(
-                        itemsLength: _length,
+                        itemsLength: 4,
                         itemBuilder: (context, index) {
                           return _buildDragTarget(index);
                         },
-                        innerSpacing: 75 * scrHfactor,
-                        radiusOfItem: 40 * scrHfactor,
+                        innerSpacing: _innerClockSpacing * scrHfactor,
+                        radiusOfItem: _dragTargetRadius * scrHfactor,
                       );
                     },
                   ),
@@ -119,13 +171,13 @@ class _TestClockState extends SuperTestState {
         final double scrHfactor = MediaQuery.of(context).size.height / 640;
         final double scrWfactor = MediaQuery.of(context).size.width / 360;
 
-        if (score.containsKey(index)) {
+        if (_score.containsKey(index)) {
           return Container(
             height: 20 * scrHfactor,
             width: 20 * scrWfactor,
             child: Center(
               child: Text(
-                "${score[index]}",
+                "${_score[index]}",
                 style: const TextStyle(
                   fontSize: 18,
                   color: Colors.white,
@@ -152,9 +204,8 @@ class _TestClockState extends SuperTestState {
       onWillAccept: (data) => true,
       onAccept: (data) {
         setState(() {
-          score[index] = data;
+          _score[index] = data;
         });
-        print(score);
       },
       onLeave: (data) => {},
     );
@@ -164,14 +215,14 @@ class _TestClockState extends SuperTestState {
     final double scrHfactor = MediaQuery.of(context).size.height / 640;
     final double scrWfactor = MediaQuery.of(context).size.width / 360;
     return Container(
-      height: 40 * scrHfactor,
-      width: 40 * scrWfactor,
+      height: 55 * scrHfactor,
+      width: 55 * scrWfactor,
       child: Center(
         child: Text(
           pointer.toString(),
           style: const TextStyle(
             decoration: TextDecoration.none,
-            fontSize: 18,
+            fontSize: 22,
             color: Colors.white,
             fontWeight: FontWeight.w500,
           ),
@@ -184,9 +235,6 @@ class _TestClockState extends SuperTestState {
     );
   }
 
-  double angleHour = 0.0;
-  double angleMinute = 1.0;
-
   Widget _buildClockHands() {
     //final double scrHfactor = MediaQuery.of(context).size.height / 640;
     final double scrWfactor = MediaQuery.of(context).size.width / 360;
@@ -196,18 +244,18 @@ class _TestClockState extends SuperTestState {
         GestureDetector(
           onPanUpdate: (details) {
             setState(() {
-              angleMinute = _panHandler(details);
+              _angleMinute = _panHandler(details);
             });
           },
-          child: _clockHand(angleMinute, 115 * scrWfactor),
+          child: _clockHand(_angleMinute, _minuteHand * scrWfactor),
         ),
         GestureDetector(
           onPanUpdate: (details) {
             setState(() {
-              angleHour = _panHandler(details);
+              _angleHour = _panHandler(details);
             });
           },
-          child: _clockHand(angleHour, 60 * scrWfactor),
+          child: _clockHand(_angleHour, _hourHand * scrWfactor),
         ),
       ],
     );
@@ -222,11 +270,18 @@ class _TestClockState extends SuperTestState {
           offset: Offset(0, size / 2),
           child: Center(
             child: Container(
+              color: Colors.transparent,
               height: size,
-              width: 4,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(32),
+              width: 35,
+              child: Center(
+                child: Container(
+                  height: size,
+                  width: 10,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(32),
+                  ),
+                ),
               ),
             ),
           ),

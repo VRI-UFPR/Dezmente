@@ -4,12 +4,14 @@ class CustomTextInputField extends StatefulWidget {
   final String text;
   final TextInputType kbType;
   final int maxLength;
+  final TextEditingController controller;
 
   const CustomTextInputField({
     Key? key,
     this.text = "",
     this.kbType = TextInputType.text,
     this.maxLength = 10,
+    required this.controller,
   }) : super(key: key);
 
   @override
@@ -21,15 +23,21 @@ class _CustomTextInputFieldState extends State<CustomTextInputField> {
   Widget build(BuildContext context) {
     final double scrHfactor = MediaQuery.of(context).size.height / 640;
     final double scrWfactor = MediaQuery.of(context).size.width / 360;
-    TextEditingController controller = TextEditingController();
+    //TextEditingController controller = TextEditingController();
 
     return Container(
       margin: const EdgeInsets.only(bottom: 10),
       width: 318 * scrWfactor,
       height: 38 * scrHfactor,
       child: TextFormField(
-        controller: controller,
+        controller: widget.controller,
         cursorColor: Colors.transparent,
+        // onChanged: (ans) {
+        //   setState(() {
+        //     widget.answers[widget.text] = ans;
+        //   });
+        //   print(widget.answers);
+        // },
         style: const TextStyle(
           fontFamily: "montserrat",
           fontSize: 18,
@@ -64,14 +72,16 @@ class _CustomTextInputFieldState extends State<CustomTextInputField> {
 
 class CustomDropdownField extends StatefulWidget {
   final List<String> itemList;
-  // String? value;
   final String text;
+  final Map<String, String> finalValue;
+  final String name;
 
   const CustomDropdownField({
     Key? key,
     required this.itemList,
-    //required this.value,
+    required this.finalValue,
     this.text = "",
+    this.name = "",
   }) : super(key: key);
 
   @override
@@ -121,6 +131,12 @@ class _CustomDropdownFieldState extends State<CustomDropdownField> {
         items: widget.itemList.map(buildMenuItem).toList(),
         onChanged: (changedValue) => setState(() {
           value = changedValue;
+
+          if (value != null) {
+            widget.finalValue[widget.name] = changedValue!;
+          } else {
+            widget.finalValue[widget.name] = "";
+          }
         }),
       ),
     );

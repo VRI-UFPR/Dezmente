@@ -29,13 +29,13 @@ int timeSpended = DateTime.now().millisecondsSinceEpoch;
 class TestCube extends SuperTest {
   @override
   get description =>
-      "Clique na imagem que forma o cubo com uma face pintada de cinza e a oposta de quadriculado, conforme a figura:";
+      "Clique na imagem que forma o cubo com uma face pintada de azul e a oposta de quadriculado em laranja, conforme a figura:";
 
   @override
   get audioFile => "teste-02.mp3";
 
   @override
-  get title => "Test 2: Cubo";
+  get title => "Teste 2: Cubo";
 
   @override
   get needErase => false;

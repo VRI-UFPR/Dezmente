@@ -11,7 +11,7 @@ class TestSimilarity extends SuperTest {
   get audioFile => "teste-08.mp3";
 
   @override
-  get title => "Test 8: Abstração";
+  get title => "Teste 8: Abstração";
 
   const TestSimilarity({Key? key}) : super(key: key);
 
@@ -30,6 +30,8 @@ class TestSimilarityState extends SuperTestState<TestSimilarity> {
 
   TextEditingController controller = TextEditingController();
 
+  final Map<String, String> _answers = {};
+
   @override
   init() {
     super.init();
@@ -39,11 +41,15 @@ class TestSimilarityState extends SuperTestState<TestSimilarity> {
 
   @override
   Result getData() {
+    _answers[_imageIndex.toString()] = controller.text;
     if (_imageIndex < 2) {
       setState(() => _imageIndex++);
       controller.text = '';
     } else {
       data.code = Code.next;
+      data.testId = 8;
+      data.score = 1;
+      data.responses = _answers;
     }
     return super.getData();
   }

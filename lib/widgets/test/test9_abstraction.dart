@@ -11,7 +11,7 @@ class TestAbstraction2 extends SuperTest {
   get audioFile => "teste-09.mp3";
 
   @override
-  get title => "Test 9: Abstração 2";
+  get title => "Teste 9: Abstração";
 
   @override
   get needErase => false;
@@ -28,7 +28,7 @@ class TestAbstraction2State extends SuperTestState<TestAbstraction2> {
 
   @override
   Result getData() {
-    data.testId = 4;
+    data.testId = 9;
     data.score = selected == 2 ? 1 : 0;
     data.responses = {"slice": selected};
     return super.getData();

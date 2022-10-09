@@ -20,10 +20,10 @@ class TestMemory extends SuperTest {
 
   @override
   get title => editMode == 0
-      ? "Test 5: Memorização"
+      ? "Teste 5: Memorização"
       : editMode == 1
-          ? "Test 5: Reforço Memorização"
-          : "Test 11: Memorização";
+          ? "Teste 5: Reforço Memorização"
+          : "Teste 11: Memorização";
   //editMode 0 é apenas as palavras, 1 teste sem nota e 2 e o teste com nota
 
   @override

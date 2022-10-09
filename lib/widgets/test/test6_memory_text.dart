@@ -14,7 +14,7 @@ class TestMemoryText extends SuperTest {
   get audioFile => "teste-06a.mp3";
 
   @override
-  get title => "Test 6: Memorização de Texto";
+  get title => "Teste 6: Memorização de Texto";
 
   const TestMemoryText({Key? key}) : super(key: key);
 
@@ -23,13 +23,15 @@ class TestMemoryText extends SuperTest {
 }
 
 class Question {
+  String name;
   String pergunta;
   List<String> opcoes;
   int correta;
   String audioFile;
 
   Question(
-      {required this.pergunta,
+      {required this.name,
+      required this.pergunta,
       required this.opcoes,
       required this.correta,
       required this.audioFile});
@@ -37,6 +39,7 @@ class Question {
 
 List<Question> questions = [
   Question(
+      name: "biblioteca",
       pergunta: "01) Qual foi a biblioteca em que foram?",
       opcoes: [
         "a) Biblioteca municipal",
@@ -47,6 +50,7 @@ List<Question> questions = [
       correta: 0,
       audioFile: "teste-06c.mp3"),
   Question(
+      name: "esqueceu",
       pergunta: "02) O que João esqueceu em casa?",
       opcoes: ["a) Carteira", "b) Livro", "c) Cartão", "d) Relógio"],
       correta: 1,
@@ -68,12 +72,19 @@ class TestMemoryTextState extends SuperTestState {
   int _selected = -1;
   final String _audioFile = "teste-06b.mp3";
 
+  final Map<String, String> _answers = {};
+
   @override
   Result getData() {
-    if (_selected == questions[0].correta) score++;
+    _answers[questions[0].name] = questions[0].opcoes[_selected];
+    if (_selected == questions[0].correta) {
+      score++;
+    }
     if (questions.length == 1) {
       data.code = Code.next;
-      print(score);
+      data.testId = 6;
+      data.score = score;
+      data.responses = _answers;
     } else {
       setNextQuestion();
     }

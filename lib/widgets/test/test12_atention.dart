@@ -1,7 +1,10 @@
+import 'dart:ffi';
+
 import 'package:dezmente/services/models/result_model.dart';
 import 'package:dezmente/services/results.dart';
 import 'package:dezmente/common/super.dart';
 import 'package:dezmente/widgets/dialog.dart';
+import 'package:dezmente/widgets/history_build.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_bubble/chat_bubble.dart';
 import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_6.dart';
@@ -14,7 +17,7 @@ class TestAtention extends SuperTest {
   get audioFile => "teste-12a.mp3";
 
   @override
-  get title => "Test 12: Atenção";
+  get title => "Teste 12: Atenção";
 
   @override
   get needErase => false;
@@ -40,39 +43,65 @@ class TestAtentionState extends SuperTestState {
   ];
 
   int questionIndex = -1;
-  List<String> answers = [];
+  List<int> answers = [];
   final _textController = TextEditingController();
+
+  int _calculateScore() {
+    int score = 0;
+
+    if (answers.first == 93) {
+      score++;
+    }
+
+    for (var i = 0; i < answers.length - 1; i++) {
+      if (answers.elementAt(i) == answers.elementAt(i + 1) + 7) {
+        score++;
+      }
+    }
+
+    print("score:");
+    print(score);
+
+    return score;
+  }
 
   @override
   Result getData() {
     if (questionIndex == 4) {
       data.code = Code.next;
+      data.testId = 12;
+      data.responses = {"numbers": answers.toString()};
+      data.score = _calculateScore();
     } else {
-      if (questionIndex == -1) {
-        showAlertDialog(
-          context: context,
-          titleText: "Deseja começar a responder as perguntas?",
-          contentText: "Não será possível retornar após esta ação.",
-          callback: () {
-            setState(() {
-              questionIndex++;
-              _textController.clear();
-            });
-          },
-        );
-      } else {
-        showAlertDialog(
-          context: context,
-          titleText: "Deseja ir para a próxima pergunta?",
-          contentText: "Não será possível retornar após esta ação.",
-          callback: () {
-            setState(() {
-              questionIndex++;
-              _textController.clear();
-            });
-          },
-        );
-      }
+      // if (questionIndex == -1) {
+      //   showAlertDialog(
+      //     context: context,
+      //     titleText: "Deseja começar a responder as perguntas?",
+      //     contentText: "Não será possível retornar após esta ação.",
+      //     callback: () {
+      //       setState(() {
+      //         questionIndex++;
+      //         _textController.clear();
+      //       });
+      //     },
+      //   );
+      // } else {
+      //   showAlertDialog(
+      //     context: context,
+      //     titleText: "Deseja ir para a próxima pergunta?",
+      //     contentText: "Não será possível retornar após esta ação.",
+      //     callback: () {
+      //       setState(() {
+      //         questionIndex++;
+      //         _textController.clear();
+      //       });
+      //     },
+      //   );
+      // }
+      setState(() {
+        questionIndex++;
+        _textController.clear();
+      });
     }
     return super.getData();
   }
@@ -82,9 +111,6 @@ class TestAtentionState extends SuperTestState {
     super.init();
     data.code = Code.stay;
   }
-
-  int pressedErase = 0; // quantidade de vezes que o botao apagar foi utilizado
-  int timeSpended = DateTime.now().millisecondsSinceEpoch;
 
   @override
   Widget build(BuildContext context) {
@@ -98,53 +124,60 @@ class TestAtentionState extends SuperTestState {
   Widget buildHistory(context) {
     final double scrHfactor = MediaQuery.of(context).size.height / 640;
 
-    return Column(
-      children: [
-        Container(
-          padding: const EdgeInsets.fromLTRB(10, 30, 10, 10),
-          margin: const EdgeInsets.only(bottom: 20),
-          child: const Text(
-            "Seu Maurício tinha 100 reais e resolveu dar uma mesada de 7 reais para cada um de seus 5 netos.",
-            style: TextStyle(
-              fontFamily: "Montserrat",
-              fontSize: 24,
-              fontWeight: FontWeight.w600,
+    return Container(
+      color: const Color(0xFFB4EADF),
+      child: Column(
+        children: [
+          Container(
+            height: 300 * scrHfactor,
+            padding: const EdgeInsets.fromLTRB(10, 30, 10, 10),
+            margin: const EdgeInsets.only(bottom: 20),
+            child: const Center(
+              child: Text(
+                "Seu Maurício tinha 100 reais e resolveu dar uma mesada de 7 reais para cada um de seus 5 netos.",
+                style: TextStyle(
+                  fontFamily: "Montserrat",
+                  fontSize: 20,
+                  fontWeight: FontWeight.w700,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+            color: Colors.white,
+          ),
+          ChatBubble(
+            clipper: ChatBubbleClipper6(
+              radius: 40,
+              nipSize: 10,
+            ),
+            elevation: 0,
+            alignment: Alignment.center,
+            backGroundColor: const Color(0xff8FDEE3),
+            margin: const EdgeInsets.all(10.0),
+            child: const Text(
+              "Agora responda as perguntas:",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontFamily: 'montserrat',
+                fontWeight: FontWeight.w600,
+                fontSize: 20,
+                fontStyle: FontStyle.normal,
+                color: Colors.black,
+              ),
             ),
           ),
-          color: const Color(0xFEAA8899),
-        ),
-        ChatBubble(
-          clipper: ChatBubbleClipper6(
-            radius: 40,
-            nipSize: 10,
-          ),
-          elevation: 0,
-          alignment: Alignment.center,
-          backGroundColor: const Color(0xff8FDEE3),
-          margin: const EdgeInsets.all(10.0),
-          child: const Text(
-            "Agora responda as perguntas:",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontFamily: 'montserrat',
-              fontWeight: FontWeight.w600,
-              fontSize: 20,
-              fontStyle: FontStyle.normal,
-              color: Colors.black,
+          Container(
+            margin: const EdgeInsets.only(left: 15),
+            child: Align(
+              alignment: Alignment.topLeft,
+              child: Image.asset(
+                'assets/images/zunokansei.png',
+                height: 100 * scrHfactor,
+              ),
             ),
           ),
-        ),
-        Container(
-          margin: const EdgeInsets.only(left: 15),
-          child: Align(
-            alignment: Alignment.topLeft,
-            child: Image.asset(
-              'assets/images/zunokansei.png',
-              height: 100 * scrHfactor,
-            ),
-          ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
@@ -213,9 +246,7 @@ class TestAtentionState extends SuperTestState {
               maxLength: 3,
               onSubmitted: (input) {
                 setState(() {
-                  answers.insert(questionIndex, input);
-                  print(answers);
-                  print(questionIndex);
+                  answers.insert(questionIndex, int.parse(input));
                 });
               },
             ),

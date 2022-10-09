@@ -28,6 +28,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^1.0.0
+  flutter_launcher_icons: "^0.10.0"
 
 flutter:
   uses-material-design: true
@@ -51,3 +52,10 @@ flutter:
         - asset: assets/fonts/passion_one/PassionOne-Regular.ttf
         - asset: assets/fonts/passion_one/PassionOne-Bold.ttf
         - asset: assets/fonts/passion_one/PassionOne-Black.ttf
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/icon/dezment_ico.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
+
