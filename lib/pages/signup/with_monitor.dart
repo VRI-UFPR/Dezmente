@@ -15,6 +15,13 @@ class WithMonitorSignUp extends StatefulWidget {
 class _WithMonitorSignUpState extends State<WithMonitorSignUp> {
   final _formKey = GlobalKey<FormState>();
   int pageNumber = 0;
+  final TextEditingController _helperAge = TextEditingController();
+  final TextEditingController _age = TextEditingController();
+  final TextEditingController _gender = TextEditingController();
+  final TextEditingController _city = TextEditingController();
+  final TextEditingController _school = TextEditingController();
+  final TextEditingController _exh = TextEditingController();
+  final Map<String, String> _dpf = {};
 
   @override
   Widget build(BuildContext context) {
@@ -75,10 +82,11 @@ class _WithMonitorSignUpState extends State<WithMonitorSignUp> {
                 child: _buildTitle("Ajudante"),
               ),
             ),
-            const CustomTextInputField(
+            CustomTextInputField(
               text: "Idade do Ajudante",
               kbType: TextInputType.number,
               maxLength: 3,
+              controller: _helperAge,
             ),
             Center(
               child: Container(
@@ -108,15 +116,17 @@ class _WithMonitorSignUpState extends State<WithMonitorSignUp> {
                 child: _buildTitle("Usuário"),
               ),
             ),
-            const CustomTextInputField(
+            CustomTextInputField(
               text: "Idade",
               kbType: TextInputType.number,
               maxLength: 3,
+              controller: _age,
             ),
-            const CustomTextInputField(
+            CustomTextInputField(
               text: "Gênero",
               kbType: TextInputType.name,
               maxLength: 20,
+              controller: _gender,
             ),
             _nextPageButton(() {
               setState(() {
@@ -143,33 +153,38 @@ class _WithMonitorSignUpState extends State<WithMonitorSignUp> {
                 child: _buildTitle("Usuário"),
               ),
             ),
-            const CustomTextInputField(
+            CustomTextInputField(
               text: "Cidade",
               kbType: TextInputType.name,
               maxLength: 20,
+              controller: _city,
             ),
-            const CustomTextInputField(
+            CustomTextInputField(
               text: "Escolaridade",
               kbType: TextInputType.name,
               maxLength: 20,
+              controller: _school,
             ),
-            const CustomTextInputField(
+            CustomDropdownField(
+              itemList: const ["Trabalhando", "Aposentado"],
               text: "Status de atividade",
-              kbType: TextInputType.name,
-              maxLength: 20,
+              finalValue: _dpf,
             ),
-            const CustomDropdownField(
+            CustomDropdownField(
               itemList: ["Sim", "Não"],
               text: "Possui alguma doença?",
+              finalValue: _dpf,
             ),
-            const CustomDropdownField(
+            CustomDropdownField(
               itemList: ["Sim", "Não"],
               text: "Utiliza alguma medicação?",
+              finalValue: _dpf,
             ),
-            const CustomTextInputField(
+            CustomTextInputField(
               text: "Horas de exercício físico p/s",
               kbType: TextInputType.number,
               maxLength: 3,
+              controller: _exh,
             ),
             _nextPageButton(() {
               setState(() {

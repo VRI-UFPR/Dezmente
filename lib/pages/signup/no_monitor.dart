@@ -11,7 +11,12 @@ class NoMonitorSignUp extends StatefulWidget {
 }
 
 class _NoMonitorSignUpState extends State<NoMonitorSignUp> {
-  final _formKey = GlobalKey<FormState>();
+  final TextEditingController _age = TextEditingController();
+  final TextEditingController _gender = TextEditingController();
+  final TextEditingController _city = TextEditingController();
+  final TextEditingController _school = TextEditingController();
+  final TextEditingController _exh = TextEditingController();
+  final Map<String, String> _dpf = {};
 
   @override
   Widget build(BuildContext context) {
@@ -32,10 +37,7 @@ class _NoMonitorSignUpState extends State<NoMonitorSignUp> {
                 width: MediaQuery.of(context).size.width,
               ),
             ),
-            Form(
-              key: _formKey,
-              child: _firstPage(),
-            ),
+            _firstPage(),
           ],
         ),
       ),
@@ -66,42 +68,50 @@ class _NoMonitorSignUpState extends State<NoMonitorSignUp> {
                 ),
               ),
             ),
-            const CustomTextInputField(
+            CustomTextInputField(
               text: "Idade",
               kbType: TextInputType.number,
               maxLength: 3,
+              controller: _age,
             ),
-            const CustomTextInputField(
+            CustomTextInputField(
               text: "Gênero",
               kbType: TextInputType.name,
               maxLength: 20,
+              controller: _gender,
             ),
-            const CustomTextInputField(
+            CustomTextInputField(
               text: "Cidade",
               kbType: TextInputType.name,
               maxLength: 20,
+              controller: _city,
             ),
-            const CustomTextInputField(
+            CustomTextInputField(
               text: "Escolaridade",
               kbType: TextInputType.name,
               maxLength: 20,
+              controller: _school,
             ),
-            const CustomDropdownField(
-              itemList: ["Trabalhando", "Aposentado"],
+            CustomDropdownField(
+              itemList: const ["Trabalhando", "Aposentado"],
               text: "Status de atividade",
+              finalValue: _dpf,
             ),
-            const CustomDropdownField(
-              itemList: ["Sim", "Não"],
+            CustomDropdownField(
+              itemList: const ["Sim", "Não"],
               text: "Possui alguma doença?",
+              finalValue: _dpf,
             ),
-            const CustomDropdownField(
-              itemList: ["Sim", "Não"],
+            CustomDropdownField(
+              itemList: const ["Sim", "Não"],
               text: "Utiliza alguma medicação?",
+              finalValue: _dpf,
             ),
-            const CustomTextInputField(
+            CustomTextInputField(
               text: "Horas de exercício físico p/s",
               kbType: TextInputType.number,
               maxLength: 3,
+              controller: _exh,
             ),
             Container(
               margin: const EdgeInsets.fromLTRB(0, 20, 20, 0),
@@ -142,10 +152,7 @@ class _NoMonitorSignUpState extends State<NoMonitorSignUp> {
                     backgroundColor: MaterialStateProperty.all<Color>(
                         const Color(0xff569DB3)),
                   ),
-                  onPressed: () {
-                    _formKey.currentState?.save();
-                    print(_formKey.currentWidget);
-                  },
+                  onPressed: () {},
                 ),
               ),
             ),
