@@ -23,7 +23,7 @@ class _ConectButtons {
 class TestConection extends SuperTest {
   @override
   get description =>
-      "Clique no número e depois na letra em ordem ascendente Ex: 1-A-2";
+      "Clique alternando entre número e letra, respeitando a ordem dos números e do alfabeto. Ex: 1->A->2";
 
   @override
   get title => "Teste 1: Conexão";
@@ -40,9 +40,9 @@ class TestConection extends SuperTest {
 class TestConectionState extends SuperTestState {
 // lista de botoes utilizados no teste
   final List<_ConectButtons> _buttons = [
-    _ConectButtons("1", false, "A", false, 96, 230),
-    _ConectButtons("A", false, "2", false, 212, 102),
-    _ConectButtons("2", false, "B", false, 270, 180),
+    _ConectButtons("1", true, "A", true, 96, 230),
+    _ConectButtons("A", true, "2", true, 212, 102),
+    _ConectButtons("2", true, "B", false, 270, 180),
     _ConectButtons("B", false, "3", false, 200, 240),
     _ConectButtons("3", false, "C", false, 270, 350),
     _ConectButtons("C", false, "4", false, 44, 432),
@@ -53,9 +53,9 @@ class TestConectionState extends SuperTestState {
   ];
 
   // ordem dos botoes pressionados pelo usuario
-  final List<String> _score = [];
+  final List<String> _score = ["1", "A", "2"];
 
-  int _mapIndex = 0; // index na lista do ultimo botao pressionado
+  int _mapIndex = 2; // index na lista do ultimo botao pressionado
   bool _canErase = false; // se pode utilizar o apagar
   //int pressedErase = 0; // quantidade de vezes que o botao apagar foi utilizado
   //int timeSpended = DateTime.now().millisecondsSinceEpoch; // tempo total gasto

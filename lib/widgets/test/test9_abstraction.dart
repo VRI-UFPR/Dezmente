@@ -45,9 +45,15 @@ class TestAbstraction2State extends SuperTestState<TestAbstraction2> {
         margin: EdgeInsets.fromLTRB(10, height * 0.1, 10, 10),
         child: Center(
           child: Column(children: [
-            _buildUnselected(width * 0.2, height * 0.2),
-            SizedBox(
+            SvgPicture.asset('assets/images/slices_new/target.svg',
+                width: width * 0.2, height: height * 0.2),
+            Container(
+              padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
               height: height * 0.1,
+              child: const Divider(
+                thickness: 5,
+                color: Colors.black,
+              ),
             ),
             Expanded(
               child: GridView.builder(
@@ -63,14 +69,6 @@ class TestAbstraction2State extends SuperTestState<TestAbstraction2> {
         ));
   }
 
-  Widget _buildUnselected(double width, double height) =>
-      Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-        SvgPicture.asset('assets/images/slices_new/complete.svg',
-            width: width, height: height),
-        SvgPicture.asset('assets/images/slices_new/target.svg',
-            width: width, height: height),
-      ]);
-
   Widget _buildSelectable(_, int index) => InkWell(
         onTap: () {
           setState(() {
@@ -81,13 +79,11 @@ class TestAbstraction2State extends SuperTestState<TestAbstraction2> {
         highlightColor: Colors.transparent,
         child: Container(
           margin: const EdgeInsets.all(5),
-          padding: index == selected
-              ? const EdgeInsets.all(14)
-              : const EdgeInsets.all(10),
+          padding: selected == index ? EdgeInsets.all(15) : EdgeInsets.all(10),
           decoration: index == selected
               ? BoxDecoration(
-                  borderRadius: BorderRadius.circular(50),
-                  border: Border.all(color: Colors.amber, width: 4),
+                  borderRadius: BorderRadius.circular(100),
+                  border: Border.all(color: const Color(0xffF72585), width: 4),
                 )
               : BoxDecoration(
                   borderRadius: BorderRadius.circular(100),

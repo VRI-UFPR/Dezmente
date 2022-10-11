@@ -1,9 +1,56 @@
-<svg width="129" height="129" viewBox="0 0 129 129" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M129 64.5C129 51.7431 125.217 39.2727 118.13 28.6657C111.042 18.0587 100.969 9.79162 89.1831 4.90977C77.3972 0.0279178 64.4284 -1.2494 51.9167 1.23935C39.4049 3.7281 27.9121 9.87113 18.8916 18.8916C9.87113 27.9121 3.7281 39.4049 1.23935 51.9167C-1.2494 64.4284 0.0279179 77.3972 4.90977 89.1831C9.79162 100.969 18.0587 111.042 28.6657 118.13C39.2727 125.217 51.7431 129 64.5 129L64.5 64.5H129Z" fill="#B3B2B2"/>
-<mask id="mask0_323_665" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="129" height="129">
-<path d="M129 64.5C129 51.7431 125.217 39.2727 118.13 28.6657C111.042 18.0587 100.969 9.79162 89.1831 4.90977C77.3972 0.0279178 64.4284 -1.2494 51.9167 1.23935C39.4049 3.7281 27.9121 9.87113 18.8916 18.8916C9.87113 27.9121 3.7281 39.4049 1.23935 51.9167C-1.2494 64.4284 0.0279179 77.3972 4.90977 89.1831C9.79162 100.969 18.0587 111.042 28.6657 118.13C39.2727 125.217 51.7431 129 64.5 129L64.5 64.5H129Z" fill="#B3B2B2"/>
-</mask>
-<g mask="url(#mask0_323_665)">
-<circle cx="64.5" cy="64.5" r="36.5" fill="#422918"/>
-</g>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="129"
+   height="129"
+   viewBox="0 0 129 129"
+   fill="none"
+   version="1.1"
+   id="svg803"
+   sodipodi:docname="target.svg"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14, custom)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs807" />
+  <sodipodi:namedview
+     id="namedview805"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="4.5989348"
+     inkscape:cx="29.572065"
+     inkscape:cy="76.10458"
+     inkscape:window-width="1908"
+     inkscape:window-height="1003"
+     inkscape:window-x="6"
+     inkscape:window-y="66"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg803" />
+  <circle
+     cx="64.5"
+     cy="64.5"
+     r="64.5"
+     fill="#B3B2B2"
+     id="circle799" />
+  <circle
+     cx="64.5"
+     cy="64.5"
+     r="36.5"
+     fill="#422918"
+     id="circle801"
+     style="fill:#422918;fill-opacity:1" />
+  <rect
+     style="fill:#fefdfd;fill-opacity:1"
+     id="rect5772"
+     width="64.797615"
+     height="64.797615"
+     x="64.145287"
+     y="64.362732" />
 </svg>

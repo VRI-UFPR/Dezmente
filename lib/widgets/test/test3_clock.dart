@@ -26,10 +26,10 @@ class _TestClock2State extends SuperTestState {
   final Map<int, int> _score = {};
   final List<int> _pointers = [1, 9, 50, 12, 4, 45, 30, 3, 6];
 
-  final _minuteHand = 90;
-  final _hourHand = 65;
-  final _dragTargetRadius = 50;
-  final _innerClockSpacing = 45;
+  final _minuteHand = 83;
+  final _hourHand = 55;
+  final _dragTargetRadius = 55;
+  final _innerClockSpacing = 40;
 
   double _angleHour = 0.0;
   double _angleMinute = 1.0;
@@ -116,6 +116,7 @@ class _TestClock2State extends SuperTestState {
                         child: Opacity(
                           opacity: _score.containsValue(_pointers[i]) ? 0 : 1,
                           child: Draggable<int>(
+                            feedbackOffset: Offset.fromDirection(-2.0),
                             data: _pointers[i],
                             feedback: _buildPointer(_pointers[i]),
                             child: _buildPointer(_pointers[i]),
@@ -173,13 +174,13 @@ class _TestClock2State extends SuperTestState {
 
         if (_score.containsKey(index)) {
           return Container(
-            height: 20 * scrHfactor,
-            width: 20 * scrWfactor,
+            height: 30 * scrHfactor,
+            width: 30 * scrWfactor,
             child: Center(
               child: Text(
                 "${_score[index]}",
                 style: const TextStyle(
-                  fontSize: 18,
+                  fontSize: 22,
                   color: Colors.white,
                   fontWeight: FontWeight.w500,
                 ),
@@ -192,8 +193,8 @@ class _TestClock2State extends SuperTestState {
           );
         } else {
           return Container(
-            width: 20 * scrWfactor,
-            height: 20 * scrHfactor,
+            width: 30 * scrWfactor,
+            height: 30 * scrHfactor,
             decoration: const BoxDecoration(
               color: Colors.white,
               shape: BoxShape.circle,
