@@ -35,15 +35,19 @@ class TestResults {
   }
 
   getResult() async {
-    var test = await FirebaseFirestore.instance
+    //Pega os testes do usuario, ordenado pela data
+    var snapshot = await FirebaseFirestore.instance
         .collection('users')
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .collection("testes")
         .orderBy("timestamp", descending: true)
         .get();
 
-    test = await test.docs.first.reference.collection("results").get();
-    for (var element in test.docs) {
+    //Pega o primeiro(ultimo teste que a pessoa fez) e da get nos results
+    snapshot = await snapshot.docs.first.reference.collection("results").get();
+
+    //Passa por todos results da snapshot e cria e insere os dados no _results dessa classe
+    for (var element in snapshot.docs) {
       addResult(Result.fromFirestore(element));
     }
   }
