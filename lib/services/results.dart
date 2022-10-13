@@ -5,7 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 enum Code { next, stay, notInclude }
 
 class TestResults {
-  final _results = <Result>[];
+  final List<Result> _results = <Result>[];
 
   addResult(Result r) {
     if (r.code != Code.notInclude) {
@@ -32,5 +32,19 @@ class TestResults {
         .commit()
         .then((value) => print("Submit completed"))
         .catchError((error) => print("Failed to submit: $error"));
+  }
+
+  getResult() async {
+    var test = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .collection("testes")
+        .orderBy("timestamp", descending: true)
+        .get();
+
+    test = await test.docs.first.reference.collection("results").get();
+    for (var element in test.docs) {
+      addResult(Result.fromFirestore(element));
+    }
   }
 }

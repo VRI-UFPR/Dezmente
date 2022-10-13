@@ -18,15 +18,15 @@ abstract class SuperTestState<T extends SuperTest> extends State<T> {
   @mustCallSuper
   Result getData() {
     if (data.code == Code.next) {
-      data.testName = widget.title;
-      data.timeSpent = DateTime.now().millisecondsSinceEpoch - data.timeSpent;
+      data.testTitle = widget.title;
+      data.timeSpent = DateTime.now().millisecondsSinceEpoch - data.timeSpent!;
     }
     return data;
   }
 
   @mustCallSuper
   init() {
-    data.testName = widget.title;
+    data.testTitle = widget.title;
     data.timeSpent = DateTime.now().millisecondsSinceEpoch;
   }
 

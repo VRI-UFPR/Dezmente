@@ -1,10 +1,6 @@
-import 'dart:ffi';
-
 import 'package:dezmente/services/models/result_model.dart';
 import 'package:dezmente/services/results.dart';
 import 'package:dezmente/common/super.dart';
-import 'package:dezmente/widgets/dialog.dart';
-import 'package:dezmente/widgets/history_build.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_bubble/chat_bubble.dart';
 import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_6.dart';

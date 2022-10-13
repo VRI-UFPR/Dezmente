@@ -43,7 +43,7 @@ class _TestClock2State extends SuperTestState {
     int m = _radToMinute(_angleMinute);
 
     if ((h == 2) && (m <= 55) && (m >= 45)) {
-      data.score += 1;
+      data.score = data.score! + 1;
     }
 
     data.responses = {

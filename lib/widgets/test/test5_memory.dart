@@ -103,7 +103,7 @@ class TestMemoryState extends SuperTestState<TestMemory> {
       }
       data.score = acerto;
       data.testId = 11;
-      data.testName = widget.title;
+      data.testTitle = widget.title;
       data.responses = {
         for (var r in words)
           r.text: {'respostaCorreta': r.answer, 'resposta': r.selected}
