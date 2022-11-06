@@ -45,15 +45,19 @@ class TestAbstraction2State extends SuperTestState<TestAbstraction2> {
         margin: EdgeInsets.fromLTRB(10, height * 0.1, 10, 10),
         child: Center(
           child: Column(children: [
-            SvgPicture.asset('assets/images/slices_new/target.svg',
-                width: width * 0.2, height: height * 0.2),
             Container(
-              padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-              height: height * 0.1,
-              child: const Divider(
-                thickness: 5,
-                color: Colors.black,
+              padding: const EdgeInsets.all(20),
+              margin: const EdgeInsets.only(bottom: 75),
+              height: height * 0.3,
+              width: width * 0.8,
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: Colors.black,
+                  width: 5,
+                ),
               ),
+              child: SvgPicture.asset('assets/images/slices_new/target.svg',
+                  width: width * 0.2, height: height * 0.2),
             ),
             Expanded(
               child: GridView.builder(

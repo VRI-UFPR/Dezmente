@@ -9,7 +9,7 @@ class TestMemory extends SuperTest {
       ? "Leia as palavras destacadas em voz alta e as memorize"
       : editMode == 1
           ? "Agora, clique nas palavras que estavam destacadas, só para treino"
-          : "Clique nas palavras que estavam em azul na lista anterior";
+          : "Clique nas palavras que estavam em destaque na lista anterior";
 
   @override
   get audioFile => editMode == 0
