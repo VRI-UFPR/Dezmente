@@ -1,4 +1,6 @@
 import 'package:confirm_dialog/confirm_dialog.dart';
+import 'package:dezmente/pages/instructions.dart';
+import 'package:dezmente/pages/signup/with_monitor.dart';
 import 'package:dezmente/pages/teste.dart';
 import 'package:dezmente/services/auth.dart';
 import 'package:dezmente/utils/buttons.dart';
@@ -36,27 +38,25 @@ class _TcleState extends State<Tcle> {
             Container(
               height: 400 * scrHfactor,
               margin: const EdgeInsets.all(20),
-              child: Expanded(
-                child: NotificationListener(
-                  onNotification: (n) {
-                    if (n is ScrollEndNotification) {
-                      setState(() {
-                        scrolled = true;
-                        print(scrolled);
-                      });
-                    }
-                    return true;
-                  },
-                  child: const RawScrollbar(
-                    thumbVisibility: true,
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.vertical,
-                      child: Text(
-                        "     Nós, Viviane de Hiroki Flumignan Zétola, pesquisadora e neurologista e Isabele Ayumi Miyawaki, aluna de Medicina da Universidade Federal do Paraná, estamos convidando o Senhor(a) a participar de um estudo intitulado “Desenvolvimento de aplicativo para auxílio de diagnóstico de comprometimento cognitivo leve”. Desenvolvemos um aplicativo para ajudar no diagnóstico precoce da doença “comprometimento cognitivo leve”, já que ela pode evoluir para a demência, sendo irreversível. Dessa forma, aplicaremos um teste por aplicativo para detecção dessa doença.\n     É possível que o senhor(a) experimente algum desconforto, principalmente relacionado à cansaço na realização dos testes e possível constrangimento, por serem testes de memória.\n     Os benefícios esperados com essa pesquisa são: detecção precoce de quadro demencial e sugestão de procura de serviço especializado com o objetivo de confirmar o achado do estudo. \n     As informações relacionadas ao estudo poderão conhecidas apenas por pessoas autorizadas, ou seja, as pesquisadoras. No entanto, se qualquer informação for divulgada em relatório ou publicação, será feito sob forma codificada, para que a sua identidade seja preservada e seja mantida a confidencialidade.",
-                        style: TextStyle(
-                          fontFamily: "montserrat",
-                          fontSize: 16,
-                        ),
+              child: NotificationListener(
+                onNotification: (n) {
+                  if (n is ScrollEndNotification) {
+                    setState(() {
+                      scrolled = true;
+                      print(scrolled);
+                    });
+                  }
+                  return true;
+                },
+                child: const RawScrollbar(
+                  thumbVisibility: true,
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child: Text(
+                      "     Nós, Viviane de Hiroki Flumignan Zétola, pesquisadora e neurologista e Isabele Ayumi Miyawaki, aluna de Medicina da Universidade Federal do Paraná, estamos convidando o Senhor(a) a participar de um estudo intitulado “Desenvolvimento de aplicativo para auxílio de diagnóstico de comprometimento cognitivo leve”. Desenvolvemos um aplicativo para ajudar no diagnóstico precoce da doença “comprometimento cognitivo leve”, já que ela pode evoluir para a demência, sendo irreversível. Dessa forma, aplicaremos um teste por aplicativo para detecção dessa doença.\n     É possível que o senhor(a) experimente algum desconforto, principalmente relacionado à cansaço na realização dos testes e possível constrangimento, por serem testes de memória.\n     Os benefícios esperados com essa pesquisa são: detecção precoce de quadro demencial e sugestão de procura de serviço especializado com o objetivo de confirmar o achado do estudo. \n     As informações relacionadas ao estudo poderão conhecidas apenas por pessoas autorizadas, ou seja, as pesquisadoras. No entanto, se qualquer informação for divulgada em relatório ou publicação, será feito sob forma codificada, para que a sua identidade seja preservada e seja mantida a confidencialidade.",
+                      style: TextStyle(
+                        fontFamily: "montserrat",
+                        fontSize: 16,
                       ),
                     ),
                   ),
@@ -103,7 +103,7 @@ class _TcleState extends State<Tcle> {
                         Navigator.of(context).push(PageRouteBuilder(
                           pageBuilder:
                               (context, animation, secondaryAnimation) =>
-                                  const Teste(),
+                                  const Instructions(),
                         ));
                       }
                     },

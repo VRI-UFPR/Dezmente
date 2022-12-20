@@ -1,3 +1,6 @@
+import 'package:dezmente/pages/teste.dart';
+import 'package:dezmente/services/models/signup_data_model.dart';
+import 'package:dezmente/services/signupdata.dart';
 import 'package:dezmente/utils/fields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -33,7 +36,7 @@ class _NoMonitorSignUpState extends State<NoMonitorSignUp> {
               alignment: Alignment.topCenter,
               child: SvgPicture.asset(
                 "assets/images/topbar.svg",
-                fit: BoxFit.none,
+                fit: BoxFit.fill,
                 width: MediaQuery.of(context).size.width,
               ),
             ),
@@ -113,50 +116,62 @@ class _NoMonitorSignUpState extends State<NoMonitorSignUp> {
               maxLength: 3,
               controller: _exh,
             ),
-            Container(
-              margin: const EdgeInsets.fromLTRB(0, 20, 20, 0),
-              child: Align(
-                alignment: Alignment.topRight,
-                child: OutlinedButton(
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: const [
-                      Text(
-                        "Próxima Página",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontFamily: "montserrat",
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 70,
-                      ),
-                      Icon(
-                        Icons.arrow_right_alt_outlined,
-                        color: Colors.black,
-                        size: 30,
-                      ),
-                    ],
-                  ),
-                  style: ButtonStyle(
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(7))),
-                    ),
-                    alignment: Alignment.center,
-                    padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                      const EdgeInsets.all(13),
-                    ),
-                    backgroundColor: MaterialStateProperty.all<Color>(
-                        const Color(0xff569DB3)),
-                  ),
-                  onPressed: () {},
+            _finishButton(() {
+              setSignupData(
+                SignUpData(
+                  age: int.parse(_age.text),
+                  gender: _gender.text,
+                  city: _city.text,
+                  school: _school.text,
+                  active: _dpf["Status de Atividade"] == "Trabalhando",
+                  healthIssue: _dpf["Possui alguma doença?"] == "Sim",
+                  medic: _dpf["Utiliza alguma medicação?"] == "Sim",
+                  physHours: int.parse(_exh.text),
+                  hasMonitor: false,
+                  treatments: {},
                 ),
+              );
+              Navigator.of(context).push(PageRouteBuilder(
+                pageBuilder: (context, animation, secondaryAnimation) =>
+                    const Teste(),
+              ));
+            })
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _finishButton(callback) {
+    return Container(
+      margin: const EdgeInsets.only(top: 40),
+      child: Center(
+        child: TextButton(
+          child: Container(
+            margin: const EdgeInsets.fromLTRB(70, 0, 70, 0),
+            child: const Text(
+              "Terminar",
+              style: TextStyle(
+                color: Colors.black,
+                fontFamily: "montserrat",
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
               ),
             ),
-          ],
+          ),
+          style: ButtonStyle(
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(7))),
+            ),
+            alignment: Alignment.center,
+            padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+              const EdgeInsets.all(13),
+            ),
+            backgroundColor:
+                MaterialStateProperty.all<Color>(const Color(0xff569DB3)),
+          ),
+          onPressed: callback,
         ),
       ),
     );

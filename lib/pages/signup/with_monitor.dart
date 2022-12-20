@@ -1,3 +1,4 @@
+import 'package:dezmente/pages/teste.dart';
 import 'package:dezmente/services/models/signup_data_model.dart';
 import 'package:dezmente/services/signupdata.dart';
 import 'package:dezmente/utils/fields.dart';
@@ -22,6 +23,7 @@ class _WithMonitorSignUpState extends State<WithMonitorSignUp> {
   final TextEditingController _school = TextEditingController();
   final TextEditingController _exh = TextEditingController();
   final Map<String, String> _dpf = {};
+  final Map<String, bool> _treatments = {};
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +40,7 @@ class _WithMonitorSignUpState extends State<WithMonitorSignUp> {
               alignment: Alignment.topCenter,
               child: SvgPicture.asset(
                 "assets/images/topbar.svg",
-                fit: BoxFit.none,
+                fit: BoxFit.fill,
                 width: MediaQuery.of(context).size.width,
               ),
             ),
@@ -92,7 +94,7 @@ class _WithMonitorSignUpState extends State<WithMonitorSignUp> {
               child: Container(
                 margin: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                 padding: const EdgeInsets.all(20),
-                height: 109 * scrHfactor,
+                height: 100 * scrHfactor,
                 width: 260 * scrWfactor,
                 decoration: const BoxDecoration(
                   color: Color(0xADFDC6E3),
@@ -105,7 +107,7 @@ class _WithMonitorSignUpState extends State<WithMonitorSignUp> {
                     color: Colors.black,
                     fontFamily: "montserrat",
                     fontWeight: FontWeight.bold,
-                    fontSize: 15,
+                    fontSize: 16,
                   ),
                 ),
               ),
@@ -171,12 +173,12 @@ class _WithMonitorSignUpState extends State<WithMonitorSignUp> {
               finalValue: _dpf,
             ),
             CustomDropdownField(
-              itemList: ["Sim", "Não"],
+              itemList: const ["Sim", "Não"],
               text: "Possui alguma doença?",
               finalValue: _dpf,
             ),
             CustomDropdownField(
-              itemList: ["Sim", "Não"],
+              itemList: const ["Sim", "Não"],
               text: "Utiliza alguma medicação?",
               finalValue: _dpf,
             ),
@@ -205,29 +207,54 @@ class _WithMonitorSignUpState extends State<WithMonitorSignUp> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const CustomCheckBoxField(
+            CustomCheckBoxField(
               text: "Tratamento de ansiedade",
+              finalValue: _treatments,
             ),
-            const CustomCheckBoxField(
+            CustomCheckBoxField(
               text: "Tratamento de eplepsia",
+              finalValue: _treatments,
             ),
-            const CustomCheckBoxField(
+            CustomCheckBoxField(
               text: "Tratamento de insônia",
+              finalValue: _treatments,
             ),
-            const CustomCheckBoxField(
+            CustomCheckBoxField(
               text: "Tratamento de Alzheimer",
+              finalValue: _treatments,
             ),
-            const CustomCheckBoxField(
+            CustomCheckBoxField(
               text: "Doença da tireoide",
+              finalValue: _treatments,
             ),
-            const CustomCheckBoxField(
+            CustomCheckBoxField(
               text: "Tratamento de depressão",
+              finalValue: _treatments,
             ),
-            const CustomCheckBoxField(
+            CustomCheckBoxField(
               text: "Tratamento para incontinência\nurinária",
+              finalValue: _treatments,
             ),
             _finishButton(() {
-              setSignupData(SignUpData());
+              setSignupData(
+                SignUpData(
+                  age: int.parse(_age.text),
+                  gender: _gender.text,
+                  city: _city.text,
+                  school: _school.text,
+                  active: _dpf["Status de Atividade"] == "Trabalhando",
+                  healthIssue: _dpf["Possui alguma doença?"] == "Sim",
+                  medic: _dpf["Utiliza alguma medicação?"] == "Sim",
+                  physHours: int.parse(_exh.text),
+                  hasMonitor: true,
+                  monAge: int.parse(_helperAge.text),
+                  treatments: _treatments,
+                ),
+              );
+              Navigator.of(context).push(PageRouteBuilder(
+                pageBuilder: (context, animation, secondaryAnimation) =>
+                    const Teste(),
+              ));
             })
           ],
         ),

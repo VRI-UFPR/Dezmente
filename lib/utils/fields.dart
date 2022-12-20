@@ -74,14 +74,12 @@ class CustomDropdownField extends StatefulWidget {
   final List<String> itemList;
   final String text;
   final Map<String, String> finalValue;
-  final String name;
 
   const CustomDropdownField({
     Key? key,
     required this.itemList,
     required this.finalValue,
     this.text = "",
-    this.name = "",
   }) : super(key: key);
 
   @override
@@ -133,9 +131,9 @@ class _CustomDropdownFieldState extends State<CustomDropdownField> {
           value = changedValue;
 
           if (value != null) {
-            widget.finalValue[widget.name] = changedValue!;
+            widget.finalValue[widget.text] = changedValue!;
           } else {
-            widget.finalValue[widget.name] = "";
+            widget.finalValue[widget.text] = "";
           }
         }),
       ),
@@ -157,10 +155,12 @@ class _CustomDropdownFieldState extends State<CustomDropdownField> {
 
 class CustomCheckBoxField extends StatefulWidget {
   final String text;
+  final Map<String, bool> finalValue;
 
   const CustomCheckBoxField({
     Key? key,
     this.text = "",
+    required this.finalValue,
   }) : super(key: key);
 
   @override
@@ -222,6 +222,12 @@ class _CustomCheckBoxFieldState extends State<CustomCheckBoxField> {
                       activeColor: const Color(0xADFDC6E3),
                       onChanged: (value) => setState(() {
                         _checked = value;
+
+                        if (value != null) {
+                          widget.finalValue[widget.text] = value;
+                        } else {
+                          widget.finalValue[widget.text] = false;
+                        }
                       }),
                     ),
                   ),

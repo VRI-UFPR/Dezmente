@@ -79,7 +79,7 @@ class TestSpaceOrientState extends SuperTestState {
     if (now.day == int.parse(_day.text)) {
       score++;
     }
-    if (_monthList[now.month - 1] == _dpfResults["month"]) {
+    if (_monthList[now.month - 1] == _dpfResults["Em que mês estamos?"]) {
       score++;
     }
     if ("${now.year}" == _year.text) {
@@ -94,16 +94,16 @@ class TestSpaceOrientState extends SuperTestState {
       period = "Tarde";
     }
 
-    if (_dpfResults["period"] == period) {
+    if (_dpfResults["Em que período do dia estamos?"] == period) {
       score++;
     }
 
-    if (_weekDays[now.weekday - 1] == _dpfResults["week"]) {
+    if (_weekDays[now.weekday - 1] ==
+        _dpfResults["Em que dia da semana estamos?"]) {
       score++;
     }
 
     // falta a cidade
-
 
     return score;
   }
@@ -127,7 +127,6 @@ class TestSpaceOrientState extends SuperTestState {
               CustomDropdownField(
                 itemList: _dayPeriods,
                 text: "Em que período do dia estamos?",
-                name: "period",
                 finalValue: _dpfResults,
               ),
               CustomTextInputField(
@@ -139,7 +138,6 @@ class TestSpaceOrientState extends SuperTestState {
               CustomDropdownField(
                 itemList: _monthList,
                 text: "Em que mês estamos?",
-                name: "month",
                 finalValue: _dpfResults,
               ),
               CustomTextInputField(
@@ -151,7 +149,6 @@ class TestSpaceOrientState extends SuperTestState {
               CustomDropdownField(
                 itemList: _weekDays,
                 text: "Em que dia da semana estamos?",
-                name: "week",
                 finalValue: _dpfResults,
               ),
             ],
