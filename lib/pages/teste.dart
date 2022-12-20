@@ -96,8 +96,17 @@ class _TesteState extends State<Teste> {
           child: Container(
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 6),
             decoration: BoxDecoration(
-                color: const Color(0xffB7D5DF),
-                borderRadius: BorderRadius.circular(6)),
+              color: const Color(0xffB7D5DF),
+              borderRadius: BorderRadius.circular(10),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.2),
+                  spreadRadius: 4,
+                  blurRadius: 10,
+                  offset: const Offset(0, 3),
+                )
+              ],
+            ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.stretch,
