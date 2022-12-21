@@ -30,41 +30,38 @@ class _TesteState extends State<Teste> {
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
         overlays: [SystemUiOverlay.bottom]);
-    return WillPopScope(
-      onWillPop: () => Future(() => false),
-      child: Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 0),
-          child: TestCtrl.instance.build(),
-        ),
-        backgroundColor: const Color(0xffffffff),
-        bottomNavigationBar: Container(
-          margin: const EdgeInsets.fromLTRB(17, 0, 17, 12),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(6),
-              color: const Color(0xff569DB3)),
-          child: Row(
-            children: [
+    return Scaffold(
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 0),
+        child: TestCtrl.instance.build(),
+      ),
+      backgroundColor: const Color(0xffffffff),
+      bottomNavigationBar: Container(
+        margin: const EdgeInsets.fromLTRB(17, 0, 17, 12),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(6),
+            color: const Color(0xff569DB3)),
+        child: Row(
+          children: [
+            _buildBottomBarButton(
+              icon: Icons.question_mark_outlined,
+              label: "Informações",
+              onPressed: () => TestCtrl.instance.pushTestHelpPage("Voltar"),
+            ),
+            if (TestCtrl.instance.needErase)
               _buildBottomBarButton(
-                icon: Icons.question_mark_outlined,
-                label: "Informações",
-                onPressed: () => TestCtrl.instance.pushTestHelpPage("Voltar"),
+                icon: Icons.backspace,
+                label: "Apagar",
+                onPressed: () => TestCtrl.instance.erase(),
               ),
-              if (TestCtrl.instance.needErase)
-                _buildBottomBarButton(
-                  icon: Icons.backspace,
-                  label: "Apagar",
-                  onPressed: () => TestCtrl.instance.erase(),
-                ),
-              _buildBottomBarButton(
-                icon: Icons.check_circle_outline,
-                label: "Concluir",
-                onPressed: () => TestCtrl.instance.nextTest(),
-                onLongPress:
-                    !debugMode ? null : () => TestCtrl.instance.debugMode(),
-              ),
-            ],
-          ),
+            _buildBottomBarButton(
+              icon: Icons.check_circle_outline,
+              label: "Concluir",
+              onPressed: () => TestCtrl.instance.nextTest(),
+              onLongPress:
+                  !debugMode ? null : () => TestCtrl.instance.debugMode(),
+            ),
+          ],
         ),
       ),
     );

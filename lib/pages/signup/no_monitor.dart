@@ -27,25 +27,22 @@ class _NoMonitorSignUpState extends State<NoMonitorSignUp> {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
         overlays: [SystemUiOverlay.bottom]);
 
-    return WillPopScope(
-      onWillPop: () => Future(() => false),
-      child: Scaffold(
-        resizeToAvoidBottomInset: true,
-        body: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Align(
-                alignment: Alignment.topCenter,
-                child: SvgPicture.asset(
-                  "assets/images/topbar.svg",
-                  fit: BoxFit.fill,
-                  width: MediaQuery.of(context).size.width,
-                ),
+    return Scaffold(
+      resizeToAvoidBottomInset: true,
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Align(
+              alignment: Alignment.topCenter,
+              child: SvgPicture.asset(
+                "assets/images/topbar.svg",
+                fit: BoxFit.fill,
+                width: MediaQuery.of(context).size.width,
               ),
-              _firstPage(),
-            ],
-          ),
+            ),
+            _firstPage(),
+          ],
         ),
       ),
     );

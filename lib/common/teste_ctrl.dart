@@ -163,7 +163,7 @@ class TestCtrl {
     _testResults.submit();
     Navigator.of(_globalKey.currentContext!).pushReplacement(PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) =>
-            const HomePage()));
+            const ResultPage()));
     _testCtrl = TestCtrl();
   }
 
