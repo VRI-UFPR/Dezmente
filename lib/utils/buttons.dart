@@ -53,3 +53,51 @@ class _CustomTextButtomState extends State<CustomTextButtom> {
     );
   }
 }
+
+class FinishButtom extends StatefulWidget {
+  final VoidCallback callback;
+
+  const FinishButtom({
+    Key? key,
+    required this.callback,
+  }) : super(key: key);
+
+  @override
+  State<FinishButtom> createState() => _FinishButtomState();
+}
+
+class _FinishButtomState extends State<FinishButtom> {
+  @override
+  Widget build(BuildContext context) => Container(
+        margin: const EdgeInsets.only(top: 15),
+        child: Center(
+          child: TextButton(
+            child: Container(
+              margin: const EdgeInsets.fromLTRB(70, 0, 70, 0),
+              child: const Text(
+                "Terminar",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontFamily: "montserrat",
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            style: ButtonStyle(
+              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(7))),
+              ),
+              alignment: Alignment.center,
+              padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                const EdgeInsets.all(13),
+              ),
+              backgroundColor:
+                  MaterialStateProperty.all<Color>(const Color(0xff569DB3)),
+            ),
+            onPressed: widget.callback,
+          ),
+        ),
+      );
+}

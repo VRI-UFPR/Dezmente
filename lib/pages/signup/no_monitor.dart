@@ -1,6 +1,7 @@
 import 'package:dezmente/pages/teste.dart';
 import 'package:dezmente/services/models/signup_data_model.dart';
 import 'package:dezmente/services/signupdata.dart';
+import 'package:dezmente/utils/buttons.dart';
 import 'package:dezmente/utils/fields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -26,22 +27,25 @@ class _NoMonitorSignUpState extends State<NoMonitorSignUp> {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
         overlays: [SystemUiOverlay.bottom]);
 
-    return Scaffold(
-      resizeToAvoidBottomInset: true,
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Align(
-              alignment: Alignment.topCenter,
-              child: SvgPicture.asset(
-                "assets/images/topbar.svg",
-                fit: BoxFit.fill,
-                width: MediaQuery.of(context).size.width,
+    return WillPopScope(
+      onWillPop: () => Future(() => false),
+      child: Scaffold(
+        resizeToAvoidBottomInset: true,
+        body: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Align(
+                alignment: Alignment.topCenter,
+                child: SvgPicture.asset(
+                  "assets/images/topbar.svg",
+                  fit: BoxFit.fill,
+                  width: MediaQuery.of(context).size.width,
+                ),
               ),
-            ),
-            _firstPage(),
-          ],
+              _firstPage(),
+            ],
+          ),
         ),
       ),
     );
@@ -49,7 +53,7 @@ class _NoMonitorSignUpState extends State<NoMonitorSignUp> {
 
   Widget _firstPage() {
     return Container(
-      margin: const EdgeInsets.only(top: 15),
+      margin: const EdgeInsets.only(top: 0),
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -116,65 +120,32 @@ class _NoMonitorSignUpState extends State<NoMonitorSignUp> {
               maxLength: 3,
               controller: _exh,
             ),
-            _finishButton(() {
-              setSignupData(
-                SignUpData(
-                  age: _age.text != "" ? int.parse(_age.text) : 0,
-                  gender: _gender.text,
-                  city: _city.text,
-                  school: _school.text,
-                  active: _dpf["Status de Atividade"] == "Trabalhando",
-                  healthIssue: _dpf["Possui alguma doença?"] == "Sim",
-                  medic: _dpf["Utiliza alguma medicação?"] == "Sim",
-                  physHours: _exh.text != "" ? int.parse(_exh.text) : 0,
-                  hasMonitor: false,
-                  treatments: {},
-                ),
-              );
-              Navigator.of(context).pushAndRemoveUntil(
-                PageRouteBuilder(
-                  pageBuilder: (context, animation, secondaryAnimation) =>
-                      const Teste(),
-                ),
-                (route) => false,
-              );
-            })
+            FinishButtom(
+              callback: () {
+                setSignupData(
+                  SignUpData(
+                    age: _age.text != "" ? int.parse(_age.text) : 0,
+                    gender: _gender.text,
+                    city: _city.text,
+                    school: _school.text,
+                    active: _dpf["Status de Atividade"] == "Trabalhando",
+                    healthIssue: _dpf["Possui alguma doença?"] == "Sim",
+                    medic: _dpf["Utiliza alguma medicação?"] == "Sim",
+                    physHours: _exh.text != "" ? int.parse(_exh.text) : 0,
+                    hasMonitor: false,
+                    treatments: {},
+                  ),
+                );
+                Navigator.of(context).pushAndRemoveUntil(
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        const Teste(),
+                  ),
+                  (route) => false,
+                );
+              },
+            )
           ],
-        ),
-      ),
-    );
-  }
-
-  Widget _finishButton(callback) {
-    return Container(
-      margin: const EdgeInsets.only(top: 40),
-      child: Center(
-        child: TextButton(
-          child: Container(
-            margin: const EdgeInsets.fromLTRB(70, 0, 70, 0),
-            child: const Text(
-              "Terminar",
-              style: TextStyle(
-                color: Colors.black,
-                fontFamily: "montserrat",
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          style: ButtonStyle(
-            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-              const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(7))),
-            ),
-            alignment: Alignment.center,
-            padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-              const EdgeInsets.all(13),
-            ),
-            backgroundColor:
-                MaterialStateProperty.all<Color>(const Color(0xff569DB3)),
-          ),
-          onPressed: callback,
         ),
       ),
     );
