@@ -1,4 +1,5 @@
 import 'package:dezmente/common/super.dart';
+import 'package:dezmente/pages/home.dart';
 import 'package:dezmente/pages/result_page.dart';
 import 'package:dezmente/services/models/result_model.dart';
 import 'package:dezmente/services/results.dart';
@@ -160,7 +161,9 @@ class TestCtrl {
 
   void endTest() {
     _testResults.submit();
-    Navigator.pop(_globalKey.currentContext!);
+    Navigator.of(_globalKey.currentContext!).pushReplacement(PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            const HomePage()));
     _testCtrl = TestCtrl();
   }
 

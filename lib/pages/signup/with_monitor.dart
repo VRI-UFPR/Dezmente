@@ -238,23 +238,27 @@ class _WithMonitorSignUpState extends State<WithMonitorSignUp> {
             _finishButton(() {
               setSignupData(
                 SignUpData(
-                  age: int.parse(_age.text),
+                  age: _age.text != "" ? int.parse(_age.text) : 0,
                   gender: _gender.text,
                   city: _city.text,
                   school: _school.text,
                   active: _dpf["Status de Atividade"] == "Trabalhando",
                   healthIssue: _dpf["Possui alguma doença?"] == "Sim",
                   medic: _dpf["Utiliza alguma medicação?"] == "Sim",
-                  physHours: int.parse(_exh.text),
+                  physHours: _exh.text != "" ? int.parse(_exh.text) : 0,
                   hasMonitor: true,
-                  monAge: int.parse(_helperAge.text),
+                  monAge:
+                      _helperAge.text != "" ? int.parse(_helperAge.text) : 0,
                   treatments: _treatments,
                 ),
               );
-              Navigator.of(context).push(PageRouteBuilder(
-                pageBuilder: (context, animation, secondaryAnimation) =>
-                    const Teste(),
-              ));
+              Navigator.of(context).pushAndRemoveUntil(
+                PageRouteBuilder(
+                  pageBuilder: (context, animation, secondaryAnimation) =>
+                      const Teste(),
+                ),
+                (route) => false,
+              );
             })
           ],
         ),

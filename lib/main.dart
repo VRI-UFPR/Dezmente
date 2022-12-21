@@ -33,9 +33,6 @@ class MyApp extends StatelessWidget {
                   return const Center(child: CircularProgressIndicator());
                 } else if (snapshot.hasData) {
                   return const Tcle();
-                  // return const ResultPage(
-                  //   percentege: 95,
-                  // );
                 } else if (snapshot.hasError) {
                   return Text(snapshot.error.toString());
                 } else {

@@ -49,7 +49,7 @@ class _TcleState extends State<Tcle> {
                   return true;
                 },
                 child: const RawScrollbar(
-                  thumbVisibility: true,
+                  isAlwaysShown: true,
                   child: SingleChildScrollView(
                     scrollDirection: Axis.vertical,
                     child: Text(
@@ -100,7 +100,7 @@ class _TcleState extends State<Tcle> {
                     text: "Iniciar Teste",
                     callback: () {
                       if (consent) {
-                        Navigator.of(context).push(PageRouteBuilder(
+                        Navigator.of(context).pushReplacement(PageRouteBuilder(
                           pageBuilder:
                               (context, animation, secondaryAnimation) =>
                                   const Instructions(),

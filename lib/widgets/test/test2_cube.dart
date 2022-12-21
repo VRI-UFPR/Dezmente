@@ -72,7 +72,7 @@ class TestCubeState extends SuperTestState {
         children: [
           Center(
             child: Container(
-              margin: EdgeInsets.only(top: 20),
+              margin: EdgeInsets.only(top: 0),
               child: SizedBox(
                 width: 190,
                 child: Image.asset(
@@ -96,7 +96,7 @@ class TestCubeState extends SuperTestState {
                         title: SvgPicture.asset(
                           face.asset,
                           fit: BoxFit.contain,
-                          height: 135,
+                          height: 125,
                         ),
                         groupValue: _boxSelected,
                         onChanged: (Boxes? value) {
@@ -118,7 +118,7 @@ class TestCubeState extends SuperTestState {
                         title: SvgPicture.asset(
                           face.asset,
                           fit: BoxFit.fitWidth,
-                          height: 135,
+                          height: 125,
                         ),
                         groupValue: _boxSelected,
                         onChanged: (Boxes? value) {
