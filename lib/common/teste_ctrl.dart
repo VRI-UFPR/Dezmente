@@ -159,12 +159,14 @@ class TestCtrl {
     }
   }
 
-  void endTest() {
+  void endTest() async {
     print("submiting results");
     _testResults.submit();
+
+    await _testResults.getResult(); // chama a tela de resultado
     Navigator.of(_globalKey.currentContext!).pushReplacement(PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) =>
-            const ResultPage()));
+            ResultPage(scores: _testResults.getScores())));
     _testCtrl = TestCtrl();
   }
 

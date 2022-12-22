@@ -19,10 +19,10 @@ class TestClock2 extends SuperTest {
   const TestClock2({Key? key}) : super(key: key);
 
   @override
-  _TestClock2State createState() => _TestClock2State();
+  TestClock2State createState() => TestClock2State();
 }
 
-class _TestClock2State extends SuperTestState {
+class TestClock2State extends SuperTestState {
   final Map<int, int> _score = {};
   final List<int> _pointers = [1, 9, 50, 12, 4, 45, 30, 3, 6];
 
@@ -51,6 +51,7 @@ class _TestClock2State extends SuperTestState {
       "hour": h,
       "minute": m,
     };
+    data.testType = TestTag.vse;
 
     //print("${h} ${m}");
 

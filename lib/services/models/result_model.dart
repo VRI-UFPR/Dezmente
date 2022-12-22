@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dezmente/services/results.dart';
 
+enum TestTag { none, vse, naming, imMem, evMem, attention, abst, arth, orient }
+
 class Result {
   Result({
     required this.timeSpent,
@@ -9,6 +11,7 @@ class Result {
     this.testId = -1,
     this.responses,
     this.testTitle,
+    required this.testType,
   });
 
   String? testTitle;
@@ -16,6 +19,7 @@ class Result {
   int? score;
   int? timeSpent;
   Map<String, dynamic>? responses;
+  TestTag testType;
 
   Code code;
 
@@ -25,6 +29,7 @@ class Result {
       "testId": testId,
       "timeSpent": timeSpent,
       "score": score,
+      "testType": testType.index,
       if (responses != null) "responses": responses,
     };
   }
@@ -38,7 +43,16 @@ class Result {
       timeSpent: data?['timeSpent'],
       testId: data?['testId'],
       score: data?['score'],
+      testType: TestTag.values[data?['testType']],
       responses: data?['responses'],
     );
+  }
+
+  int? get getScore {
+    return score;
+  }
+
+  TestTag get getTag {
+    return testType;
   }
 }

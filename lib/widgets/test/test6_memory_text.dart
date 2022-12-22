@@ -85,6 +85,7 @@ class TestMemoryTextState extends SuperTestState {
       data.testId = 6;
       data.score = score;
       data.responses = _answers;
+      data.testType = TestTag.imMem;
     } else {
       setNextQuestion();
     }

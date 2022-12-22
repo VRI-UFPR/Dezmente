@@ -67,6 +67,7 @@ class TestSpaceOrientState extends SuperTestState {
     };
 
     data.score = _calculateScore();
+    data.testType = TestTag.orient;
 
     return super.getData();
   }
@@ -76,12 +77,13 @@ class TestSpaceOrientState extends SuperTestState {
     DateTime now = DateTime.now();
     String period = "";
 
-    if (now.day == int.parse(_day.text)) {
+    if ("${now.day}" == _day.text) {
       score++;
     }
     if (_monthList[now.month - 1] == _dpfResults["Em que mês estamos?"]) {
       score++;
     }
+
     if ("${now.year}" == _year.text) {
       score++;
     }
@@ -104,6 +106,7 @@ class TestSpaceOrientState extends SuperTestState {
     }
 
     // falta a cidade
+    score++;
 
     return score;
   }

@@ -68,6 +68,7 @@ class TestConectionState extends SuperTestState {
         ? 1
         : 0;
     data.responses = {"sequence": _score.toString()};
+    data.testType = TestTag.vse;
 
     return super.getData();
   }

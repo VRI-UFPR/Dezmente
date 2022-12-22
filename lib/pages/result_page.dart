@@ -1,12 +1,13 @@
 import 'package:dezmente/services/models/result_model.dart';
+import 'package:dezmente/services/results.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class ResultPage extends StatefulWidget {
-  final int percentege;
+  final Map<TestTag, int> scores;
 
   const ResultPage({
-    this.percentege = 0,
+    required this.scores,
     Key? key,
   }) : super(key: key);
 
@@ -19,8 +20,11 @@ class _ResultPageState extends State<ResultPage> {
   Widget build(BuildContext context) {
     double scrHfactor = MediaQuery.of(context).size.height / 640;
 
+    int percent = _calculatePercentage(widget.scores);
+
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: const Color(0xFFF72585),
         shadowColor: Colors.transparent,
         toolbarHeight: 150 * scrHfactor,
@@ -32,18 +36,32 @@ class _ResultPageState extends State<ResultPage> {
                 style: TextStyle(
                   fontFamily: "montserrat",
                   fontWeight: FontWeight.w700,
-                  fontSize: 32,
+                  fontSize: 42,
                   color: Colors.white,
+                  shadows: <Shadow>[
+                    Shadow(
+                      offset: Offset(4.0, 4.0),
+                      blurRadius: 3.0,
+                      color: Color.fromARGB(63, 0, 0, 0),
+                    ),
+                  ],
                 ),
                 textAlign: TextAlign.center,
               ),
               Text(
-                "${widget.percentege}%",
+                "$percent%",
                 style: TextStyle(
-                  color: _percentageColor(),
+                  color: _percentageColor(percent),
                   fontFamily: "montserrat",
                   fontWeight: FontWeight.w700,
-                  fontSize: 32,
+                  fontSize: 42,
+                  shadows: const <Shadow>[
+                    Shadow(
+                      offset: Offset(4.0, 4.0),
+                      blurRadius: 3.0,
+                      color: Color.fromARGB(63, 0, 0, 0),
+                    ),
+                  ],
                 ),
               ),
             ],
@@ -55,30 +73,26 @@ class _ResultPageState extends State<ResultPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            _buildResultField("VISUESPACIAL:  3/3"),
-            _buildResultField("NOMEAÇÃO:  3/3"),
-            _buildResultField("MEMÓRIA:  3/3"),
-            _buildResultField("VIGILÂNCIA:  3/3"),
-            _buildResultField("ABSTRAÇÃO:  3/3"),
-            _buildResultField("ARITMÉTICA:  3/3"),
-            _buildResultField("ORIENTAÇÃO:  3/3"),
-            _buildResultField("EVOCAÇÃO TARDIA:  3/3"),
+            _buildResultField("FUNÇÃO VISUESPACIAL/EXECUTIVA",
+                widget.scores[TestTag.vse] ?? 0, 5),
+            _buildResultField(
+                "FUNÇÃO DE NOMEAÇÃO", widget.scores[TestTag.naming] ?? 0, 3),
+            _buildResultField("FUNÇÃO DE MEMÓRIA IMEDIATA",
+                widget.scores[TestTag.imMem] ?? 0, 2),
+            _buildResultField("FUNÇÃO DE MEMÓRIA EVOCADA",
+                widget.scores[TestTag.evMem] ?? 0, 5),
+            _buildResultField(
+                "FUNÇÃO DE ATENÇÃO", widget.scores[TestTag.attention] ?? 0, 2),
+            _buildResultField(
+                "FUNÇÃO DE ABSTRAÇÃO", widget.scores[TestTag.abst] ?? 0, 2),
+            _buildResultField(
+                "FUNÇÃO DE ATENÇÃO 100-7", widget.scores[TestTag.arth] ?? 0, 5),
+            _buildResultField(
+                "FUNÇÃO DE ORIENTAÇÃO", widget.scores[TestTag.orient] ?? 0, 6),
             Container(
-              margin: const EdgeInsets.only(top: 40),
+              margin: const EdgeInsets.only(top: 20),
               child: Center(
                 child: TextButton(
-                  child: Container(
-                    margin: const EdgeInsets.fromLTRB(70, 0, 70, 0),
-                    child: const Text(
-                      "Terminar",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontFamily: "montserrat",
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
                   style: ButtonStyle(
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                       const RoundedRectangleBorder(
@@ -92,6 +106,18 @@ class _ResultPageState extends State<ResultPage> {
                         const Color(0xff78DAC6)),
                   ),
                   onPressed: () {},
+                  child: Container(
+                    margin: const EdgeInsets.fromLTRB(70, 0, 70, 0),
+                    child: const Text(
+                      "Terminar",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontFamily: "montserrat",
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
                 ),
               ),
             )
@@ -101,17 +127,27 @@ class _ResultPageState extends State<ResultPage> {
     );
   }
 
-  Color _percentageColor() {
-    if (widget.percentege >= 90) {
+  int _calculatePercentage(Map<TestTag, int> scores) {
+    int percent = 0;
+
+    scores.forEach((key, value) {
+      percent += value;
+    });
+
+    return ((percent / 30) * 100).truncate();
+  }
+
+  Color _percentageColor(int percent) {
+    if (percent >= 90) {
       return const Color(0xFF22DE8F);
-    } else if (widget.percentege >= 45) {
+    } else if (percent >= 45) {
       return const Color(0xFFFED546);
     } else {
       return const Color(0xFFFE4646);
     }
   }
 
-  Widget _buildResultField(String text) {
+  Widget _buildResultField(String text, int score, int max) {
     double scrHfactor = MediaQuery.of(context).size.height / 640;
     double scrWfactor = MediaQuery.of(context).size.width / 360;
 
@@ -128,7 +164,7 @@ class _ResultPageState extends State<ResultPage> {
         borderRadius: const BorderRadius.all(Radius.circular(6)),
       ),
       child: Text(
-        text,
+        "$text: $score/$max",
         style: const TextStyle(
           fontFamily: "montserrat",
           fontWeight: FontWeight.w700,

@@ -101,6 +101,7 @@ class TestMemoryState extends SuperTestState<TestMemory> {
           }
         }
       }
+      data.testType = TestTag.evMem;
       data.score = acerto;
       data.testId = 11;
       data.testTitle = widget.title;

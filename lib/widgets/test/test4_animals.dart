@@ -68,6 +68,7 @@ class TestAnimalsState<TestAnimals> extends SuperTestState {
       _scoreFunction();
       data.code = Code.next;
       data.score = score;
+      data.testType = TestTag.naming;
     } else {
       showAlertDialog(
           context: context,

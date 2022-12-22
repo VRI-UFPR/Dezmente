@@ -61,6 +61,7 @@ class TestCubeState extends SuperTestState {
     data.score = _boxSelected == Boxes.face2 ? 1 : 0;
     data.testId = 2;
     data.responses = {"face": _boxSelected.toString()};
+    data.testType = TestTag.vse;
     return super.getData();
   }
 

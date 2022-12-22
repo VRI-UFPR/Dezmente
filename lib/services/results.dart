@@ -35,6 +35,7 @@ class TestResults {
   }
 
   getResult() async {
+    _results.clear();
     //Pega os testes do usuario, ordenado pela data
     var snapshot = await FirebaseFirestore.instance
         .collection('users')
@@ -50,5 +51,19 @@ class TestResults {
     for (var element in snapshot.docs) {
       addResult(Result.fromFirestore(element));
     }
+  }
+
+  Map<TestTag, int> getScores() {
+    Map<TestTag, int> scores = {};
+
+    for (var t in TestTag.values) {
+      scores[t] = 0;
+    }
+
+    for (var r in _results) {
+      int score = (r.getScore == null) ? 0 : r.getScore!.toInt();
+      scores[r.getTag] = scores[r.getTag]! + score;
+    }
+    return scores;
   }
 }

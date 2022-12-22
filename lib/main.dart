@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dezmente/pages/home.dart';
 import 'package:dezmente/pages/instructions.dart';
+import 'package:dezmente/pages/result_page.dart';
 import 'package:dezmente/pages/tcle.dart';
 import 'package:dezmente/services/auth.dart';
 import 'package:dezmente/pages/login.dart';
@@ -44,7 +45,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Stream<DocumentSnapshot<Map<String, dynamic>>> _usersStream =
+    final Stream<DocumentSnapshot<Map<String, dynamic>>> usersStream =
         FirebaseFirestore.instance
             .collection('users')
             .doc(FirebaseAuth.instance.currentUser!.uid)
@@ -62,7 +63,7 @@ class MyApp extends StatelessWidget {
             stream: FirebaseAuth.instance.authStateChanges(),
             builder: (context, snapshot) {
               return StreamBuilder(
-                stream: _usersStream,
+                stream: usersStream,
                 builder: (
                   context,
                   AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>>
@@ -80,6 +81,7 @@ class MyApp extends StatelessWidget {
                       return const Instructions();
                     }
                     return const HomePage();
+                    //return const ResultPage();
                   } else if (snapshot.hasError) {
                     return Text(snapshot.error.toString());
                   } else {

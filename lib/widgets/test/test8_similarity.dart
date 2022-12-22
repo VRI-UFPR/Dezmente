@@ -50,6 +50,7 @@ class TestSimilarityState extends SuperTestState<TestSimilarity> {
       data.testId = 8;
       data.score = 1;
       data.responses = _answers;
+      data.testType = TestTag.abst;
     }
     return super.getData();
   }

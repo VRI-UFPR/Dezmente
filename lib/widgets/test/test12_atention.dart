@@ -45,6 +45,10 @@ class TestAtentionState extends SuperTestState {
   int _calculateScore() {
     int score = 0;
 
+    if (answers.isEmpty) {
+      return score;
+    }
+
     if (answers.first == 93) {
       score++;
     }
@@ -54,9 +58,6 @@ class TestAtentionState extends SuperTestState {
         score++;
       }
     }
-
-    print("score:");
-    print(score);
 
     return score;
   }
@@ -68,6 +69,7 @@ class TestAtentionState extends SuperTestState {
       data.testId = 12;
       data.responses = {"numbers": answers.toString()};
       data.score = _calculateScore();
+      data.testType = TestTag.arth;
     } else {
       // if (questionIndex == -1) {
       //   showAlertDialog(

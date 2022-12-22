@@ -13,7 +13,7 @@ abstract class SuperTest extends StatefulWidget {
 }
 
 abstract class SuperTestState<T extends SuperTest> extends State<T> {
-  Result data = Result(timeSpent: 0);
+  Result data = Result(timeSpent: 0, testType: TestTag.none);
 
   @mustCallSuper
   Result getData() {

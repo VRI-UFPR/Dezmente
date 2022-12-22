@@ -31,6 +31,7 @@ class TestAbstraction2State extends SuperTestState<TestAbstraction2> {
     data.testId = 9;
     data.score = selected == 2 ? 1 : 0;
     data.responses = {"slice": selected};
+    data.testType = TestTag.vse;
     return super.getData();
   }
 

@@ -77,8 +77,17 @@ class TestVigilanceState extends SuperTestState<TestVigilance> {
   @override
   Result getData() {
     data.testId = 7;
-    data.score = _acertos == chars.length ? 1 : 0;
+
+    if ((chars.length - _acertos) == 1) {
+      data.score = 1;
+    } else if ((chars.length - _acertos) == 0) {
+      data.score = 2;
+    } else {
+      data.score = 0;
+    }
+
     data.responses = {"acertos": _acertos};
+    data.testType = TestTag.attention;
 
     return super.getData();
   }
