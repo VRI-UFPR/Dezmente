@@ -160,6 +160,7 @@ class TestCtrl {
   }
 
   void endTest() {
+    print("submiting results");
     _testResults.submit();
     Navigator.of(_globalKey.currentContext!).pushReplacement(PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) =>

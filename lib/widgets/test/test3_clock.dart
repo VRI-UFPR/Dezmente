@@ -52,26 +52,26 @@ class _TestClock2State extends SuperTestState {
       "minute": m,
     };
 
-    print("${h} ${m}");
+    //print("${h} ${m}");
 
     return super.getData();
   }
 
-  int _radToHour(double _rad) {
-    if ((_rad >= 0) && (_rad <= pi)) {
-      return (_rad * 6 / pi).floor();
-    } else if ((_rad < 0) && (_rad >= -pi)) {
-      return (_rad * 6 / pi).floor() + 12;
+  int _radToHour(double rad) {
+    if ((rad >= 0) && (rad <= pi)) {
+      return (rad * 6 / pi).floor();
+    } else if ((rad < 0) && (rad >= -pi)) {
+      return (rad * 6 / pi).floor() + 12;
     }
 
     return 0;
   }
 
-  int _radToMinute(double _rad) {
-    if ((_rad >= 0) && (_rad <= pi)) {
-      return (_rad * 30 / pi).floor();
-    } else if ((_rad < 0) && (_rad >= -pi)) {
-      return (_rad * 30 / pi).floor() + 60;
+  int _radToMinute(double rad) {
+    if ((rad >= 0) && (rad <= pi)) {
+      return (rad * 30 / pi).floor();
+    } else if ((rad < 0) && (rad >= -pi)) {
+      return (rad * 30 / pi).floor() + 60;
     }
 
     return 0;
@@ -89,7 +89,7 @@ class _TestClock2State extends SuperTestState {
     final double scrHfactor = MediaQuery.of(context).size.height / 640;
     final double scrWfactor = MediaQuery.of(context).size.width / 360;
 
-    int _length = _pointers.length;
+    int length = _pointers.length;
 
     return Scaffold(
       body: Container(
@@ -101,13 +101,13 @@ class _TestClock2State extends SuperTestState {
               child: SizedBox(
                 child: GridView.builder(
                     physics: const NeverScrollableScrollPhysics(),
-                    itemCount: _length,
+                    itemCount: length,
                     primary: true,
                     shrinkWrap: true,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       childAspectRatio: 2,
                       crossAxisSpacing: 3,
-                      crossAxisCount: _length ~/ 3,
+                      crossAxisCount: length ~/ 3,
                       mainAxisSpacing: 5,
                     ),
                     itemBuilder: (_, i) {
@@ -119,10 +119,10 @@ class _TestClock2State extends SuperTestState {
                             feedbackOffset: Offset.fromDirection(-2.0),
                             data: _pointers[i],
                             feedback: _buildPointer(_pointers[i]),
-                            child: _buildPointer(_pointers[i]),
                             childWhenDragging: const Opacity(
                               opacity: 0,
                             ),
+                            child: _buildPointer(_pointers[i]),
                           ),
                         ),
                       );
@@ -151,9 +151,8 @@ class _TestClock2State extends SuperTestState {
                         itemBuilder: (context, index) {
                           return _buildDragTarget(index);
                         },
-                        config: CircularWidgetConfig(
-                            innerSpacing: _innerClockSpacing * scrHfactor,
-                            itemRadius: _dragTargetRadius * scrHfactor),
+                        innerSpacing: _innerClockSpacing * scrHfactor,
+                        radiusOfItem: _dragTargetRadius * scrHfactor,
                       );
                     },
                   ),
@@ -177,6 +176,10 @@ class _TestClock2State extends SuperTestState {
           return Container(
             height: 30 * scrHfactor,
             width: 30 * scrWfactor,
+            decoration: const BoxDecoration(
+              color: Colors.brown,
+              shape: BoxShape.circle,
+            ),
             child: Center(
               child: Text(
                 "${_score[index]}",
@@ -186,10 +189,6 @@ class _TestClock2State extends SuperTestState {
                   fontWeight: FontWeight.w500,
                 ),
               ),
-            ),
-            decoration: const BoxDecoration(
-              color: Colors.brown,
-              shape: BoxShape.circle,
             ),
           );
         } else {
@@ -219,6 +218,10 @@ class _TestClock2State extends SuperTestState {
     return Container(
       height: 55 * scrHfactor,
       width: 55 * scrWfactor,
+      decoration: const BoxDecoration(
+        color: Colors.brown,
+        shape: BoxShape.circle,
+      ),
       child: Center(
         child: Text(
           pointer.toString(),
@@ -229,10 +232,6 @@ class _TestClock2State extends SuperTestState {
             fontWeight: FontWeight.w500,
           ),
         ),
-      ),
-      decoration: const BoxDecoration(
-        color: Colors.brown,
-        shape: BoxShape.circle,
       ),
     );
   }

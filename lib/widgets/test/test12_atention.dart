@@ -128,6 +128,7 @@ class TestAtentionState extends SuperTestState {
             height: 300 * scrHfactor,
             padding: const EdgeInsets.fromLTRB(10, 30, 10, 10),
             margin: const EdgeInsets.only(bottom: 20),
+            color: Colors.white,
             child: const Center(
               child: Text(
                 "Seu Maurício tinha 100 reais e resolveu dar uma mesada de 7 reais para cada um de seus 5 netos.",
@@ -139,7 +140,6 @@ class TestAtentionState extends SuperTestState {
                 textAlign: TextAlign.center,
               ),
             ),
-            color: Colors.white,
           ),
           ChatBubble(
             clipper: ChatBubbleClipper6(
@@ -186,6 +186,7 @@ class TestAtentionState extends SuperTestState {
       children: [
         Container(
           padding: const EdgeInsets.fromLTRB(25, 33, 25, 33),
+          color: const Color(0xFFB4EADF),
           child: Text(
             questions[questionIndex],
             style: const TextStyle(
@@ -194,7 +195,6 @@ class TestAtentionState extends SuperTestState {
               fontWeight: FontWeight.w700,
             ),
           ),
-          color: const Color(0xFFB4EADF),
         ),
         Container(
           width: 160 * scrWfactor,
