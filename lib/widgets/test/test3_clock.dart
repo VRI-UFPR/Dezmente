@@ -151,8 +151,9 @@ class _TestClock2State extends SuperTestState {
                         itemBuilder: (context, index) {
                           return _buildDragTarget(index);
                         },
-                        innerSpacing: _innerClockSpacing * scrHfactor,
-                        radiusOfItem: _dragTargetRadius * scrHfactor,
+                        config: CircularWidgetConfig(
+                            innerSpacing: _innerClockSpacing * scrHfactor,
+                            itemRadius: _dragTargetRadius * scrHfactor),
                       );
                     },
                   ),

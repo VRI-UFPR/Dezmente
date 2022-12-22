@@ -3,6 +3,7 @@ import 'package:dezmente/pages/instructions.dart';
 import 'package:dezmente/pages/signup/with_monitor.dart';
 import 'package:dezmente/pages/teste.dart';
 import 'package:dezmente/services/auth.dart';
+import 'package:dezmente/services/signupdata.dart';
 import 'package:dezmente/utils/buttons.dart';
 import 'package:flutter/material.dart';
 
@@ -102,6 +103,7 @@ class _TcleState extends State<Tcle> {
                       text: "Iniciar Teste",
                       callback: () {
                         if (consent) {
+                          setTcle();
                           Navigator.of(context)
                               .pushReplacement(PageRouteBuilder(
                             pageBuilder:
