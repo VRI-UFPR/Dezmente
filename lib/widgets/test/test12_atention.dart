@@ -4,6 +4,7 @@ import 'package:dezmente/common/super.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_bubble/chat_bubble.dart';
 import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_6.dart';
+import 'package:dezmente/widgets/dialog.dart';
 
 class TestAtention extends SuperTest {
   @override
@@ -71,35 +72,24 @@ class TestAtentionState extends SuperTestState {
       data.score = _calculateScore();
       data.testType = TestTag.arth;
     } else {
-      // if (questionIndex == -1) {
-      //   showAlertDialog(
-      //     context: context,
-      //     titleText: "Deseja começar a responder as perguntas?",
-      //     contentText: "Não será possível retornar após esta ação.",
-      //     callback: () {
-      //       setState(() {
-      //         questionIndex++;
-      //         _textController.clear();
-      //       });
-      //     },
-      //   );
-      // } else {
-      //   showAlertDialog(
-      //     context: context,
-      //     titleText: "Deseja ir para a próxima pergunta?",
-      //     contentText: "Não será possível retornar após esta ação.",
-      //     callback: () {
-      //       setState(() {
-      //         questionIndex++;
-      //         _textController.clear();
-      //       });
-      //     },
-      //   );
-      // }
-      setState(() {
-        questionIndex++;
-        _textController.clear();
-      });
+      if (questionIndex > -1) {
+        showAlertDialog(
+          context: context,
+          titleText: "Deseja ir para a próxima pergunta?",
+          contentText: "Não será possível retornar após esta ação.",
+          callback: () {
+            setState(() {
+              questionIndex++;
+              _textController.clear();
+            });
+          },
+        );
+      } else {
+        setState(() {
+          questionIndex++;
+          _textController.clear();
+        });
+      }
     }
     return super.getData();
   }

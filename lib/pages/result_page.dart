@@ -20,7 +20,7 @@ class _ResultPageState extends State<ResultPage> {
   Widget build(BuildContext context) {
     double scrHfactor = MediaQuery.of(context).size.height / 640;
 
-    int percent = _calculatePercentage(widget.scores);
+    int totalScore = _calculateTotalScore(widget.scores);
 
     return Scaffold(
       appBar: AppBar(
@@ -49,12 +49,30 @@ class _ResultPageState extends State<ResultPage> {
                 textAlign: TextAlign.center,
               ),
               Text(
-                "$percent%",
+                "$totalScore/30",
                 style: TextStyle(
-                  color: _percentageColor(percent),
+                  color: _totalScoreColor(totalScore),
                   fontFamily: "montserrat",
                   fontWeight: FontWeight.w700,
                   fontSize: 42,
+                  shadows: const <Shadow>[
+                    Shadow(
+                      offset: Offset(4.0, 4.0),
+                      blurRadius: 3.0,
+                      color: Color.fromARGB(63, 0, 0, 0),
+                    ),
+                  ],
+                ),
+              ),
+              Text(
+                (totalScore >= 26)
+                    ? "COGNIÇÃO NORMAL"
+                    : "CHANCE DE DECLÍNIO COGNITIVO",
+                style: TextStyle(
+                  color: _totalScoreColor(totalScore),
+                  fontFamily: "montserrat",
+                  fontWeight: FontWeight.w700,
+                  fontSize: 20,
                   shadows: const <Shadow>[
                     Shadow(
                       offset: Offset(4.0, 4.0),
@@ -127,23 +145,21 @@ class _ResultPageState extends State<ResultPage> {
     );
   }
 
-  int _calculatePercentage(Map<TestTag, int> scores) {
+  int _calculateTotalScore(Map<TestTag, int> scores) {
     int percent = 0;
 
     scores.forEach((key, value) {
       percent += value;
     });
 
-    return ((percent / 30) * 100).truncate();
+    return percent;
   }
 
-  Color _percentageColor(int percent) {
-    if (percent >= 90) {
+  Color _totalScoreColor(int percent) {
+    if (percent >= 26) {
       return const Color(0xFF22DE8F);
-    } else if (percent >= 45) {
-      return const Color(0xFFFED546);
     } else {
-      return const Color(0xFFFE4646);
+      return const Color(0xFFFED546);
     }
   }
 

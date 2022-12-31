@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 
 class CustomTextButtom extends StatefulWidget {
@@ -24,18 +22,6 @@ class _CustomTextButtomState extends State<CustomTextButtom> {
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      child: Container(
-        margin: widget.sizes,
-        child: Text(
-          widget.text,
-          style: const TextStyle(
-            color: Colors.black,
-            fontFamily: "montserrat",
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
       style: ButtonStyle(
         shadowColor: MaterialStateProperty.all<Color>(Colors.black),
         elevation: MaterialStateProperty.all(20),
@@ -50,6 +36,18 @@ class _CustomTextButtomState extends State<CustomTextButtom> {
         backgroundColor: MaterialStateProperty.all<Color>(widget.bgColor),
       ),
       onPressed: widget.callback,
+      child: Container(
+        margin: widget.sizes,
+        child: Text(
+          widget.text,
+          style: const TextStyle(
+            color: Colors.black,
+            fontFamily: "montserrat",
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
     );
   }
 }
@@ -72,18 +70,6 @@ class _FinishButtomState extends State<FinishButtom> {
         margin: const EdgeInsets.only(top: 15),
         child: Center(
           child: TextButton(
-            child: Container(
-              margin: const EdgeInsets.fromLTRB(70, 0, 70, 0),
-              child: const Text(
-                "Terminar",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontFamily: "montserrat",
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
             style: ButtonStyle(
               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                 const RoundedRectangleBorder(
@@ -97,6 +83,18 @@ class _FinishButtomState extends State<FinishButtom> {
                   MaterialStateProperty.all<Color>(const Color(0xff569DB3)),
             ),
             onPressed: widget.callback,
+            child: Container(
+              margin: const EdgeInsets.fromLTRB(70, 0, 70, 0),
+              child: const Text(
+                "Terminar",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontFamily: "montserrat",
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
           ),
         ),
       );

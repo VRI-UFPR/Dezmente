@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:dezmente/common/super.dart';
 import 'package:dezmente/services/models/result_model.dart';
 import 'package:flutter/material.dart';
@@ -40,6 +41,7 @@ class TestVigilanceState extends SuperTestState<TestVigilance> {
   String _char = "";
   int _acertos = 0;
   int _index = -1;
+  int _initTimer = 4;
 
   late Timer _timer;
 
@@ -68,6 +70,8 @@ class TestVigilanceState extends SuperTestState<TestVigilance> {
   }
 
   void onTap() {
+    print("tapped");
+    Feedback.forTap(context);
     if (_char == "") return;
     clearTimer();
     if (_char == "A") _acertos++;
@@ -98,38 +102,59 @@ class TestVigilanceState extends SuperTestState<TestVigilance> {
       child: Scaffold(body: Center(child: _body())));
 
   _body() {
+    if (_initTimer > 0) {
+      _initTimer--;
+      if (_initTimer < 3) {
+        sleep(const Duration(seconds: 1));
+      }
+      return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            _buildTimer(),
+            const SizedBox(height: 30),
+            _buildButton(false)
+          ]);
+    }
     return Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           _buildChar(),
           const SizedBox(height: 30),
-          _buildButton()
+          _buildButton(true)
         ]);
   }
+
+  Widget _buildTimer() => Text(_initTimer.toString(),
+      style: const TextStyle(
+        fontSize: 116,
+      ));
 
   Widget _buildChar() => Text(_char,
       style: const TextStyle(
         fontSize: 116,
       ));
 
-  Widget _buildButton() => Material(
-        elevation: 5,
+  Widget _buildButton(bool canPress) => Material(
+        elevation: canPress ? 5 : 0,
         borderRadius: const BorderRadius.all(Radius.circular(125)),
-        child: Ink(
-          height: 125,
-          width: 125,
-          decoration: const BoxDecoration(
-              color: Color(0xfff95f62),
-              borderRadius: BorderRadius.all(Radius.circular(125))),
-          child: InkWell(
-            enableFeedback: true,
-            splashColor: Colors.pink[200],
-            borderRadius: const BorderRadius.all(Radius.circular(125)),
-            onTap: onTap,
-            child: const Center(
-              child: Text(
-                'CLIQUE',
-                style: TextStyle(fontSize: 24),
+        child: Opacity(
+          opacity: canPress ? 1 : 0.1,
+          child: Ink(
+            height: 125,
+            width: 125,
+            decoration: const BoxDecoration(
+                color: Color(0xfff95f62),
+                borderRadius: BorderRadius.all(Radius.circular(125))),
+            child: InkWell(
+              enableFeedback: true,
+              splashColor: Colors.pink[200],
+              borderRadius: const BorderRadius.all(Radius.circular(125)),
+              onTap: canPress ? onTap : () {},
+              child: const Center(
+                child: Text(
+                  'CLIQUE',
+                  style: TextStyle(fontSize: 24),
+                ),
               ),
             ),
           ),
