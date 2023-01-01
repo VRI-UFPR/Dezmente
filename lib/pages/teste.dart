@@ -10,7 +10,7 @@ class Teste extends StatefulWidget {
   State<Teste> createState() => _TesteState();
 }
 
-const debugMode = true;
+const debugMode = false;
 
 class _TesteState extends State<Teste> {
   @override
