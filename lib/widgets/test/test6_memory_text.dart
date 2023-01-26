@@ -1,10 +1,10 @@
 import 'package:dezmente/services/models/result_model.dart';
 import 'package:dezmente/services/results.dart';
 import 'package:dezmente/common/super.dart';
-//import 'package:dezmente/widgets/play_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_bubble/chat_bubble.dart';
 import 'package:flutter_chat_bubble/clippers/chat_bubble_clipper_6.dart';
+import 'package:dezmente/widgets/dialog.dart';
 
 class TestMemoryText extends SuperTest {
   @override
@@ -64,30 +64,50 @@ class TestMemoryTextState extends SuperTestState {
   int score = 0;
 
   void setNextQuestion() {
-    questions.removeAt(0);
-    setState(() => _selected = -1);
+    setState(() {
+      questionIndex++;
+      _selected = -1;
+    });
   }
 
-  bool _isQuestion = false;
+  int questionIndex = -1;
   int _selected = -1;
-  final String _audioFile = "teste-06b.mp3";
 
   final Map<String, String> _answers = {};
 
   @override
   Result getData() {
-    _answers[questions[0].name] = questions[0].opcoes[_selected];
-    if (_selected == questions[0].correta) {
-      score++;
-    }
-    if (questions.length == 1) {
+    if (questionIndex == 1) {
+      if (_selected == questions[questionIndex].correta) {
+        score++;
+      }
+      _answers[questions[questionIndex].name] =
+          questions[questionIndex].opcoes[_selected];
+
       data.code = Code.next;
       data.testId = 6;
       data.score = score;
       data.responses = _answers;
       data.testType = TestTag.imMem;
     } else {
-      setNextQuestion();
+      if (questionIndex > -1) {
+        if (_selected == questions[questionIndex].correta) {
+          score++;
+        }
+        _answers[questions[questionIndex].name] =
+            questions[questionIndex].opcoes[_selected];
+
+        showAlertDialog(
+          context: context,
+          titleText: "Deseja ir para a próxima pergunta?",
+          contentText: "Não será possível retornar após esta ação.",
+          callback: () {
+            setNextQuestion();
+          },
+        );
+      } else {
+        setNextQuestion();
+      }
     }
     return super.getData();
   }
@@ -100,56 +120,56 @@ class TestMemoryTextState extends SuperTestState {
 
   @override
   Widget build(BuildContext context) {
-    final double scrHfactor = MediaQuery.of(context).size.height / 640;
-    double width = MediaQuery.of(context).size.width;
-    return Center(
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            // PlayAudio(
-            //   audioFile: _isQuestion ? questions[0].audioFile : _audioFile,
-            //   iconSize: 48,
-            // ),
-            _isQuestion ? _bodyQuestions(width) : _body(width, scrHfactor),
-          ],
-        ),
-      ),
-    );
+    if (questionIndex < 0) {
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          const SizedBox(height: 20),
+          _buildTitle(),
+          buildHistory(context),
+        ],
+      );
+    } else {
+      return buildQuestion(context);
+    }
   }
 
-  _body(double width, double scrHfactor) {
-    return Column(
-      children: [
-        _buildTitle(width),
-        _buildText(width),
-        _buildZuno(width, scrHfactor)
-      ],
-    );
-  }
-
-  Widget _buildTitle(width) => Text(
+  Widget _buildTitle() => const Text(
         "LEIA COM ATENÇÃO",
         style: TextStyle(
-          color: const Color(0xffe984b8),
-          fontSize: width * 0.06,
+          color: Color(0xffe984b8),
+          fontSize: 30,
+          fontWeight: FontWeight.bold,
+          fontFamily: "montserrat",
         ),
         textAlign: TextAlign.center,
       );
 
-  Widget _buildText(double width) => Container(
-      padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-          color: const Color(0xffe984b8),
-          border: Border.all(),
-          borderRadius: BorderRadius.circular(10)),
-      child: Text(
-        "João combinou de ir à biblioteca municipal com o filho de seu tio no sábado. Antes de entrar no ônibus, percebeu que tinha esquecido o livro que havia emprestado em casa. Eles tiveram que voltar, pegaram o livro e atrasaram meia hora o passeio.",
-        textAlign: TextAlign.justify,
-        style: TextStyle(fontSize: width * 0.06),
-      ));
+  Widget buildHistory(context) {
+    final double scrHfactor = MediaQuery.of(context).size.height / 640;
 
-  Widget _buildZuno(double width, double scrHfactor) => Column(
+    return Container(
+      margin: const EdgeInsets.only(bottom: 10),
+      //color: const Color(0xFF569DB3),
+      child: Column(
         children: [
+          Container(
+            height: 300 * scrHfactor,
+            padding: const EdgeInsets.fromLTRB(10, 30, 10, 10),
+            margin: const EdgeInsets.only(bottom: 20),
+            color: Colors.white,
+            child: const Center(
+              child: Text(
+                "João combinou de ir à biblioteca municipal com o filho de seu tio no sábado. Antes de entrar no ônibus, percebeu que tinha esquecido o livro que havia emprestado em casa. Eles tiveram que voltar, pegaram o livro e atrasaram meia hora o passeio.",
+                style: TextStyle(
+                  fontFamily: "Montserrat",
+                  fontSize: 20,
+                  fontWeight: FontWeight.w700,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ),
           ChatBubble(
             clipper: ChatBubbleClipper6(
               radius: 40,
@@ -158,9 +178,9 @@ class TestMemoryTextState extends SuperTestState {
             elevation: 0,
             alignment: Alignment.center,
             backGroundColor: const Color(0xff8FDEE3),
-            margin: EdgeInsets.fromLTRB(width * 0.25, 15, 15, 5),
+            margin: const EdgeInsets.all(10.0),
             child: const Text(
-              "Agora responda as perguntas",
+              "Agora responda as perguntas com base na história:",
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontFamily: 'montserrat',
@@ -171,60 +191,52 @@ class TestMemoryTextState extends SuperTestState {
               ),
             ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Image.asset(
+          Container(
+            margin: const EdgeInsets.only(left: 15),
+            child: Align(
+              alignment: Alignment.topLeft,
+              child: Image.asset(
                 'assets/images/zunokansei.png',
-                height: 80 * scrHfactor,
+                height: 100 * scrHfactor,
               ),
-              ElevatedButton(
-                onPressed: () {
-                  setState(() => _isQuestion = true);
-                },
-                style: ElevatedButton.styleFrom(
-                  primary: const Color(0xffe984b8),
-                  elevation: 5.0,
-                ),
-                child: const Text(
-                  "AVANÇAR",
-                  style: TextStyle(
-                    fontFamily: 'montserrat',
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                    fontStyle: FontStyle.normal,
-                    color: Colors.black,
-                  ),
-                ),
-              )
-            ],
+            ),
           ),
         ],
-      );
-
-  _bodyQuestions(width) {
-    return Container(
-        padding: const EdgeInsets.all(10),
-        decoration: BoxDecoration(
-            color: const Color(0xffe984b8),
-            border: Border.all(),
-            borderRadius: BorderRadius.circular(10)),
-        child: Column(
-          children: [
-            _buildQuestionText(questions[0].pergunta, width),
-            _buildOptions(questions[0].opcoes, width)
-          ],
-        ));
+      ),
+    );
   }
 
-  Widget _buildQuestionText(text, width) => Text(
-        text,
-        textAlign: TextAlign.justify,
-        style: TextStyle(fontSize: width * 0.06, fontWeight: FontWeight.w600),
-      );
+  Widget buildQuestion(context) {
+    final double scrHfactor = MediaQuery.of(context).size.height / 640;
+    final double scrWfactor = MediaQuery.of(context).size.width / 360;
 
-  Widget _buildOptions(options, width) => ListView.builder(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Container(
+          padding: const EdgeInsets.fromLTRB(25, 33, 25, 33),
+          color: const Color(0xFF569DB3),
+          child: Text(
+            questions[questionIndex].pergunta,
+            style: const TextStyle(
+              fontFamily: "Montserrat",
+              fontSize: 28,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+        ),
+        Container(
+          margin: const EdgeInsets.fromLTRB(20, 66, 0, 20),
+          child: Container(
+            padding: const EdgeInsets.all(10),
+            child: _buildOptions(questions[questionIndex].opcoes),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildOptions(options) => ListView.builder(
       scrollDirection: Axis.vertical,
       shrinkWrap: true,
       padding: const EdgeInsets.all(8),
@@ -238,9 +250,11 @@ class TestMemoryTextState extends SuperTestState {
             child: Text(
               options[index],
               style: TextStyle(
-                  fontSize: width * 0.05,
-                  fontWeight: isSelected ? FontWeight.w500 : FontWeight.normal,
-                  color: isSelected ? Colors.amberAccent : Colors.black),
+                fontFamily: "montserrat",
+                fontSize: 20,
+                fontWeight: FontWeight.w700,
+                color: isSelected ? Colors.amberAccent : Colors.black,
+              ),
             ),
           ),
         );

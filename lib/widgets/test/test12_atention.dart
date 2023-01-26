@@ -113,7 +113,7 @@ class TestAtentionState extends SuperTestState {
     final double scrHfactor = MediaQuery.of(context).size.height / 640;
 
     return Container(
-      color: const Color(0xFFB4EADF),
+      //color: const Color(0xFFB4EADF),
       child: Column(
         children: [
           Container(
@@ -143,7 +143,7 @@ class TestAtentionState extends SuperTestState {
             backGroundColor: const Color(0xff8FDEE3),
             margin: const EdgeInsets.all(10.0),
             child: const Text(
-              "Agora responda as perguntas:",
+              "Agora responda as perguntas com base na história:",
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontFamily: 'montserrat',
