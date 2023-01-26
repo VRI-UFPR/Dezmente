@@ -119,9 +119,22 @@ class TestMemoryTextState extends SuperTestState {
 
   _body(double width, double scrHfactor) {
     return Column(
-      children: [_buildText(width), _buildZuno(width, scrHfactor)],
+      children: [
+        _buildTitle(width),
+        _buildText(width),
+        _buildZuno(width, scrHfactor)
+      ],
     );
   }
+
+  Widget _buildTitle(width) => Text(
+        "LEIA COM ATENÇÃO",
+        style: TextStyle(
+          color: const Color(0xffe984b8),
+          fontSize: width * 0.06,
+        ),
+        textAlign: TextAlign.center,
+      );
 
   Widget _buildText(double width) => Container(
       padding: const EdgeInsets.all(10),

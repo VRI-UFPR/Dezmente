@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 class TestSpaceOrient extends SuperTest {
   @override
-  get description => "Responda as perguntas:";
+  get description => "Leia as perguntas e digite a resposta:";
 
   @override
   get audioFile => "teste-10a.mp3";

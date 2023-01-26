@@ -9,6 +9,7 @@ abstract class SuperTest extends StatefulWidget {
   final title = "";
   final description = "";
   final needErase = true;
+  final needInfo = true;
   final audioFile = "";
 }
 

@@ -6,7 +6,14 @@ import 'package:flutter/material.dart';
 
 class TestVigilance extends SuperTest {
   @override
-  get description => "Clique no botão na tela toda vez que aparecer a letra A";
+  get description =>
+      "Clique no botão vermelho toda vez que aparecer a letra A na tela";
+
+  @override
+  get needErase => false;
+
+  @override
+  get needInfo => false;
 
   @override
   get audioFile => "teste-07.mp3";
@@ -70,7 +77,6 @@ class TestVigilanceState extends SuperTestState<TestVigilance> {
   }
 
   void onTap() {
-    print("tapped");
     Feedback.forTap(context);
     if (_char == "") return;
     clearTimer();
@@ -102,19 +108,32 @@ class TestVigilanceState extends SuperTestState<TestVigilance> {
       child: Scaffold(body: Center(child: _body())));
 
   _body() {
-    if (_initTimer > 0) {
+    if (_initTimer >= 0) {
       _initTimer--;
+
       if (_initTimer < 3) {
         sleep(const Duration(seconds: 1));
       }
+
+      if (_initTimer <= 0) {
+        return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              _buildCountdown("COMEÇAR!", 70),
+              const SizedBox(height: 80),
+              _buildButton(false)
+            ]);
+      }
+
       return Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            _buildTimer(),
+            _buildCountdown(_initTimer.toString(), 116),
             const SizedBox(height: 30),
             _buildButton(false)
           ]);
     }
+
     return Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
@@ -124,9 +143,9 @@ class TestVigilanceState extends SuperTestState<TestVigilance> {
         ]);
   }
 
-  Widget _buildTimer() => Text(_initTimer.toString(),
-      style: const TextStyle(
-        fontSize: 116,
+  Widget _buildCountdown(String number, double size) => Text(number,
+      style: TextStyle(
+        fontSize: size,
       ));
 
   Widget _buildChar() => Text(_char,

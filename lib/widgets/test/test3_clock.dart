@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 class TestClock2 extends SuperTest {
   @override
   get description =>
-      "Coloque os números no lugar apropriado no relógio e arraste os ponteiros para o horário 14:50:";
+      "Arraste os números para o lugar apropriado no relógio e arraste os ponteiros indicando o horário 14:50:";
 
   @override
   get audioFile => "teste-03.mp3";

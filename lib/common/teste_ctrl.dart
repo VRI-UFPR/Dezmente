@@ -24,6 +24,7 @@ class TestCtrl {
   String get description => _currentTest!.description;
   String get audioFile => _currentTest!.audioFile;
   bool get needErase => _currentTest!.needErase;
+  bool get needInfo => _currentTest!.needInfo;
   SuperTestState<SuperTest>? get state => _globalKey.currentState;
   List<SuperTest> get testList => _testList;
 
