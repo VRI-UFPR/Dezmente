@@ -45,11 +45,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Stream<DocumentSnapshot<Map<String, dynamic>>> usersStream =
-        FirebaseFirestore.instance
-            .collection('users')
-            .doc(FirebaseAuth.instance.currentUser!.uid)
-            .snapshots();
     return ChangeNotifierProvider(
       create: (context) => AuthService(),
       child: MaterialApp(
@@ -62,33 +57,37 @@ class MyApp extends StatelessWidget {
           body: StreamBuilder(
             stream: FirebaseAuth.instance.authStateChanges(),
             builder: (context, snapshot) {
-              return StreamBuilder(
-                stream: usersStream,
-                builder: (
-                  context,
-                  AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>>
-                      snapshotUser,
-                ) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(child: CircularProgressIndicator());
-                  } else if (snapshot.hasData) {
-                    if (snapshotUser.connectionState ==
-                        ConnectionState.waiting) {
-                      return const Center(child: CircularProgressIndicator());
-                    } else if (!tcleCheck(snapshotUser)) {
-                      return const Tcle();
-                    } else if (!registerCheck(snapshotUser)) {
-                      return const Instructions();
-                    }
-                    return const HomePage();
-                    //return const ResultPage();
-                  } else if (snapshot.hasError) {
-                    return Text(snapshot.error.toString());
-                  } else {
-                    return const LoginPage();
-                  }
-                },
-              );
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (snapshot.hasData) {
+                Stream<DocumentSnapshot<Map<String, dynamic>>> userStream =
+                    FirebaseFirestore.instance
+                        .collection('users')
+                        .doc(FirebaseAuth.instance.currentUser!.uid)
+                        .snapshots();
+                return StreamBuilder(
+                    stream: userStream,
+                    builder: (
+                      context,
+                      AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>>
+                          snapshotUser,
+                    ) {
+                      if (snapshotUser.connectionState ==
+                          ConnectionState.waiting) {
+                        return const Center(child: CircularProgressIndicator());
+                      } else if (!tcleCheck(snapshotUser)) {
+                        return const Tcle();
+                      } else if (!registerCheck(snapshotUser)) {
+                        return const Instructions();
+                      }
+                      return const HomePage();
+                      //return const ResultPage();
+                    });
+              } else if (snapshot.hasError) {
+                return Text(snapshot.error.toString());
+              } else {
+                return const LoginPage();
+              }
             },
           ),
         ),
