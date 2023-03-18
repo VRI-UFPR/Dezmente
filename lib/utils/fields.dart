@@ -65,6 +65,7 @@ class _CustomTextInputFieldState extends State<CustomTextInputField> {
         autocorrect: false,
         maxLength: widget.maxLength,
         readOnly: false,
+        enableSuggestions: false,
       ),
     );
   }

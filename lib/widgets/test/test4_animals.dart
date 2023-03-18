@@ -127,6 +127,9 @@ class TestAnimalsState<TestAnimals> extends SuperTestState {
 
   _buildTextField() => TextField(
         controller: controller,
+        autocorrect: false,
+        keyboardType: TextInputType.visiblePassword,
+        enableSuggestions: false,
         cursorColor: const Color.fromARGB(17, 38, 38, 42),
         textAlign: TextAlign.center,
         decoration: const InputDecoration(

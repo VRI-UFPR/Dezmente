@@ -122,7 +122,7 @@ class TestSpaceOrientState extends SuperTestState {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               CustomTextInputField(
-                kbType: TextInputType.text,
+                kbType: TextInputType.visiblePassword,
                 text: "Em que cidade você está?",
                 maxLength: 20,
                 controller: _city,

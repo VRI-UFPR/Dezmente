@@ -55,10 +55,13 @@ class TestAtentionState extends SuperTestState {
     }
 
     for (var i = 0; i < answers.length - 1; i++) {
-      if (answers.elementAt(i) == answers.elementAt(i + 1) + 7) {
+      if (answers.elementAt(i) == (answers.elementAt(i + 1) + 7)) {
         score++;
       }
     }
+
+    print(answers);
+    print(score);
 
     return score;
   }

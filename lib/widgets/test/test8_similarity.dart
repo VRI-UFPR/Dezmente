@@ -11,7 +11,7 @@ class TestSimilarity extends SuperTest {
   get audioFile => "teste-08.mp3";
 
   @override
-  get title => "Teste 8: Abstração";
+  get title => "Teste 8: Similaridade";
 
   const TestSimilarity({Key? key}) : super(key: key);
 
@@ -32,6 +32,20 @@ class TestSimilarityState extends SuperTestState<TestSimilarity> {
 
   final Map<String, String> _answers = {};
 
+  int _calculateScore(Map<String, String> answers) {
+    int score = 0;
+
+    if (answers["1"]!.contains("transp")) {
+      score++;
+    }
+
+    if (answers["2"]!.contains("med")) {
+      score++;
+    }
+
+    return score;
+  }
+
   @override
   init() {
     super.init();
@@ -48,7 +62,7 @@ class TestSimilarityState extends SuperTestState<TestSimilarity> {
     } else {
       data.code = Code.next;
       data.testId = 8;
-      data.score = 1;
+      data.score = _calculateScore(_answers);
       data.responses = _answers;
       data.testType = TestTag.abst;
     }
@@ -87,6 +101,9 @@ class TestSimilarityState extends SuperTestState<TestSimilarity> {
 
   _buildTextField(bool active) => TextField(
         controller: controller,
+        autocorrect: false,
+        keyboardType: TextInputType.visiblePassword,
+        enableSuggestions: false,
         cursorColor: const Color.fromARGB(17, 38, 38, 42),
         textAlign: TextAlign.center,
         style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
