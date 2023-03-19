@@ -23,7 +23,7 @@ class _ConectButtons {
 class TestConection extends SuperTest {
   @override
   get description =>
-      "Clique alternando entre número e letra, respeitando a ordem dos números e do alfabeto. Ex: 1->A->2";
+      "Clique alternando entre número e letra, respeitando a ordem crescente dos números e do alfabeto.\nEx: 1->A->2";
 
   @override
   get title => "Teste 1: Conexão";

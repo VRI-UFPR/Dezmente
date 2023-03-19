@@ -64,24 +64,24 @@ class _ResultPageState extends State<ResultPage> {
                   ],
                 ),
               ),
-              Text(
-                (totalScore >= 26)
-                    ? "COGNIÇÃO NORMAL"
-                    : "CHANCE DE DECLÍNIO COGNITIVO",
-                style: TextStyle(
-                  color: _totalScoreColor(totalScore),
-                  fontFamily: "montserrat",
-                  fontWeight: FontWeight.w700,
-                  fontSize: 20,
-                  shadows: const <Shadow>[
-                    Shadow(
-                      offset: Offset(4.0, 4.0),
-                      blurRadius: 3.0,
-                      color: Color.fromARGB(63, 0, 0, 0),
-                    ),
-                  ],
-                ),
-              ),
+              // Text(
+              //   (totalScore >= 26)
+              //       ? "COGNIÇÃO NORMAL"
+              //       : "CHANCE DE DECLÍNIO COGNITIVO",
+              //   style: TextStyle(
+              //     color: _totalScoreColor(totalScore),
+              //     fontFamily: "montserrat",
+              //     fontWeight: FontWeight.w700,
+              //     fontSize: 20,
+              //     shadows: const <Shadow>[
+              //       Shadow(
+              //         offset: Offset(4.0, 4.0),
+              //         blurRadius: 3.0,
+              //         color: Color.fromARGB(63, 0, 0, 0),
+              //       ),
+              //     ],
+              //   ),
+              // ),
             ],
           ),
         ),
