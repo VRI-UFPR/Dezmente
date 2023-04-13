@@ -13,6 +13,7 @@ users = db.collection('users').stream()
 for user in users:
 
     # sign up info to dataframe row
+    print(user)
     userdata_row = pd.DataFrame.from_dict(user.to_dict(), orient='index').T
     userdata_row.insert(0, 'userID', [user.id], True)
     
@@ -54,4 +55,5 @@ for user in users:
 
         df = pd.concat([df, test_row]) # concatenate with full dataframe
 
+df.sort_values(by='testDate')
 df.to_csv('output.csv', index=False)

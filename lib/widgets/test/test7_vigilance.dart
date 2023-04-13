@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:dezmente/common/super.dart';
 import 'package:dezmente/services/models/result_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 class TestVigilance extends SuperTest {
   @override
@@ -45,6 +47,8 @@ class TestVigilanceState extends SuperTestState<TestVigilance> {
     Future.delayed(const Duration(milliseconds: 500), setTimerChar);
   }
 
+  late final AudioCache _tapAudio;
+
   String _char = "";
   int _acertos = 0;
   int _index = -1;
@@ -60,7 +64,7 @@ class TestVigilanceState extends SuperTestState<TestVigilance> {
       return;
     }
     setNextChar();
-    _timer = Timer(const Duration(milliseconds: 600), () {
+    _timer = Timer(const Duration(milliseconds: 1600), () {
       if (_char != "A") _acertos++;
       setTimerVoid();
     });
@@ -74,14 +78,6 @@ class TestVigilanceState extends SuperTestState<TestVigilance> {
   void setNextChar() {
     _index++;
     setState(() => _char = chars[_index]);
-  }
-
-  void onTap() {
-    Feedback.forTap(context);
-    if (_char == "") return;
-    clearTimer();
-    if (_char == "A") _acertos++;
-    setTimerVoid();
   }
 
   @override
@@ -168,7 +164,17 @@ class TestVigilanceState extends SuperTestState<TestVigilance> {
               enableFeedback: true,
               splashColor: Colors.pink[200],
               borderRadius: const BorderRadius.all(Radius.circular(125)),
-              onTap: canPress ? onTap : () {},
+              onTap: canPress
+                  ? (() {
+                      Feedback.forTap(context);
+                      HapticFeedback.heavyImpact();
+                      AudioPlayer().play("tap.wav", volume: 2.0);
+                      if (_char == "") return;
+                      clearTimer();
+                      if (_char == "A") _acertos++;
+                      setTimerVoid();
+                    })
+                  : (() {}),
               child: const Center(
                 child: Text(
                   'CLIQUE',

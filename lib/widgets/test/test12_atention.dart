@@ -32,11 +32,11 @@ class TestAtentionState extends SuperTestState {
   }
 
   final List<String> questions = [
-    "01) Após dar 7 reais ao primeiro neto, com quantos reais seu Maurício ficou?",
-    "02) Após dar 7 reais ao segundo neto, com quantos reais seu Maurício ficou?",
-    "03) Após dar 7 reais ao terceiro neto, com quantos reais seu Maurício ficou?",
-    "04) Após dar 7 reais ao quarto neto, com quantos reais seu Maurício ficou?",
-    "05) Após dar 7 reais ao quinto neto, com quantos reais seu Maurício ficou?"
+    "01) Após dar 7 reais ao PRIMEIRO neto, com quantos reais seu Maurício ficou?",
+    "02) Após dar 7 reais ao SEGUNDO neto, com quantos reais seu Maurício ficou?",
+    "03) Após dar 7 reais ao TERCEIRO neto, com quantos reais seu Maurício ficou?",
+    "04) Após dar 7 reais ao QUARTO neto, com quantos reais seu Maurício ficou?",
+    "05) Após dar 7 reais ao QUINTO neto, com quantos reais seu Maurício ficou?"
   ];
 
   int questionIndex = -1;
@@ -54,8 +54,8 @@ class TestAtentionState extends SuperTestState {
       score++;
     }
 
-    for (var i = 0; i < answers.length - 1; i++) {
-      if (answers.elementAt(i) == (answers.elementAt(i + 1) + 7)) {
+    for (var i = 1; i < answers.length; i++) {
+      if (answers.elementAt(i) == (answers.elementAt(i - 1) - 7)) {
         score++;
       }
     }

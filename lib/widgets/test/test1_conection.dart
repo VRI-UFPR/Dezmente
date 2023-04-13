@@ -77,9 +77,9 @@ class TestConectionState extends SuperTestState {
   void erase() {
     setState(() {
       // caso ja tenha apagado uma vez
-      if (!_canErase) {
-        return;
-      }
+      // if (!_canErase) {
+      //   return;
+      // }
 
       // apaga o ultimo botao pressionado
       int last = _score.length - 1;

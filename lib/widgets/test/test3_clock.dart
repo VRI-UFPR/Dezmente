@@ -39,10 +39,10 @@ class TestClock2State extends SuperTestState {
     data.testId = 3;
     data.score = mapEquals(_score, {0: 12, 1: 3, 2: 6, 3: 9}) ? 1 : 0;
 
-    int h = _radToHour(_angleHour);
+    double h = _radToHour(_angleHour);
     int m = _radToMinute(_angleMinute);
 
-    if ((h == 2) && (m <= 55) && (m >= 45)) {
+    if ((h >= 1.7) && (h <= 3.0) && (m <= 55) && (m >= 45)) {
       data.score = data.score! + 1;
     }
 
@@ -58,11 +58,11 @@ class TestClock2State extends SuperTestState {
     return super.getData();
   }
 
-  int _radToHour(double rad) {
+  double _radToHour(double rad) {
     if ((rad >= 0) && (rad <= pi)) {
-      return (rad * 6 / pi).floor();
+      return (rad * 6 / pi);
     } else if ((rad < 0) && (rad >= -pi)) {
-      return (rad * 6 / pi).floor() + 12;
+      return (rad * 6 / pi) + 12;
     }
 
     return 0;
