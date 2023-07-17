@@ -1,11 +1,13 @@
 import 'package:dezmente/services/models/result_model.dart';
 import 'package:dezmente/services/results.dart';
 import 'package:dezmente/common/super.dart';
+import 'package:dezmente/utils/get_similarity.dart';
 import 'package:flutter/material.dart';
 
 class TestSimilarity extends SuperTest {
   @override
-  get description => "Digite qual é a semelhança entre as imagens";
+  get description =>
+      "Digite qual é a semelhança entre as imagens em UMA palavra";
 
   @override
   get audioFile => "teste-08.mp3";
@@ -39,7 +41,8 @@ class TestSimilarityState extends SuperTestState<TestSimilarity> {
       score++;
     }
 
-    if (answers["2"]!.contains("med")) {
+    if (answers["2"]!.contains("med") ||
+        (getSimilarity(answers["2"]!, "métrica") > 0.7)) {
       score++;
     }
 

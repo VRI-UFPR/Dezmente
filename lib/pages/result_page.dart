@@ -1,3 +1,4 @@
+import 'package:dezmente/pages/home.dart';
 import 'package:dezmente/services/models/result_model.dart';
 import 'package:dezmente/services/results.dart';
 import 'package:flutter/material.dart';
@@ -123,7 +124,9 @@ class _ResultPageState extends State<ResultPage> {
                     backgroundColor: MaterialStateProperty.all<Color>(
                         const Color(0xff78DAC6)),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
                   child: Container(
                     margin: const EdgeInsets.fromLTRB(70, 0, 70, 0),
                     child: const Text(
