@@ -26,7 +26,7 @@ class TestClock2State extends SuperTestState {
   final Map<int, int> _score = {};
   final List<int> _pointers = [1, 9, 50, 12, 4, 45, 30, 3, 6];
 
-  final _minuteHand = 83;
+  final _minuteHand = 90;
   final _hourHand = 55;
   final _dragTargetRadius = 55;
   final _innerClockSpacing = 40;
@@ -173,10 +173,13 @@ class TestClock2State extends SuperTestState {
         final double scrHfactor = MediaQuery.of(context).size.height / 640;
         final double scrWfactor = MediaQuery.of(context).size.width / 360;
 
+        double h = 40 * scrHfactor;
+        double w = 40 * scrWfactor;
+
         if (_score.containsKey(index)) {
           return Container(
-            height: 30 * scrHfactor,
-            width: 30 * scrWfactor,
+            height: h,
+            width: w,
             decoration: const BoxDecoration(
               color: Colors.brown,
               shape: BoxShape.circle,
@@ -194,8 +197,8 @@ class TestClock2State extends SuperTestState {
           );
         } else {
           return Container(
-            width: 30 * scrWfactor,
-            height: 30 * scrHfactor,
+            width: w,
+            height: h,
             decoration: const BoxDecoration(
               color: Colors.white,
               shape: BoxShape.circle,
@@ -278,7 +281,7 @@ class TestClock2State extends SuperTestState {
               child: Center(
                 child: Container(
                   height: size,
-                  width: 10,
+                  width: 20,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(32),

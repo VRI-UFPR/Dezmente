@@ -11,6 +11,7 @@ abstract class SuperTest extends StatefulWidget {
   final needErase = true;
   final needInfo = true;
   final audioFile = "";
+  final continueButtonText = "Concluir";
 }
 
 abstract class SuperTestState<T extends SuperTest> extends State<T> {

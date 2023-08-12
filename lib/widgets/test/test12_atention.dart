@@ -19,6 +19,9 @@ class TestAtention extends SuperTest {
   @override
   get needErase => false;
 
+  @override
+  get continueButtonText => "Próximo";
+
   const TestAtention({Key? key}) : super(key: key);
 
   @override
@@ -42,6 +45,12 @@ class TestAtentionState extends SuperTestState {
   int questionIndex = -1;
   List<int> answers = [];
   final _textController = TextEditingController();
+
+  FocusNode textFieldFocus = FocusNode();
+
+  void openKeyboard() {
+    FocusScope.of(context).requestFocus(textFieldFocus);
+  }
 
   int _calculateScore() {
     int score = 0;
@@ -84,6 +93,7 @@ class TestAtentionState extends SuperTestState {
             setState(() {
               questionIndex++;
               _textController.clear();
+              openKeyboard();
             });
           },
         );
@@ -102,6 +112,8 @@ class TestAtentionState extends SuperTestState {
     super.init();
     data.code = Code.stay;
   }
+
+  bool showedKeyboard = false;
 
   @override
   Widget build(BuildContext context) {
@@ -176,6 +188,12 @@ class TestAtentionState extends SuperTestState {
     final double scrHfactor = MediaQuery.of(context).size.height / 640;
     final double scrWfactor = MediaQuery.of(context).size.width / 360;
 
+    if (!showedKeyboard) {
+      print("will show key");
+      openKeyboard();
+      showedKeyboard = true;
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -219,6 +237,8 @@ class TestAtentionState extends SuperTestState {
               color: const Color(0xFFEAEAEA),
             ),
             child: TextField(
+              focusNode: textFieldFocus,
+              autofocus: true,
               controller: _textController,
               cursorColor: Colors.transparent,
               style: const TextStyle(

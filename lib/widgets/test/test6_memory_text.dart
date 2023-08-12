@@ -16,6 +16,9 @@ class TestMemoryText extends SuperTest {
   @override
   get title => "Teste 6: Memorização de Texto";
 
+  @override
+  get needErase => false;
+
   const TestMemoryText({Key? key}) : super(key: key);
 
   @override

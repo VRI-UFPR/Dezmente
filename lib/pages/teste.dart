@@ -57,7 +57,7 @@ class _TesteState extends State<Teste> {
               ),
             _buildBottomBarButton(
               icon: Icons.check_circle_outline,
-              label: "Concluir",
+              label: TestCtrl.instance.continueButtonText,
               onPressed: () => TestCtrl.instance.nextTest(),
               onLongPress:
                   !debugMode ? null : () => TestCtrl.instance.debugMode(),

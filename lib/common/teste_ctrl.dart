@@ -23,6 +23,7 @@ class TestCtrl {
   String get title => _currentTest!.title;
   String get description => _currentTest!.description;
   String get audioFile => _currentTest!.audioFile;
+  String get continueButtonText => _currentTest!.continueButtonText;
   bool get needErase => _currentTest!.needErase;
   bool get needInfo => _currentTest!.needInfo;
   SuperTestState<SuperTest>? get state => _globalKey.currentState;

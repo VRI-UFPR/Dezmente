@@ -15,6 +15,12 @@ class TestSimilarity extends SuperTest {
   @override
   get title => "Teste 8: Similaridade";
 
+  @override
+  get continueButtonText => "Próximo";
+
+  @override
+  get needErase => false;
+
   const TestSimilarity({Key? key}) : super(key: key);
 
   @override
@@ -85,8 +91,9 @@ class TestSimilarityState extends SuperTestState<TestSimilarity> {
             child: Column(children: [
               _imageIndex == 0 ? _buildExampleText() : Container(),
               Image.asset(
-                  'assets/images/similarity/${similarityPairOne[_imageIndex]}',
-                  height: height * 0.3),
+                'assets/images/similarity/${similarityPairOne[_imageIndex]}',
+                height: height * 0.3,
+              ),
               Image.asset(
                   'assets/images/similarity/${similarityPairTwo[_imageIndex]}',
                   height: height * 0.3),
@@ -109,7 +116,7 @@ class TestSimilarityState extends SuperTestState<TestSimilarity> {
         enableSuggestions: false,
         cursorColor: const Color.fromARGB(17, 38, 38, 42),
         textAlign: TextAlign.center,
-        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+        style: const TextStyle(fontSize: 25),
         decoration: InputDecoration(
             fillColor: Colors.transparent,
             filled: true,
@@ -121,8 +128,8 @@ class TestSimilarityState extends SuperTestState<TestSimilarity> {
                 ? const Text(
                     "DIGITE A SIMILARIDADE",
                     style: TextStyle(
-                      fontSize: 20,
-                      height: 0.3,
+                      fontSize: 25,
+                      height: 0.5,
                       color: Color(0xff060607),
                       fontWeight: FontWeight.w700,
                     ),

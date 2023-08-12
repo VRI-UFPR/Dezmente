@@ -24,7 +24,8 @@ List<AnimalData> animalsData = [
 
 class TestAnimals extends SuperTest {
   @override
-  get description => "Digite o nome dos animais que aparecem na tela";
+  get description =>
+      "Clique na caixa azul e digite o nome dos animais que aparecem na tela";
 
   @override
   get audioFile => "teste-04.mp3";
@@ -34,6 +35,9 @@ class TestAnimals extends SuperTest {
 
   @override
   get needErase => false;
+
+  @override
+  get continueButtonText => "Próximo";
 
   const TestAnimals({Key? key}) : super(key: key);
 
@@ -132,6 +136,7 @@ class TestAnimalsState<TestAnimals> extends SuperTestState {
         enableSuggestions: false,
         cursorColor: const Color.fromARGB(17, 38, 38, 42),
         textAlign: TextAlign.center,
+        style: const TextStyle(fontSize: 25),
         decoration: const InputDecoration(
           fillColor: Colors.transparent,
           filled: true,
@@ -141,8 +146,8 @@ class TestAnimalsState<TestAnimals> extends SuperTestState {
           label: Text(
             "DIGITE O NOME DO ANIMAL",
             style: TextStyle(
-              fontSize: 20,
-              height: 0.3,
+              fontSize: 25,
+              height: 0.5,
               color: Color(0xff060607),
               fontWeight: FontWeight.w700,
             ),
