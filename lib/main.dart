@@ -1,12 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dezmente/pages/home.dart';
 import 'package:dezmente/pages/instructions.dart';
-import 'package:dezmente/pages/result_page.dart';
 import 'package:dezmente/pages/tcle.dart';
 import 'package:dezmente/services/auth.dart';
 import 'package:dezmente/pages/login.dart';
-import 'package:dezmente/services/signupdata.dart';
-import 'package:dezmente/widgets/dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';

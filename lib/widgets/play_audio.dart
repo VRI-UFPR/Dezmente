@@ -19,7 +19,7 @@ class _PlayAudioState extends State<PlayAudio> {
   late final AudioCache _audioCache;
 
   Future play() async {
-    await _audioCache.play(widget.audioFile, volume: 2.0);
+    await _player.play(DeviceFileSource(widget.audioFile), volume: 2.0);
   }
 
   Future stop() async {
@@ -30,9 +30,9 @@ class _PlayAudioState extends State<PlayAudio> {
   void initState() {
     super.initState();
     _player = AudioPlayer();
-    _audioCache = AudioCache(fixedPlayer: _player, prefix: "assets/audio/");
+    _audioCache = AudioCache(prefix: "assets/audio/");
     _player.onPlayerStateChanged.listen(
-        (event) => setState(() => _playing = event == PlayerState.PLAYING));
+        (event) => setState(() => _playing = event == PlayerState.playing));
   }
 
   @override

@@ -126,13 +126,9 @@ class TestConectionState extends SuperTestState {
               targetId: button.targetArrow,
               color: const Color(0xff1d181c),
               child: ElevatedButton(
-                child: Text(
-                  button.label,
-                  style: const TextStyle(fontSize: 25),
-                ),
                 style: ElevatedButton.styleFrom(
                   // nao pressionado cor vermelha, pressionado cor azul
-                  primary: button.isChecked ? Colors.blue : Colors.red,
+                  backgroundColor: button.isChecked ? Colors.blue : Colors.red,
                   shape: const CircleBorder(),
                   minimumSize: const Size(50, 50),
                 ),
@@ -155,6 +151,10 @@ class TestConectionState extends SuperTestState {
                     }
                   });
                 }),
+                child: Text(
+                  button.label,
+                  style: const TextStyle(fontSize: 25),
+                ),
               ),
             ),
           );

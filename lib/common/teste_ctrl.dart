@@ -1,5 +1,4 @@
 import 'package:dezmente/common/super.dart';
-import 'package:dezmente/pages/home.dart';
 import 'package:dezmente/pages/result_page.dart';
 import 'package:dezmente/services/models/result_model.dart';
 import 'package:dezmente/services/results.dart';

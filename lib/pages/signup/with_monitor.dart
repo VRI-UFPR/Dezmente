@@ -289,9 +289,22 @@ class _WithMonitorSignUpState extends State<WithMonitorSignUp> {
       child: Align(
         alignment: Alignment.topRight,
         child: OutlinedButton(
-          child: Row(
+          style: ButtonStyle(
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(7))),
+            ),
+            alignment: Alignment.center,
+            padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+              const EdgeInsets.all(13),
+            ),
+            backgroundColor:
+                MaterialStateProperty.all<Color>(const Color(0xff569DB3)),
+          ),
+          onPressed: callback,
+          child: const Row(
             mainAxisSize: MainAxisSize.min,
-            children: const [
+            children: [
               Text(
                 "Próxima Página",
                 style: TextStyle(
@@ -311,19 +324,6 @@ class _WithMonitorSignUpState extends State<WithMonitorSignUp> {
               ),
             ],
           ),
-          style: ButtonStyle(
-            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-              const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(7))),
-            ),
-            alignment: Alignment.center,
-            padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-              const EdgeInsets.all(13),
-            ),
-            backgroundColor:
-                MaterialStateProperty.all<Color>(const Color(0xff569DB3)),
-          ),
-          onPressed: callback,
         ),
       ),
     );

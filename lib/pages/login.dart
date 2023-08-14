@@ -20,9 +20,9 @@ class LoginPage extends StatelessWidget {
               Align(
                 alignment: const Alignment(0.0, -0.8),
                 child: SizedBox(
-                  child: Image.asset('assets/images/logo.png'),
                   width: double.infinity,
                   height: 250,
+                  child: Image.asset('assets/images/logo.png'),
                 ),
               ),
               Align(

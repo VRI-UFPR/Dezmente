@@ -1,8 +1,5 @@
-import 'package:dezmente/pages/home.dart';
 import 'package:dezmente/services/models/result_model.dart';
-import 'package:dezmente/services/results.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 class ResultPage extends StatefulWidget {
   final Map<TestTag, int> scores;

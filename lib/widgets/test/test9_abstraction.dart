@@ -84,7 +84,7 @@ class TestAbstraction2State extends SuperTestState<TestAbstraction2> {
         highlightColor: Colors.transparent,
         child: Container(
           margin: const EdgeInsets.all(5),
-          padding: selected == index ? EdgeInsets.all(15) : EdgeInsets.all(10),
+          padding: selected == index ? const EdgeInsets.all(15) : const EdgeInsets.all(10),
           decoration: index == selected
               ? BoxDecoration(
                   borderRadius: BorderRadius.circular(100),

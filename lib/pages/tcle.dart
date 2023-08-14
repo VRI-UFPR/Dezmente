@@ -1,7 +1,4 @@
-import 'package:confirm_dialog/confirm_dialog.dart';
 import 'package:dezmente/pages/instructions.dart';
-import 'package:dezmente/pages/signup/with_monitor.dart';
-import 'package:dezmente/pages/teste.dart';
 import 'package:dezmente/services/auth.dart';
 import 'package:dezmente/services/signupdata.dart';
 import 'package:dezmente/utils/buttons.dart';

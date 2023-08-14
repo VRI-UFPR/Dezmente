@@ -73,7 +73,7 @@ class TestCubeState extends SuperTestState {
         children: [
           Center(
             child: Container(
-              margin: EdgeInsets.only(top: 0),
+              margin: const EdgeInsets.only(top: 0),
               child: SizedBox(
                 width: 190,
                 child: Image.asset(

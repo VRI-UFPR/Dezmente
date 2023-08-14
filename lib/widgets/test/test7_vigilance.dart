@@ -168,7 +168,8 @@ class TestVigilanceState extends SuperTestState<TestVigilance> {
                   ? (() {
                       Feedback.forTap(context);
                       HapticFeedback.heavyImpact();
-                      AudioPlayer().play("tap.wav", volume: 2.0);
+                      AudioPlayer()
+                          .play(DeviceFileSource("tap.wav"), volume: 2.0);
                       if (_char == "") return;
                       clearTimer();
                       if (_char == "A") _acertos++;

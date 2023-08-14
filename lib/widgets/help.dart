@@ -65,7 +65,7 @@ class HelpTemplateButton extends StatelessWidget {
         ElevatedButton(
           onPressed: callback,
           style: ElevatedButton.styleFrom(
-            primary: const Color(0xffe984b8),
+            backgroundColor: const Color(0xffe984b8),
             elevation: 3.0,
           ),
           child: Text(

@@ -30,6 +30,7 @@ class _HistoryBuilderState extends State<HistoryBuilder> {
               height: 300 * scrHfactor,
               padding: const EdgeInsets.fromLTRB(10, 30, 10, 10),
               margin: const EdgeInsets.only(bottom: 20),
+              color: Colors.white,
               child: Center(
                 child: Text(
                   widget.history,
@@ -41,7 +42,6 @@ class _HistoryBuilderState extends State<HistoryBuilder> {
                   textAlign: TextAlign.center,
                 ),
               ),
-              color: Colors.white,
             ),
             ChatBubble(
               clipper: ChatBubbleClipper6(
@@ -79,9 +79,22 @@ class _HistoryBuilderState extends State<HistoryBuilder> {
               child: Align(
                 alignment: Alignment.topRight,
                 child: OutlinedButton(
-                  child: Row(
+                  style: ButtonStyle(
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(7))),
+                    ),
+                    alignment: Alignment.center,
+                    padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                      const EdgeInsets.all(13),
+                    ),
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                        const Color(0xff569DB3)),
+                  ),
+                  onPressed: () {},
+                  child: const Row(
                     mainAxisSize: MainAxisSize.min,
-                    children: const [
+                    children: [
                       Text(
                         "AVANÇAR",
                         style: TextStyle(
@@ -101,19 +114,6 @@ class _HistoryBuilderState extends State<HistoryBuilder> {
                       ),
                     ],
                   ),
-                  style: ButtonStyle(
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(7))),
-                    ),
-                    alignment: Alignment.center,
-                    padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                      const EdgeInsets.all(13),
-                    ),
-                    backgroundColor: MaterialStateProperty.all<Color>(
-                        const Color(0xff569DB3)),
-                  ),
-                  onPressed: () {},
                 ),
               ),
             ),
